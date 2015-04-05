@@ -136,9 +136,17 @@
 
             $(canvas).bind('mousemove', handler.dragged)
             $(window).bind('mouseup', handler.dropped)
-
-            return false
-          },
+			$(canvas).bind('mouseup', handler.mypersonalfunction)
+    },
+    mypersonalfunction:function(e){
+        if (dragged===null || dragged.node===undefined) return
+        if (dragged.node !== null){
+            dragged.node.fixed = false                  
+            var id=dragged.node.name;
+            alert('Node selected: ' + id);
+        }            
+        return false
+    },
           dragged:function(e){
             var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
