@@ -1,0 +1,49 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/ArborJS/jquery.min.js"></script>
+    <script src="~/ArborJS/arbor.js"></script>
+    <script src="~/ArborJS/graphics.js"></script>
+    <script src="~/ArborJS/renderer.js"></script>
+    <title>Lunar</title>
+</head>
+<body>
+    <div> 
+        <h1>Lunar</h1>
+    </div>
+
+    <canvas id="viewport" width="1920" height="1080"></canvas>
+
+    <script language="javascript" type="text/javascript">
+        
+        
+        var sys = arbor.ParticleSystem(500, 1000, 1);
+        sys.parameters({ gravity: true });
+        sys.renderer = Renderer("#viewport");
+        var data = {
+            nodes: {
+                stars: { 'color': 'red', 'shape': 'dot', label: '@ViewBag.Name', },
+                planet1: { 'color': 'green', 'shape': 'dot', 'label': 'Planet' },
+                planet2: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' },
+                planet3: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' },
+                planet4: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' }
+
+            },
+            edges: {
+                stars: { planet1: {}, planet2: {} },
+                planet1: { planet3: {}, planet4: {} }
+            }
+        };
+        sys.graft(data);
+
+    </script>
+
+</body>
+</html>
