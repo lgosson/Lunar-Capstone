@@ -6,6 +6,11 @@
     var gfx = arbor.Graphics(canvas)
     var particleSystem = null
 
+    var _vignette = null
+    var selected = null,
+        nearest = null,
+        _mouseP = null;
+
     var that = {
       init:function(system){
         particleSystem = system
@@ -52,7 +57,7 @@
 
           // draw the text
           if (label){
-            ctx.font = "12px Helvetica"
+            ctx.font = "50px Helvetica"
             ctx.textAlign = "center"
             ctx.fillStyle = "white"
             if (node.data.color=='none') ctx.fillStyle = '#333333'
@@ -132,21 +137,29 @@
             _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
             selected = nearest = dragged = particleSystem.nearest(_mouseP);
 
+            //if (nearest && selected && nearest.node === selected.node) {
+            //    var link = selected.node.data.link
+            //    if (link.match(/^#/)) {
+            //        $(that).trigger({ type: "navigate", path: link.substr(1) })
+            //    } else {
+            //        window.location = link
+            //    }
+            //    return false
+              //}
+
+            if (nearest && selected && nearest.node === selected.node) {
+                var link = selected.node.data.link;
+            }
+              // alert(link);
+            document.getElementById("nodeselector").innerHTML = link;
+
             if (dragged.node !== null) dragged.node.fixed = true
 
             $(canvas).bind('mousemove', handler.dragged)
             $(window).bind('mouseup', handler.dropped)
-			$(canvas).bind('mouseup', handler.mypersonalfunction)
-    },
-    mypersonalfunction:function(e){
-        if (dragged===null || dragged.node===undefined) return
-        if (dragged.node !== null){
-            dragged.node.fixed = false                  
-            var id=dragged.node.name;
-            alert('Node selected: ' + id);
-        }            
-        return false
-    },
+
+            return false
+          },
           dragged:function(e){
             var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
