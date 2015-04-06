@@ -20,9 +20,13 @@
     };
     sys.graft(data);
 
+    //Retrieve data from server
+    var serviceData = 'Uninitialized';
+    $.getJSON('/Services/GetServiceData/', function (val) { serviceData = val; });
+    document.getElementById('heading').innerHTML = serviceData;
+
     //Events
     $(viewport).mousedown(function (e) {
-        alert('Yo');
         return true;
     });
 
