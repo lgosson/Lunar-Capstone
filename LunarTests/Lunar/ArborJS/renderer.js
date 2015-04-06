@@ -153,6 +153,19 @@
               // alert(link);
             document.getElementById("nodeselector").innerHTML = link;
 
+            if (selected.node.data.bool === 'n') {
+                selected.node.data.bool = 'y';
+            }
+            else {
+                selected.node.data.bool = 'n'
+            }
+
+            if (selected.node.data.bool == 'y') {
+                selected.node.data.color = 'red';
+            }
+            else
+                selected.node.data.color = 'blue'
+
             if (dragged.node !== null) dragged.node.fixed = true
 
             $(canvas).bind('mousemove', handler.dragged)
