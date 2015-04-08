@@ -6,6 +6,8 @@
     var gfx = arbor.Graphics(canvas)
     var particleSystem = null
 
+    var boolList = new Array();
+
     var _vignette = null
     var selected = null,
         nearest = null,
@@ -64,6 +66,30 @@
             ctx.fillText(label||"", pt.x, pt.y+4)
             ctx.fillText(label||"", pt.x, pt.y+4)
           }
+
+          if (node.data.bool == 'y') {
+              node.data.color = 'red';
+              //for (i = 0; i < boolList.length; i++) {
+                  //if (boolList[i] != node.data.link) {
+              boolList += node.data.link;
+              nodeID = node.data.link;
+              /*
+              var found = jQuery.inArray(nodeID, boolList);
+              if (found >= 0) {
+                  // Element was found, remove it.
+                  boolList.splice(found, 1);
+              } else {
+                  // Element was not found, add it.
+                  boolList.push(nodeID);
+              }
+              */
+          }
+          
+          else {
+              node.data.color = 'blue';
+          }
+
+          document.getElementById("nodeselector2").innerHTML = boolList;
         })    			
 
 
@@ -160,11 +186,13 @@
                 selected.node.data.bool = 'n'
             }
 
-            if (selected.node.data.bool == 'y') {
-                selected.node.data.color = 'red';
-            }
-            else
-                selected.node.data.color = 'blue'
+           // if (selected.node.data.bool == 'y') {
+             //   selected.node.data.color = 'red';
+           // }
+           // else
+             //   selected.node.data.color = 'blue'
+
+            
 
             if (dragged.node !== null) dragged.node.fixed = true
 
