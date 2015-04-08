@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LunarLogicServices.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,12 +23,12 @@ namespace LunarLogicServices.Controllers
         
         public JsonResult GetServiceData()
         {
-            IEnumerable<string> testData = new List<string>(){"test", "testAgain"};
-            //here we will retrieve all services and return them
-            return Json(testData, JsonRequestBehavior.AllowGet);
-        }
+            Service service = new Service() { Name = "Service", Description = "Comes From Server" };
 
-        //Here is a useful link for how someone uses JSON and AJAX to transmit data between client js and server c#
-        //http://codeforcoffee.org/asp-net-mvc-intro-to-mvc-using-binding-json-objects-to-models/
+            //need to find out how to translate object from json for use with javascript - services.js
+            //IEnumerable<Service> services = new List<Service>() { new Service(){Name = "Test Service", Description = "Description"} };
+            //here we will retrieve all services and return them
+            return Json(service, JsonRequestBehavior.AllowGet);
+        }
     }
 }

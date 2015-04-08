@@ -1,5 +1,20 @@
 ﻿
-(function(){
+//In Order to use razor, the javscript has been embedded in Services.cshtml
+(function () {
+
+    //Retrieve server data
+    var serviceData;
+    //$.getJSON('/Services/GetServiceData/', function (val) { serviceData = val; });
+    $.ajax({
+        url: '/Services/GetServiceData/',
+        type: "GET",
+        success: function (result) {
+            serviceData = result.Name;
+        }
+    });
+    alert(serviceData);
+
+    document.getElementById('heading').innerHTML = serviceData;
 
     var sys = arbor.ParticleSystem(500, 1000, 1);
     sys.parameters({ gravity: true });
@@ -19,11 +34,6 @@
         }
     };
     sys.graft(data);
-
-    //Retrieve data from server
-    var serviceData = 'Uninitialized';
-    $.getJSON('/Services/GetServiceData/', function (val) { serviceData = val; });
-    document.getElementById('heading').innerHTML = serviceData;
 
     //Events
     $(viewport).mousedown(function (e) {
