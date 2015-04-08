@@ -57,11 +57,13 @@
                 sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description });
             }
 
-            /*
-            for (i = 0; j < result[i].ConnectedServices.length; i++) {
-                sys.addEdge();
+            for (i = 0; i < result.length; i++) {
+
+                for (j = 0; j < result[i].ConnectedServices.length; j++)
+                {
+                    sys.addEdge(result[i].Name, result[i].ConnectedServices[j].Name);
+                }
             }
-            */
 
             sys.graft();
         }
