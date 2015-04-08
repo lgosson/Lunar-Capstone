@@ -29,47 +29,43 @@
 
         (function () {
 
-            //Retrieve server data
             var serviceData;
-            //$.getJSON('/Services/GetServiceData/', function (val) { serviceData = val; });
             $.ajax({
                 url: '@Url.Action("GetServiceData", "Services")',
                 type: "GET",
                 contenttype: 'json',
                 success: function (result) {
-                    serviceData = result.Name;
-                    alert(serviceData);
+                    graphSetup(result);
                 }
             });
 
-            document.getElementById('heading').innerHTML = serviceData;
-
-            var sys = arbor.ParticleSystem(500, 1000, 1);
-            sys.parameters({ gravity: true });
-            sys.renderer = Renderer("#viewport");
-            var data = {
-                nodes: {
-                    stars: { 'color': 'red', 'shape': 'dot', label: 'TITLE HERE', },
-                    planet1: { 'color': 'green', 'shape': 'dot', 'label': 'Planet' },
-                    planet2: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' },
-                    planet3: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' },
-                    planet4: { 'color': 'blue', 'shape': 'dot', 'label': 'Planet' }
-
-                },
-                edges: {
-                    stars: { planet1: {}, planet2: {} },
-                    planet1: { planet3: {}, planet4: {} }
-                }
-            };
-            sys.graft(data);
-
-            //Events
             $(viewport).mousedown(function (e) {
                 return true;
             });
-
         })()
-    </script>
 
+        function graphSetup(result)
+        {
+            var sys = arbor.ParticleSystem(500, 1000, 1);
+            sys.parameters({ gravity: true });
+            sys.renderer = Renderer("#viewport");
+
+            var list;
+
+            for (i = 0; i < result.length; i++) {
+
+                sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description });
+            }
+
+            /*
+            for (i = 0; j < result[i].ConnectedServices.length; i++) {
+                sys.addEdge();
+            }
+            */
+
+            sys.graft();
+        }
+
+    </script>
 </body>
 </html>

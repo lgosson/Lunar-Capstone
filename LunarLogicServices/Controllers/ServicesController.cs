@@ -23,12 +23,14 @@ namespace LunarLogicServices.Controllers
         
         public JsonResult GetServiceData()
         {
-            Service service = new Service() { Name = "Service", Description = "Comes From Server" };
-
-            //need to find out how to translate object from json for use with javascript - services.js
-            //IEnumerable<Service> services = new List<Service>() { new Service(){Name = "Test Service", Description = "Description"} };
             //here we will retrieve all services and return them
-            return Json(service, JsonRequestBehavior.AllowGet);
+            IEnumerable<Service> services  = new List<Service>(){ 
+                new Service(){ID = 1, Name = "Service01", Description = "Comes From Server"},
+                new Service(){ID = 2, Name = "Service02", Description = "Another Service"},
+                new Service(){ID = 3, Name = "Service03", Description = "The Third Service"},
+                new Service(){ID = 4, Name = "Service04", Description = "Once Service Too Many"}
+            };
+            return Json(services, JsonRequestBehavior.AllowGet);
         }
     }
 }
