@@ -10,7 +10,6 @@ namespace LunarLogicServices.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public IEnumerable<Service> ConnectedServices { get; set; }
+        public IEnumerable<string> ConnectedServices { get; set; }
     }
 }

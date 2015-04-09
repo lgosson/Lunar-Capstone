@@ -28,7 +28,6 @@
     <script type="text/javascript">
 
         (function () {
-
             var serviceData;
             $.ajax({
                 url: '@Url.Action("GetServiceData", "Services")',
@@ -38,7 +37,7 @@
                     graphSetup(result);
                 }
             });
-
+      
             $(viewport).mousedown(function (e) {
                 return true;
             });
@@ -46,11 +45,9 @@
 
         function graphSetup(result)
         {
-            var sys = arbor.ParticleSystem(500, 1000, 1);
+            var sys = arbor.ParticleSystem(100, 500, 1);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
-
-            var list;
 
             for (i = 0; i < result.length; i++) {
 
@@ -61,7 +58,7 @@
 
                 for (j = 0; j < result[i].ConnectedServices.length; j++)
                 {
-                    sys.addEdge(result[i].Name, result[i].ConnectedServices[j].Name);
+                    sys.addEdge(result[i].Name, result[i].ConnectedServices[j]);
                 }
             }
 
