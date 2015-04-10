@@ -17,13 +17,21 @@
     <script src="~/Scripts/arbor-tween.js"></script>
     <script src="~/Scripts/graphics.js"></script>
     <script src="~/Scripts/renderer.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
-    <div>
-        <h1 id="heading">Lunar</h1>
-    </div>
+<body style="background-color:darkblue">
 
-    <canvas id="viewport" width="1920" height="1080"></canvas>
+    <div class="container-fluid">
+        <div style="margin-left:200px"><img src="~/Images/logo.png" /></div>
+        @*<h1 id="heading" class="jumbotron">Lunar Logic Services</h1>*@
+        <div class="row">
+            <div class="col-md-10" style="background-color:darkslateblue"><canvas id="viewport" width="1920" height="1080"></canvas></div>
+            <div class="col-md-2" style="background-color:lightsalmon"><h3>Selected services here</h3></div>
+        </div>
+    </div>
 
     <script type="text/javascript">
 

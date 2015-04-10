@@ -126,6 +126,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\arbor-tween.js" />
     <Content Include="Scripts\arbor.js" />
     <Content Include="Scripts\bootstrap.js" />
