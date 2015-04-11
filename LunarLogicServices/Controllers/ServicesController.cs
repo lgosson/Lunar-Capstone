@@ -40,6 +40,13 @@ namespace LunarLogicServices.Controllers
             s6.ConnectedServices = new List<string>() { s7.Name };
             s7.ConnectedServices = new List<string>() { s6.Name };
 
+            s2.ParentServices = s2.ConnectedServices;
+            s3.ParentServices = s3.ConnectedServices;
+            s4.ParentServices = s4.ConnectedServices;
+            s5.ParentServices = s5.ConnectedServices;
+            s6.ParentServices = s6.ConnectedServices;
+            s7.ParentServices = s7.ConnectedServices;
+
 
             //here we will retrieve all services and return them
             IEnumerable<Service> services  = new List<Service>(){s1,s2,s3,s4,s5,s6,s7};

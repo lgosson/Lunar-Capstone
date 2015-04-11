@@ -62,8 +62,7 @@
             sys.renderer = Renderer("#viewport");
 
             for (i = 0; i < result.length; i++) {
-
-                sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description, 'selected': 'n' });
+                sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description, 'parents': result[i].ParentServices, 'selected': 'n' });
             }
 
             for (i = 0; i < result.length; i++) {
