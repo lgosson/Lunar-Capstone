@@ -133,41 +133,11 @@
             _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
             selected = nearest = dragged = particleSystem.nearest(_mouseP);
 
-              /***Added Code***/
-
-            if (selected.node.data.selected === 'n') {
-                selected.node.data.selected = 'y';
-            }
-            else {
-                selected.node.data.selected = 'n'
-            }
-
-            if (selected.node.data.selected == 'y') {
-                selected.node.data.color = 'blue';
-            }
-            else
-                selected.node.data.color = 'red';
-
-            var inn = false;
-            for (i = 0; i < nodeselects.length; i++) {
-                if (selected.node.data.label === nodeselects[i]) {
-                    inn = true;
-                    nodeselects.splice(i, 1);
-                }
-            }
-              //******************** If you come across this section, feel free to help me get it working right ************//
-            if (inn === false) {
-                nodeselects[nodeselects.length] = selected.node.data.label;
-            }
-
-                document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');
-
-              /***End Added Code***/
-
             if (dragged.node !== null) dragged.node.fixed = true
 
             $(canvas).bind('mousemove', handler.dragged)
             $(window).bind('mouseup', handler.dropped)
+            $(canvas).bind('mouseup', handler.singleclicked)
 
             return false
           },
@@ -175,9 +145,8 @@
             var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
             var s = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
-
             if (!nearest) return
-            if (dragged !== null && dragged.node !== null){
+            if (dragged !== null && dragged.node !== null) {
               var p = particleSystem.fromScreen(s)
               dragged.node.p = p
             }
@@ -193,8 +162,46 @@
             selected = null
             $(canvas).unbind('mousemove', handler.dragged)
             $(window).unbind('mouseup', handler.dropped)
+            $(canvas).unbind('mouseup', handler.singleclicked)
             _mouseP = null
             return false
+          },
+          singleclicked: function (e) {
+              //******************** If you come across this section, feel free to help me get it polished ************//
+              if (selected.node.data.selected === 'n') {
+                  selected.node.data.selected = 'y';
+              }
+              else {
+                  selected.node.data.selected = 'n'
+              }
+
+              if (selected.node.data.selected == 'y') {
+                  selected.node.data.color = 'blue';
+              }
+              else
+                  selected.node.data.color = 'red';
+
+              var inn = false;
+              for (i = 0; i < nodeselects.length; i++) {
+                  if (selected.node.data.label === nodeselects[i]) {
+                      inn = true;
+                      nodeselects.splice(i, 1);
+                  }
+              }
+                
+              if (inn === false) {
+                  nodeselects[nodeselects.length] = selected.node.data.label;
+              }
+
+                  document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');
+
+              if (dragged.node !== null) dragged.node.fixed = true
+              
+              $(canvas).unbind('mousemove', handler.dragged)
+              $(window).unbind('mouseup', handler.dropped)
+              $(canvas).unbind('mouseup', handler.singleclicked)
+
+              return false
           }
         }
         $(canvas).mousedown(handler.clicked);
