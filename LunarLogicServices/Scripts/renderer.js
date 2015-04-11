@@ -5,6 +5,7 @@
     var ctx = canvas.getContext("2d");
     var gfx = arbor.Graphics(canvas)
     var particleSystem = null
+    var nodeselects = [];
 
     var that = {
       init:function(system){
@@ -52,7 +53,7 @@
 
           // draw the text
           if (label){
-            ctx.font = "12px Helvetica"
+            ctx.font = "24px Helvetica"
             ctx.textAlign = "center"
             ctx.fillStyle = "white"
             if (node.data.color=='none') ctx.fillStyle = '#333333'
@@ -79,7 +80,7 @@
 
           ctx.save() 
             ctx.beginPath()
-            ctx.lineWidth = (!isNaN(weight)) ? parseFloat(weight) : 1
+            ctx.lineWidth = (!isNaN(weight)) ? parseFloat(weight) : 3
             ctx.strokeStyle = (color) ? color : "#cccccc"
             ctx.fillStyle = null
 
@@ -131,6 +132,37 @@
             var pos = $(canvas).offset();
             _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
             selected = nearest = dragged = particleSystem.nearest(_mouseP);
+
+              /***Added Code***/
+
+            if (selected.node.data.selected === 'n') {
+                selected.node.data.selected = 'y';
+            }
+            else {
+                selected.node.data.selected = 'n'
+            }
+
+            if (selected.node.data.selected == 'y') {
+                selected.node.data.color = 'blue';
+            }
+            else
+                selected.node.data.color = 'red';
+
+            var inn = false;
+            for (i = 0; i < nodeselects.length; i++) {
+                if (selected.node.data.label === nodeselects[i]) {
+                    inn = true;
+                    nodeselects.splice(i, 1);
+                }
+            }
+              //******************** If you come across this section, feel free to help me get it working right ************//
+            if (inn === false) {
+                nodeselects[nodeselects.length] = selected.node.data.label;
+            }
+
+                document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');
+
+              /***End Added Code***/
 
             if (dragged.node !== null) dragged.node.fixed = true
 
