@@ -167,7 +167,10 @@
             return false
           },
           singleclicked: function (e) {
+
               //******************** If you come across this section, feel free to help me get it polished ************//
+
+              // Changes selected property on mouse click
               if (selected.node.data.selected === 'n') {
                   selected.node.data.selected = 'y';
               }
@@ -175,25 +178,27 @@
                   selected.node.data.selected = 'n'
               }
 
+              // Changes color of node
               if (selected.node.data.selected == 'y') {
                   selected.node.data.color = 'blue';
               }
               else
                   selected.node.data.color = 'red';
 
-              var inn = false;
+              var inNodeSelects = false;  // Will be true if node has already been selected
+              // Loops through nodeselects array to determine if selected node on mouse click has already been selected
               for (i = 0; i < nodeselects.length; i++) {
                   if (selected.node.data.label === nodeselects[i]) {
-                      inn = true;
-                      nodeselects.splice(i, 1);
+                      inNodeSelects = true;
+                      nodeselects.splice(i, 1);  // If node is already selected, take it out of the array
                   }
               }
-                
-              if (inn === false) {
-                  nodeselects[nodeselects.length] = selected.node.data.label;
+
+              if (inNodeSelects === false) {
+                  nodeselects[nodeselects.length] = selected.node.data.label; // If selected node is not in array, add it
               }
 
-                  document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');
+              document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');  // Display selected nodes on label in view
 
               if (dragged.node !== null) dragged.node.fixed = true
               
