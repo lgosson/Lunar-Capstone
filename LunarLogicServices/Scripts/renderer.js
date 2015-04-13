@@ -167,14 +167,13 @@
 
               
           },
-          doubleclicked:function (e)
-          {
+          doubleclicked:function (e){
               //copypaste from clicked function. consolidate code when possible
               var pos = $(canvas).offset();
               _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
-              selected = nearest = dragged = particleSystem.nearest(_mouseP);
+              selected = nearest = particleSystem.nearest(_mouseP);
+              dragged = null;
 
-              if (dragged.node !== null) dragged.node.fixed = true
               //******************** If you come across this section, feel free to help me get it polished ************//
 
               // Changes selected property on mouse click
@@ -218,9 +217,7 @@
         }
         $(canvas).mousedown(handler.clicked);
         $(canvas).dblclick(handler.doubleclicked);
-
       }
-
     }
 
     // helpers for figuring out where to draw arrows (thanks springy.js)

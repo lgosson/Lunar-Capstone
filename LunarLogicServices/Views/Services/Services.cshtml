@@ -30,11 +30,6 @@
             <div class="col-md-10" style="background-color:darkslateblue"><canvas id="viewport" width="1920" height="1080"></canvas></div>
             <div class="col-md-2" style="background-color:lightsalmon"><h2>Selected services here<br /><br /><span id="nodeselect">Empty</span></h2></div>
         </div>
-        <div class="row">
-            <div class="col-md-4" style="background-color:darksalmon"><h2>Stuff could go here</h2></div>
-            <div class="col-md-4" style="background-color:darkmagenta"><h2>More stuff could go here</h2></div>
-            <div class="col-md-4" style="background-color:darkcyan"><h2>And it might look cool</h2></div>
-        </div>
     </div>
 
     <script type="text/javascript">
@@ -53,7 +48,7 @@
 
         function graphSetup(result)
         {
-            var sys = arbor.ParticleSystem(50, 500, 1);
+            var sys = arbor.ParticleSystem(10, 1000, .5);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
 
