@@ -53,7 +53,7 @@
 
           // draw the text
           if (label){
-            ctx.font = "24px Helvetica"
+            ctx.font = "18px Helvetica"
             ctx.textAlign = "center"
             ctx.fillStyle = "white"
             if (node.data.color=='none') ctx.fillStyle = '#333333'
@@ -120,7 +120,11 @@
         selected = null;
         nearest = null;
         var dragged = null;
-        var oldmass = 1
+        var oldmass = 1;
+
+        var lastClick = new Date().getTime();
+        var newClick = lastClick;
+        var dblClickTolerance = 300;
 
         // set up a handler object that will initially listen for mousedowns then
         // for moves and mouseups while dragging
@@ -132,10 +136,18 @@
 
             if (dragged.node !== null) dragged.node.fixed = true
 
-            $(canvas).bind('mousemove', handler.dragged)
-            $(window).bind('mouseup', handler.dropped)
-            $(canvas).bind('mouseup', handler.singleclicked)
+            newClick = new Date().getTime();
+            if (newClick - lastClick < dblClickTolerance) {
+                handler.doubleclicked(e);
+            }
+            else {
 
+                $(canvas).bind('mousemove', handler.dragged)
+                $(window).bind('mouseup', handler.dropped)
+                $(canvas).bind('mouseup', handler.singleclicked)
+            }
+
+            lastClick = new Date().getTime();
             return false
           },
           dragged:function(e){
@@ -164,7 +176,6 @@
             return false
           },
           singleclicked: function (e) {
-
               
           },
           doubleclicked:function (e){
@@ -216,7 +227,6 @@
           }
         }
         $(canvas).mousedown(handler.clicked);
-        $(canvas).dblclick(handler.doubleclicked);
       }
     }
 
