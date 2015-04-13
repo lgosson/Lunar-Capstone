@@ -114,9 +114,6 @@
             ctx.restore()
           }
         })
-
-
-
       },
       initMouseHandling:function(){
         // no-nonsense drag and drop (thanks springy.js)
@@ -168,6 +165,16 @@
           },
           singleclicked: function (e) {
 
+              
+          },
+          doubleclicked:function (e)
+          {
+              //copypaste from clicked function. consolidate code when possible
+              var pos = $(canvas).offset();
+              _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
+              selected = nearest = dragged = particleSystem.nearest(_mouseP);
+
+              if (dragged.node !== null) dragged.node.fixed = true
               //******************** If you come across this section, feel free to help me get it polished ************//
 
               // Changes selected property on mouse click
@@ -201,7 +208,7 @@
               document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');  // Display selected nodes on label in view
 
               if (dragged.node !== null) dragged.node.fixed = true
-              
+
               $(canvas).unbind('mousemove', handler.dragged)
               $(window).unbind('mouseup', handler.dropped)
               $(canvas).unbind('mouseup', handler.singleclicked)
@@ -210,6 +217,7 @@
           }
         }
         $(canvas).mousedown(handler.clicked);
+        $(canvas).dblclick(handler.doubleclicked);
 
       }
 

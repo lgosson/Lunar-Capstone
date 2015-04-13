@@ -49,15 +49,11 @@
                     graphSetup(result);
                 }
             });
-      
-            $(viewport).mousedown(function (e) {
-                return true;
-            });
         })()
 
         function graphSetup(result)
         {
-            var sys = arbor.ParticleSystem(100, 500, 1);
+            var sys = arbor.ParticleSystem(50, 500, 1);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
 
