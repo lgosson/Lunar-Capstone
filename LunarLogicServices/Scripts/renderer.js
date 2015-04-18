@@ -150,6 +150,7 @@
             lastClick = new Date().getTime();
             return false
           },
+
           dragged:function(e){
             var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
@@ -176,17 +177,14 @@
             return false
           },
           singleclicked: function (e) {
-              
+              var si = document.getElementById('sname')
+              si.innerHTML = selected.node.data.label;
+              si = document.getElementById('sdescription')
+              si.innerHTML = selected.node.data.desc;
           },
+
           doubleclicked:function (e){
-              //copypaste from clicked function. consolidate code when possible
-              var pos = $(canvas).offset();
-              _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
-              selected = nearest = particleSystem.nearest(_mouseP);
-              dragged = null;
-
               //******************** If you come across this section, feel free to help me get it polished ************//
-
               // Changes selected property on mouse click
               if (selected.node.data.selected === 'n') {
                   selected.node.data.selected = 'y';

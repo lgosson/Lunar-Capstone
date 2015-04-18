@@ -75,7 +75,9 @@
                 <div><span id="nodeselect" style="color: red; font-size:18px"></span></div>
             </div>
             <div class="col-md-8"><canvas id="viewport" width="1300" height="850"></canvas></div>
-            <div class="col-md-2"><h2 style="color: red">Selected service<br /><br /><span id="service"></span></h2></div>
+            <div id="serviceinfo" class="col-md-2"><h2 style="color: red">Selected service<br /><br /></h2>
+                @Html.Partial("_ServiceInformation")
+            </div>
         </div>
     </div>
 

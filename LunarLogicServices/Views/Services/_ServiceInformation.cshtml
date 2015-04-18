@@ -8,7 +8,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd>
+        <dd id="sname">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
@@ -16,7 +16,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
-        <dd>
+        <dd id="sdescription">
             @Html.DisplayFor(model => model.Description)
         </dd>
 
@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.ConnectedServices)
         </dt>
 
-        @if(Model.ConnectedServices != null)
+        @if(Model != null && Model.ConnectedServices != null)
         {
             foreach(string s in Model.ConnectedServices)
             {
