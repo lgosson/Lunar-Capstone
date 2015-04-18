@@ -10,7 +10,7 @@ namespace LunarLogicServices.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Services", "Services");
         }
 
         public ActionResult About()
