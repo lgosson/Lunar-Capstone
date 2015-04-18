@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Services";
     Layout = null;
 }
@@ -22,13 +21,24 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body style="background-color:darkblue">
+<body style="background: linear-gradient(darkblue, black)">
 
     <div class="container-fluid">
         <div style="margin-left:200px"><img src="~/Images/logo.png" /></div>
         <div class="row">
-            <div class="col-md-10" style="background-color:darkslateblue"><canvas id="viewport" width="1920" height="1080"></canvas></div>
-            <div class="col-md-2" style="background-color:lightsalmon"><h2>Selected services here<br /><br /><span id="nodeselect">Empty</span></h2></div>
+            <div class="col-md-2">
+                <br /><h2 style="color: red">Contact Form</h2>
+                <div class="form-group">
+                    <br /><input id="Text1" type="text" /><br />
+                    <br /><input id="Text1" type="text" /><br />
+                    <br /><input id="Text1" type="text" /><br />
+                    <br /><input id="Text1" type="text" /><br />
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+                <div><span id="nodeselect" style="color: red; font-size:18px"></span></div>
+            </div>
+            <div class="col-md-8"><canvas id="viewport" width="1300" height="850"></canvas></div>
+            <div class="col-md-2"><h2 style="color: red">Selected service<br /><br /><span id="service"></span></h2></div>
         </div>
     </div>
 
@@ -46,8 +56,7 @@
             });
         })()
 
-        function graphSetup(result)
-        {
+        function graphSetup(result) {
             var sys = arbor.ParticleSystem(100, 1000, .5);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
@@ -58,8 +67,7 @@
 
             for (i = 0; i < result.length; i++) {
 
-                for (j = 0; j < result[i].ConnectedServices.length; j++)
-                {
+                for (j = 0; j < result[i].ConnectedServices.length; j++) {
                     sys.addEdge(result[i].Name, result[i].ConnectedServices[j]);
                 }
             }
