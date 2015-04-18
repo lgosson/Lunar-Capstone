@@ -28,7 +28,7 @@ namespace LunarLogicServices.Controllers
             //model that can support it's information (NOT the regular Service model)
             Service s1 = new Service() { ID = 1, Name = "Service01", Description = "Comes From Server" };
             s1.ConnectedServices = new List<string>() { "Another Service", "Another Service Too" };
-            return View(s1);
+            return PartialView(s1);
         }
         
         public JsonResult GetServiceData()
