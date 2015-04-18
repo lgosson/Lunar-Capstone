@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LunarLogicServices.Models.ContactModel
+@{
     ViewBag.Title = "Services";
     Layout = null;
 }
@@ -20,21 +21,57 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        label {
+            float: left;
+            width: 100px;
+            text-align: right;
+            margin-top: 8px;
+            clear: left;
+            color: red;
+        }
+        input, textarea { margin-top: 8px; float: left; }
+        #submit{
+            margin-left: 100px;
+        }
+    </style>
+
 </head>
 <body style="background: linear-gradient(darkblue, black)">
 
     <div class="container-fluid">
-        <div style="margin-left:200px"><img src="~/Images/logo.png" /></div>
+        <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
         <div class="row">
             <div class="col-md-2">
                 <br /><h2 style="color: red">Contact Form</h2>
-                <div class="form-group">
-                    <br /><input id="Text1" type="text" /><br />
-                    <br /><input id="Text1" type="text" /><br />
-                    <br /><input id="Text1" type="text" /><br />
-                    <br /><input id="Text1" type="text" /><br />
-                    <input type="submit" value="Submit" class="btn btn-primary" />
-                </div>
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        @Html.LabelFor(model => Model.FirstName, "First Name:")
+                        @Html.EditorFor(model => model.FirstName)
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(model => Model.LastName, "Last Name:")
+                        @Html.EditorFor(model => model.LastName)
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(model => Model.Phone, "Phone:")
+                        @Html.EditorFor(model => model.Phone)
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(model => Model.Email, "Email:")
+                        @Html.EditorFor(model => model.Email)
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(model => Model.Comment, "Comments:")
+                        @Html.TextAreaFor(mode => Model.Comment)
+                    </div>
+                    <div class="row" id="submit">
+                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        <input type="reset" value="Reset" class="btn btn-primary" />
+                    </div>
+                }
                 <div><span id="nodeselect" style="color: red; font-size:18px"></span></div>
             </div>
             <div class="col-md-8"><canvas id="viewport" width="1300" height="850"></canvas></div>

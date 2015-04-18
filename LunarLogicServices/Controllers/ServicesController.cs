@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
+using System.Text;
 
 namespace LunarLogicServices.Controllers
 {
@@ -62,6 +64,43 @@ namespace LunarLogicServices.Controllers
             //here we will retrieve all services and return them
             IEnumerable<Service> services  = new List<Service>(){s1,s2,s3,s4,s5,s6,s7, s8};
             return Json(services, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Contact(ContactModel c)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    MailMessage msg = new MailMessage();
+                    SmtpClient smtp = new SmtpClient();
+                    MailAddress from = new MailAddress(c.Email.ToString());
+                    StringBuilder sb = new StringBuilder();
+                    msg.To.Add("jeseswood21@gmail.com");
+                    msg.Subject = "Contact Form";
+                    msg.IsBodyHtml = false;
+                    smtp.Host = "aspmx.l.google.com";
+                    smtp.Port = 25;
+                    sb.Append("First name: " + c.FirstName);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Last name: " + c.LastName);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Phone: " + c.Phone);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Email: " + c.Email);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Comments: " + c.Comment);
+                    msg.Body = sb.ToString();
+                    smtp.Send(msg);
+                    msg.Dispose();
+                }
+                catch
+                {
+                    return View("Index");
+                }
+            }
+            return View();
         }
     }
 }
