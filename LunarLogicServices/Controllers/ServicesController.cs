@@ -24,17 +24,13 @@ namespace LunarLogicServices.Controllers
 
         public ActionResult ServiceInformation(Service s)
         {
-            //test data. The service information will be sent via ajax as json. It will be converted to a 
-            //model that can support it's information (NOT the regular Service model)
-            Service s1 = new Service() { ID = 1, Name = "Service01", Description = "Comes From Server" };
-            s1.ConnectedServices = new List<string>() { "Another Service", "Another Service Too" };
-            return PartialView(s1);
+            return PartialView(s);
         }
         
         public JsonResult GetServiceData()
         {
             //test. Eventually services come from db
-            Service s1 = new Service() { ID = 1, Name = "Service01", Description = "Comes From Server" };
+            Service s1 = new Service() { ID = 1, Name = "Service01", Description = "Comes From Server. Has a really long description for reasons. It is called Service01 because it is the base service (which may not even BE a service)." };
             Service s2 = new Service() { ID = 2, Name = "Service02", Description = "Another Service" };
             Service s3 = new Service() { ID = 3, Name = "Service03", Description = "The Third Service" };
             Service s4 = new Service() { ID = 4, Name = "Service04", Description = "One Service Too Many" };
