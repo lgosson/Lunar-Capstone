@@ -63,7 +63,7 @@ namespace LunarLogicServices.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contact(ContactModel c)
+        public ActionResult Contact(Contact c)
         {
             if (ModelState.IsValid)
             {

@@ -1,4 +1,4 @@
-﻿@model LunarLogicServices.Models.ContactModel
+﻿@model LunarLogicServices.Models.Contact
 @{
     ViewBag.Title = "Services";
     Layout = null;
@@ -31,8 +31,20 @@
             clear: left;
             color: red;
         }
-        input, textarea { margin-top: 8px; float: left; }
-        #submit{
+
+        input, textarea {
+            margin-top: 8px;
+            float: left;
+        }
+
+        span {
+            color: red;
+            margin-left: 30px;
+            font-size: 18px;
+            padding-top: 20px;
+        }
+
+        #submit {
             margin-left: 100px;
         }
     </style>
@@ -44,6 +56,7 @@
         <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
         <div class="row">
             <div class="col-md-2">
+                @*@Html.RenderPartial("_ContactForm.cshtml")*@
                 <br /><h2 style="color: red">Contact Form</h2>
                 @using (Html.BeginForm())
                 {
@@ -67,15 +80,20 @@
                         @Html.LabelFor(model => Model.Comment, "Comments:")
                         @Html.TextAreaFor(mode => Model.Comment)
                     </div>
+                    <div class="row">
+                        <span>I am interested in these services:</span>
+                    </div>
+                    <div class="row">
+                        <span id="nodeselect"></span>
+                    </div>
                     <div class="row" id="submit">
                         <input type="submit" value="Submit" class="btn btn-primary" />
                         <input type="reset" value="Reset" class="btn btn-primary" />
                     </div>
                 }
-                <div><span id="nodeselect" style="color: red; font-size:18px"></span></div>
             </div>
-            <div class="col-md-8"><canvas id="viewport" width="100" height="100"></canvas></div>
-            <div id="serviceinfo" class="col-md-2"><h2 style="color: red">Selected service<br /><br /></h2>
+            <div class="col-md-8"><canvas id="viewport" width="1300" height="850"></canvas></div>
+            <div id="serviceinfo" class="col-md-2">
                 @Html.Partial("_ServiceInformation")
             </div>
         </div>
@@ -101,7 +119,7 @@
             sys.renderer = Renderer("#viewport");
 
             for (i = 0; i < result.length; i++) {
-                sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description, 'parents': result[i].ParentServices, 'selected': 'n' });
+                sys.addNode(result[i].Name, { 'color': 'red', 'shape': 'dot', label: result[i].Name, desc: result[i].Description, 'connected': result[i].ConnectedServices, 'selected': 'n' });
             }
 
             for (i = 0; i < result.length; i++) {
