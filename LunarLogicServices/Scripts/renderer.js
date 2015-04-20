@@ -138,13 +138,13 @@
 
             newClick = new Date().getTime();
             if (newClick - lastClick < dblClickTolerance) {
-                handler.doubleclicked(e);
+                if(selected.node.data.selectable == true) handler.doubleclicked(e)
             }
             else {
 
                 $(canvas).bind('mousemove', handler.dragged)
                 $(window).bind('mouseup', handler.dropped)
-                $(canvas).bind('mouseup', handler.singleclicked)
+                if (selected.node.data.selectable == true) $(canvas).bind('mouseup', handler.singleclicked)
             }
 
             lastClick = new Date().getTime();
