@@ -14,7 +14,7 @@
       init:function(system){
         particleSystem = system
         particleSystem.screenSize(cWidth, cHeight) 
-        particleSystem.screenPadding(200)
+        particleSystem.screenPadding(80)
 
         that.initMouseHandling();
 
@@ -191,11 +191,18 @@
             _mouseP = null
             return false
           },
+
           singleclicked: function (e) {
               var si = document.getElementById('sname')
-              si.innerHTML = selected.node.data.label;
+              si.innerHTML = selected.node.data.label
               si = document.getElementById('sdescription')
-              si.innerHTML = selected.node.data.desc;
+              si.innerHTML = selected.node.data.desc
+              si = document.getElementById('sconnected')
+              si.innerHTML = '';
+              for (var i = 0; i < selected.node.data.connected.length; i++)
+              {
+                  si.innerHTML += selected.node.data.connected[i] + '<br/>'
+              }
           },
 
           doubleclicked:function (e){

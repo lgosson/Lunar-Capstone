@@ -56,3 +56,5 @@ Temporary Items
 *.log 
 *.mdf
 *.ldf
+LunarLogicServices.v12.suo
+*.suo
