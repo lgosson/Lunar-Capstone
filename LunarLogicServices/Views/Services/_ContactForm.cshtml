@@ -1,0 +1,70 @@
+﻿@model LunarLogicServices.Models.Contact
+
+@{
+    ViewBag.Title = "Services";
+    Layout = null;
+}
+
+<style type="text/css">
+    label {
+        float: left;
+        width: 100px;
+        text-align: right;
+        margin-top: 8px;
+        clear: left;
+        color: red;
+    }
+
+    input, textarea {
+        margin-top: 8px;
+        float: left;
+    }
+
+    span {
+        color: red;
+        margin-left: 30px;
+        font-size: 18px;
+        padding-top: 20px;
+    }
+
+    #submit {
+        margin-left: 100px;
+    }
+</style>
+
+<br />
+<h2 style="color: red">Contact Form</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <div class="row">
+        @Html.LabelFor(model => Model.FirstName, "First Name:")
+        @Html.EditorFor(model => model.FirstName)
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.LastName, "Last Name:")
+        @Html.EditorFor(model => model.LastName)
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Phone, "Phone:")
+        @Html.EditorFor(model => model.Phone)
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Email, "Email:")
+        @Html.EditorFor(model => model.Email)
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Comment, "Comments:")
+        @Html.TextAreaFor(mode => Model.Comment)
+    </div>
+    <div class="row">
+        <span>I am interested in these services:</span>
+    </div>
+    <div class="row">
+        <span id="nodeselect"></span>
+    </div>
+    <div class="row" id="submit">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+        <input type="reset" value="Reset" class="btn btn-primary" />
+    </div>
+}
