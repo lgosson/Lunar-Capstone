@@ -21,6 +21,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Layout.css" rel="stylesheet"/>
     
 </head>
 <body style="background: linear-gradient(darkblue, black)">
@@ -53,7 +54,7 @@
         })()
 
         function graphSetup(result) {
-            var sys = arbor.ParticleSystem(100, 1000, .5);
+            var sys = arbor.ParticleSystem(50, 1000, .5);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
 

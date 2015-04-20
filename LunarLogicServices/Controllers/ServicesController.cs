@@ -58,7 +58,7 @@ namespace LunarLogicServices.Controllers
 
 
             //here we will retrieve all services and return them
-            IEnumerable<Service> services  = new List<Service>(){s1,s2,s3,s4,s5,s6,s7, s8};
+            IEnumerable<Service> services  = new List<Service>(){s1,s2,s3,s4,s5,s6,s7,s8};
             return Json(services, JsonRequestBehavior.AllowGet);
         }
 
