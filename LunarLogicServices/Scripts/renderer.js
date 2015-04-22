@@ -140,6 +140,7 @@
         var lastClick = new Date().getTime();
         var newClick = lastClick;
         var dblClickTolerance = 300;
+        var wasDragged = false;
 
         // set up a handler object that will initially listen for mousedowns then
         // for moves and mouseups while dragging
@@ -156,14 +157,22 @@
                 if(selected.node.data.selectable == true) handler.doubleclicked(e)
             }
             else {
-
                 $(canvas).bind('mousemove', handler.dragged)
                 $(window).bind('mouseup', handler.dropped)
-                if (selected.node.data.selectable == true) $(canvas).bind('mouseup', handler.singleclicked)
             }
 
             lastClick = new Date().getTime();
             return false
+          },
+
+          clickedUp:function (e){
+              if (!wasDragged) {
+                  if (selected.node.data.selectable == true) handler.singleclicked(e)
+              }
+              else wasDragged = false
+              $(canvas).unbind('mousemove', handler.dragged)
+              $(window).unbind('mouseup', handler.dropped)
+              return false
           },
 
           dragged:function(e){
@@ -176,6 +185,7 @@
               dragged.node.p = p
             }
 
+            wasDragged = true;
             return false
           },
 
@@ -187,12 +197,11 @@
             selected = null
             $(canvas).unbind('mousemove', handler.dragged)
             $(window).unbind('mouseup', handler.dropped)
-            $(canvas).unbind('mouseup', handler.singleclicked)
             _mouseP = null
             return false
           },
 
-          singleclicked: function (e) {
+          singleclicked: function (e){
               var si = document.getElementById('sname')
               si.innerHTML = selected.node.data.label
               si = document.getElementById('sdescription')
@@ -239,14 +248,11 @@
 
               if (dragged.node !== null) dragged.node.fixed = true
 
-              $(canvas).unbind('mousemove', handler.dragged)
-              $(window).unbind('mouseup', handler.dropped)
-              $(canvas).unbind('mouseup', handler.singleclicked)
-
               return false
           }
         }
         $(canvas).mousedown(handler.clicked);
+        $(canvas).mouseup(handler.clickedUp);
       }
     }
 
