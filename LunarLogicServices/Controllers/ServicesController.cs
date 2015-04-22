@@ -63,40 +63,42 @@ namespace LunarLogicServices.Controllers
         }
 
         [HttpPost]
-        public ActionResult Contact(Contact c)
+        public JsonResult Contact(Contact c)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    MailMessage msg = new MailMessage();
-                    SmtpClient smtp = new SmtpClient();
-                    MailAddress from = new MailAddress(c.Email.ToString());
-                    StringBuilder sb = new StringBuilder();
-                    msg.To.Add("jeseswood21@gmail.com");
-                    msg.Subject = "Contact Form";
-                    msg.IsBodyHtml = false;
-                    smtp.Host = "aspmx.l.google.com";
-                    smtp.Port = 25;
-                    sb.Append("First name: " + c.FirstName);
-                    sb.Append(Environment.NewLine);
-                    sb.Append("Last name: " + c.LastName);
-                    sb.Append(Environment.NewLine);
-                    sb.Append("Phone: " + c.Phone);
-                    sb.Append(Environment.NewLine);
-                    sb.Append("Email: " + c.Email);
-                    sb.Append(Environment.NewLine);
-                    sb.Append("Comments: " + c.Comment);
-                    msg.Body = sb.ToString();
-                    smtp.Send(msg);
-                    msg.Dispose();
-                }
-                catch
-                {
-                    return View("Index");
-                }
-            }
-            return View();
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        MailMessage msg = new MailMessage();
+            //        SmtpClient smtp = new SmtpClient();
+            //        MailAddress from = new MailAddress(c.Email.ToString());
+            //        StringBuilder sb = new StringBuilder();
+            //        msg.To.Add("jeseswood21@gmail.com");
+            //        msg.Subject = "Contact Form";
+            //        msg.IsBodyHtml = false;
+            //        smtp.Host = "aspmx.l.google.com";
+            //        smtp.Port = 25;
+            //        sb.Append("First name: " + c.FirstName);
+            //        sb.Append(Environment.NewLine);
+            //        sb.Append("Last name: " + c.LastName);
+            //        sb.Append(Environment.NewLine);
+            //        sb.Append("Phone: " + c.Phone);
+            //        sb.Append(Environment.NewLine);
+            //        sb.Append("Email: " + c.Email);
+            //        sb.Append(Environment.NewLine);
+            //        sb.Append("Comments: " + c.Comment);
+            //        msg.Body = sb.ToString();
+            //        smtp.Send(msg);
+            //        msg.Dispose();
+            //    }
+            //    catch
+            //    {
+            //        return View("Index");
+            //    }
+            //}
+            //return View();
+
+            return Json(new { result = "something worked" });
         }
     }
 }

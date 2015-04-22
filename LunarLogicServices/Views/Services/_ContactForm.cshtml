@@ -35,36 +35,63 @@
 <br />
 <h2 style="color: red">Contact Form</h2>
 <hr />
-@using (Html.BeginForm())
-{
-    <div class="row">
-        @Html.LabelFor(model => Model.FirstName, "First Name:")
-        @Html.EditorFor(model => model.FirstName)
-    </div>
-    <div class="row">
-        @Html.LabelFor(model => Model.LastName, "Last Name:")
-        @Html.EditorFor(model => model.LastName)
-    </div>
-    <div class="row">
-        @Html.LabelFor(model => Model.Phone, "Phone:")
-        @Html.EditorFor(model => model.Phone)
-    </div>
-    <div class="row">
-        @Html.LabelFor(model => Model.Email, "Email:")
-        @Html.EditorFor(model => model.Email)
-    </div>
-    <div class="row">
-        @Html.LabelFor(model => Model.Comment, "Comments:")
-        @Html.TextAreaFor(mode => Model.Comment)
-    </div>
-    <div class="row">
-        <span>I am interested in these services:</span>
-    </div>
-    <div class="row">
-        <span id="nodeselect"></span>
-    </div>
-    <div class="row" id="submit">
-        <input type="submit" value="Submit" class="btn btn-primary" />
-        <input type="reset" value="Reset" class="btn btn-primary" />
-    </div>
-}
+
+<div class="row">
+    @Html.LabelFor(model => Model.FirstName, "First Name:")
+    @Html.EditorFor(model => model.FirstName)
+</div>
+<div class="row">
+    @Html.LabelFor(model => Model.LastName, "Last Name:")
+    @Html.EditorFor(model => model.LastName)
+</div>
+<div class="row">
+    @Html.LabelFor(model => Model.Phone, "Phone:")
+    @Html.EditorFor(model => model.Phone)
+</div>
+<div class="row">
+    @Html.LabelFor(model => Model.Email, "Email:")
+    @Html.EditorFor(model => model.Email)
+</div>
+<div class="row">
+    @Html.LabelFor(model => Model.Comment, "Comments:")
+    @Html.TextAreaFor(mode => Model.Comment)
+</div>
+<div class="row">
+    <span>I am interested in these services:</span>
+</div>
+<div class="row">
+    <span id="nodeselect"></span>
+</div>
+<div class="row" id="submit">
+    <input type="button" id="send" value="Send" />
+</div>
+
+
+<script type="text/javascript">
+
+        $('#send').click(function() {
+            var request = new ContactModel();
+
+                $.ajax({
+                    url: "/Services/Contact",
+                    dataType: 'json',
+                    contentType: "application/json",
+                    type: "POST",
+                    data: JSON.stringify(request),
+                    success: function (response) {
+                        alert("Success")
+                    }
+                });
+        });
+
+        function ContactModel() {
+            var contact = this;
+            contact.FirstName = $("#FirstName").val();
+            contact.LastName = $("#LastName").val();
+            contact.Phone = $("#Phone").val();
+            contact.Email = $("#Email").val();
+            contact.Comment = $("#Comment").val();
+            contact.Services = $("#nodeselect").html();
+        }
+
+</script>
