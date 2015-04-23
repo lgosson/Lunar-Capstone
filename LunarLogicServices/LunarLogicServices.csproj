@@ -133,6 +133,7 @@
     <Content Include="Scripts\arbor.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\lunarlogicservices.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\graphics.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
