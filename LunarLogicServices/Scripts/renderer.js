@@ -7,33 +7,33 @@
     var particleSystem = null
     var nodeselects = [];
 
-    var cWidth = canvas.width = window.innerWidth;
-    var cHeight = canvas.height = window.innerHeight;
+    //**var cWidth = canvas.width = window.innerWidth;
+    //**var cHeight = canvas.height = window.innerHeight;
 
     var that = {
       init:function(system){
         particleSystem = system
         particleSystem.screenSize(canvas.width, canvas.height)
-        particleSystem.screenPadding(80)
+        particleSystem.screenPadding(40)
 
         that.initMouseHandling();
 
-        //$(window).resize(this.windowsized);
+        //**$(window).resize(this.windowsized);
       },
 
-      //windowsized: function () {
-      //    cWidth = (window.innerWidth)*.8;
-      //    cHeight = window.innerHeight;
+      //**windowsized: function () {
+      //**    cWidth = (window.innerWidth)*.8;
+      //**    cHeight = window.innerHeight;
 
-      //    particleSystem.screenSize(cWidth, cHeight);
-      //},
+      //**   particleSystem.screenSize(cWidth, cHeight);
+      //**},
 
       redraw: function () {
           
         if (!particleSystem) return
 
 
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //**ctx.fillRect(0, 0, canvas.width, canvas.height);
         gfx.clear() // convenience ƒ: clears the whole canvas rect
 
         // draw the nodes & save their bounds for edge drawing
