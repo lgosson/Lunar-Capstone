@@ -1,26 +1,26 @@
 ﻿@model LunarLogicServices.Models.Service
 
 <div>
-    <h4>Service Information</h4>
+    <h4 class="serviceInfo">Service Information</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="serviceInfo">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
-        <dd id="sname">
+        <dd id="sname" class="serviceInfo">
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt>
+        <dt class="serviceInfo">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
-        <dd id="sdescription">
+        <dd id="sdescription" class="serviceInfo">
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
+        <dt class="serviceInfo">
             @Html.DisplayNameFor(model => model.ConnectedServices)
         </dt>
 
@@ -41,9 +41,3 @@
 
     </dl>
 </div>
-
-<style type="text/css">
-    dt { color: red; }
-    h4 { color: red; }
-    dl { color: red; }
-</style>
