@@ -144,6 +144,7 @@
     <Content Include="Scripts\arbor.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\lunarlogicservices.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\graphics.js" />
@@ -187,6 +188,7 @@
     <Content Include="Views\ServicesCrud\Details.cshtml" />
     <Content Include="Views\ServicesCrud\Edit.cshtml" />
     <Content Include="Views\ServicesCrud\Index.cshtml" />
+    <Content Include="Views\Services\_PersonalPlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

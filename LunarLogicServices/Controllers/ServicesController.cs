@@ -24,7 +24,12 @@ namespace LunarLogicServices.Controllers
 
         public ActionResult ServiceInformation(Service s)
         {
-            return PartialView(s);
+            return PartialView("_ServiceInformation", s);
+        }
+
+        public ActionResult ContactForm(Contact c)
+        {
+            return PartialView("_ContactForm", c);
         }
         
         public JsonResult GetServiceData()
