@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,6 +119,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\ServicesCrudController.cs" />
+    <Compile Include="DAL\ServiceContext.cs" />
+    <Compile Include="DAL\ServiceInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +177,11 @@
     <Content Include="Views\Services\Services.cshtml" />
     <Content Include="Views\Services\_ServiceInformation.cshtml" />
     <Content Include="Views\Services\_ContactForm.cshtml" />
+    <Content Include="Views\ServicesCrud\Create.cshtml" />
+    <Content Include="Views\ServicesCrud\Delete.cshtml" />
+    <Content Include="Views\ServicesCrud\Details.cshtml" />
+    <Content Include="Views\ServicesCrud\Edit.cshtml" />
+    <Content Include="Views\ServicesCrud\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
