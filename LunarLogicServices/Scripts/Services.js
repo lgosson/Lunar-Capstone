@@ -41,6 +41,12 @@
 //    });
 
 //})
+$(document).ready(function () {
+    $('#pb').progressbar({value:50});
+});
+
+
+
 
 
 

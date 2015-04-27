@@ -1,10 +1,17 @@
-﻿
+﻿<head>
+    <title>Personal Plan</title>
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/services.js"></script>
+</head>
 <div>
     <h4 class="serviceInfo">My Personal Plan</h4>
-    
+    <br />
+    <div id="pb" style="width:220px"></div>
     <dl>
         <dd>
-            Some form of progress bar here
+            
         </dd>
         <dd>
             I have chosen {} out of {} services
@@ -15,9 +22,7 @@
     </dl>
 
     <form action="@Url.Action("ContactForm", "Services")">
-        <input type="submit" value="Contact Lunar Logic" onclick="" />
+        <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" />
     </form>
-
-
-
+    <br />
 </div>
