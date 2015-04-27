@@ -246,6 +246,10 @@
 
               document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');  // Display selected nodes on label in view
 
+              var arraylength = nodeselects.length * 14.1;
+
+              $('#pb').progressbar({value:arraylength});
+
               if (dragged.node !== null) dragged.node.fixed = true
 
               return false
