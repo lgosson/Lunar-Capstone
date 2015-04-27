@@ -217,15 +217,15 @@
           doubleclicked:function (e){
               //******************** If you come across this section, feel free to help me get it polished ************//
               // Changes selected property on mouse click
-              if (selected.node.data.selected === 'n') {
-                  selected.node.data.selected = 'y';
+              if (selected.node.data.selected === false) {
+                  selected.node.data.selected = true;
               }
               else {
-                  selected.node.data.selected = 'n'
+                  selected.node.data.selected = false
               }
 
               // Changes color of node
-              if (selected.node.data.selected == 'y') {
+              if (selected.node.data.selected == true) {
                   selected.node.data.color = 'blue';
               }
               else
