@@ -37,8 +37,10 @@
     </div>
 
     <script type="text/javascript">
+        window.selectedServices = [];
+
         (function () {
-            var serviceData;
+
             $.ajax({
                 url: '@Url.Action("GetServiceData", "Services")',
                 type: "GET",
@@ -58,6 +60,7 @@
                 sys.addNode(result[i].Name, {
                     'color': 'red',
                     'shape': 'dot',
+                    id: result[i].ID,
                     label: result[i].Name,
                     desc: result[i].Description,
                     'selectable': result[i].Selectable,

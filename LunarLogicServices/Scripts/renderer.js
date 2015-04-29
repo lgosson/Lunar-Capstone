@@ -5,7 +5,6 @@
     var ctx = canvas.getContext("2d");
     var gfx = arbor.Graphics(canvas)
     var particleSystem = null
-    var nodeselects = [];
 
     //**var cWidth = canvas.width = window.innerWidth;
     //**var cHeight = canvas.height = window.innerHeight;
@@ -131,129 +130,133 @@
         })
       },
       initMouseHandling:function(){
-        // no-nonsense drag and drop (thanks springy.js)
-        selected = null;
-        nearest = null;
-        var dragged = null;
-        var oldmass = 1;
+          // no-nonsense drag and drop (thanks springy.js)
+          selected = null;
+          nearest = null;
+          var dragged = null;
+          var oldmass = 1;
 
-        var lastClick = new Date().getTime();
-        var newClick = lastClick;
-        var dblClickTolerance = 300;
-        var wasDragged = false;
+          var lastClick = new Date().getTime();
+          var newClick = lastClick;
+          var dblClickTolerance = 300;
+          var wasDragged = false;
 
-        // set up a handler object that will initially listen for mousedowns then
-        // for moves and mouseups while dragging
-        var handler = {
-          clicked:function(e){
-            var pos = $(canvas).offset();
-            _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
-            selected = nearest = dragged = particleSystem.nearest(_mouseP);
+          // set up a handler object that will initially listen for mousedowns then
+          // for moves and mouseups while dragging
+          var handler = {
+              clicked:function(e){
+                  var pos = $(canvas).offset();
+                  _mouseP = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
+                  selected = nearest = dragged = particleSystem.nearest(_mouseP);
 
-            if (dragged.node !== null) dragged.node.fixed = true
+                  if (dragged.node !== null) dragged.node.fixed = true
 
-            newClick = new Date().getTime();
-            if (newClick - lastClick < dblClickTolerance) {
-                if(selected.node.data.selectable == true) handler.doubleclicked(e)
-            }
-            else {
-                $(canvas).bind('mousemove', handler.dragged)
-                $(window).bind('mouseup', handler.dropped)
-            }
-
-            lastClick = new Date().getTime();
-            return false
-          },
-
-          clickedUp:function (e){
-              if (!wasDragged) {
-                  if (selected.node.data.selectable == true) handler.singleclicked(e)
-              }
-              else wasDragged = false
-              $(canvas).unbind('mousemove', handler.dragged)
-              $(window).unbind('mouseup', handler.dropped)
-              return false
-          },
-
-          dragged:function(e){
-            var old_nearest = nearest && nearest.node._id
-            var pos = $(canvas).offset();
-            var s = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
-            if (!nearest) return
-            if (dragged !== null && dragged.node !== null) {
-              var p = particleSystem.fromScreen(s)
-              dragged.node.p = p
-            }
-
-            wasDragged = true;
-            return false
-          },
-
-          dropped:function(e){
-            if (dragged===null || dragged.node===undefined) return
-            if (dragged.node !== null) dragged.node.fixed = false
-            dragged.node.tempMass = 50
-            dragged = null
-            selected = null
-            $(canvas).unbind('mousemove', handler.dragged)
-            $(window).unbind('mouseup', handler.dropped)
-            _mouseP = null
-            return false
-          },
-
-          singleclicked: function (e){
-              var si = document.getElementById('sname')
-              si.innerHTML = selected.node.data.label
-              si = document.getElementById('sdescription')
-              si.innerHTML = selected.node.data.desc
-              si = document.getElementById('sconnected')
-              si.innerHTML = '';
-              for (var i = 0; i < selected.node.data.connected.length; i++)
-              {
-                  si.innerHTML += selected.node.data.connected[i] + '<br/>'
-              }
-          },
-
-          doubleclicked:function (e){
-              //******************** If you come across this section, feel free to help me get it polished ************//
-              // Changes selected property on mouse click
-              if (selected.node.data.selected === false) {
-                  selected.node.data.selected = true;
-              }
-              else {
-                  selected.node.data.selected = false
-              }
-
-              // Changes color of node
-              if (selected.node.data.selected == true) {
-                  selected.node.data.color = 'blue';
-              }
-              else
-                  selected.node.data.color = 'red';
-
-              var inNodeSelects = false;  // Will be true if node has already been selected
-              // Loops through nodeselects array to determine if selected node on mouse click has already been selected
-              for (i = 0; i < nodeselects.length; i++) {
-                  if (selected.node.data.label === nodeselects[i]) {
-                      inNodeSelects = true;
-                      nodeselects.splice(i, 1);  // If node is already selected, take it out of the array
+                  newClick = new Date().getTime();
+                  if (newClick - lastClick < dblClickTolerance) {
+                      if(selected.node.data.selectable == true) handler.doubleclicked(e)
                   }
+                  else {
+                      $(canvas).bind('mousemove', handler.dragged)
+                      $(window).bind('mouseup', handler.dropped)
+                  }
+
+                  lastClick = new Date().getTime();
+                  return false
+              },
+
+              clickedUp:function (e){
+                  if (!wasDragged) {
+                      if (selected.node.data.selectable == true) handler.singleclicked(e)
+                  }
+                  else wasDragged = false
+                  $(canvas).unbind('mousemove', handler.dragged)
+                  $(window).unbind('mouseup', handler.dropped)
+                  return false
+              },
+
+              dragged:function(e){
+                  var old_nearest = nearest && nearest.node._id
+                  var pos = $(canvas).offset();
+                  var s = arbor.Point(e.pageX-pos.left, e.pageY-pos.top)
+                  if (!nearest) return
+                  if (dragged !== null && dragged.node !== null) {
+                      var p = particleSystem.fromScreen(s)
+                      dragged.node.p = p
+                  }
+
+                  wasDragged = true;
+                  return false
+              },
+
+              dropped:function(e){
+                  if (dragged===null || dragged.node===undefined) return
+                  if (dragged.node !== null) dragged.node.fixed = false
+                  dragged.node.tempMass = 50
+                  dragged = null
+                  selected = null
+                  $(canvas).unbind('mousemove', handler.dragged)
+                  $(window).unbind('mouseup', handler.dropped)
+                  _mouseP = null
+                  return false
+              },
+
+              singleclicked:function (e){
+                  var si = document.getElementById('sname')
+                  si.innerHTML = selected.node.data.label
+                  si = document.getElementById('sdescription')
+                  si.innerHTML = selected.node.data.desc
+                  si = document.getElementById('sconnected')
+                  si.innerHTML = '';
+                  for (var i = 0; i < selected.node.data.connected.length; i++)
+                  {
+                      si.innerHTML += selected.node.data.connected[i] + '<br/>'
+                  }
+              },
+
+              doubleclicked: function (e){
+                  //******************** If you come across this section, feel free to help me get it polished ************//
+                  // Changes selected property on mouse click
+                  if (selected.node.data.selected === false) {
+                      selected.node.data.selected = true;
+                  }
+                  else {
+                      selected.node.data.selected = false
+                  }
+
+                  // Changes color of node
+                  if (selected.node.data.selected == true) {
+                      selected.node.data.color = 'blue';
+                  }
+                  else
+                      selected.node.data.color = 'red';
+
+                  var inNodeSelects = false;  // Will be true if node has already been selected
+                  // Loops through the selected services array to determine if selected node on mouse click has already been selected
+                  for (i = 0; i < window.selectedServices.length; i++) {
+                      if (selected.node.data.label === window.selectedServices[i]) {
+                          inNodeSelects = true;
+                          window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
+                      }
+                  }
+
+                  if (inNodeSelects === false) {
+                      window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
+                  }
+
+                  document.getElementById("nodeselect").innerHTML = window.selectedServices.join('\n');  // Display selected nodes on label in view
+
+                  var arraylength = window.selectedServices.length * 14.1;
+
+                  $('#pb').progressbar({value:arraylength});
+
+                  if (dragged.node !== null) dragged.node.fixed = true
+
+                  return false
+              },
+
+              toggleNode: function () {
+                    
               }
-
-              if (inNodeSelects === false) {
-                  nodeselects[nodeselects.length] = selected.node.data.label; // If selected node is not in array, add it
-              }
-
-              document.getElementById("nodeselect").innerHTML = nodeselects.join('\n');  // Display selected nodes on label in view
-
-              var arraylength = nodeselects.length * 14.1;
-
-              $('#pb').progressbar({value:arraylength});
-
-              if (dragged.node !== null) dragged.node.fixed = true
-
-              return false
-          }
         }
         $(canvas).mousedown(handler.clicked);
         $(canvas).mouseup(handler.clickedUp);
