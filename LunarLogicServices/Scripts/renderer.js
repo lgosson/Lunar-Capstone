@@ -214,6 +214,13 @@
               },
 
               doubleclicked: function (e){
+
+                  handler.toggleNode(selected);
+                  
+                  return false
+              },
+
+              toggleNode: function (selected) {
                   //******************** If you come across this section, feel free to help me get it polished ************//
                   // Changes selected property on mouse click
                   if (selected.node.data.selected === false) {
@@ -239,7 +246,7 @@
                       }
                   }
 
-                  if (inNodeSelects === false) {
+                  if (inNodeSelects === false){
                       window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
                   }
 
@@ -247,15 +254,13 @@
 
                   var arraylength = window.selectedServices.length * 14.1;
 
-                  $('#pb').progressbar({value:arraylength});
+                  $('#pb').progressbar({ value: arraylength });
 
                   if (dragged.node !== null) dragged.node.fixed = true
-
-                  return false
               },
 
-              toggleNode: function () {
-                    
+              setSelectedById: function (num) {
+                  
               }
         }
         $(canvas).mousedown(handler.clicked);
