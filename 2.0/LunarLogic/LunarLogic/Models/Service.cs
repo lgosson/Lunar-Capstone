@@ -18,8 +18,28 @@ namespace LunarLogicServices.Models
         public string Description { get; set; }
         public bool ParentInclude { get; set; }
         public bool Selectable { get; set; }
-        public IEnumerable<string> ConnectedServices { get; set; }
-        public IEnumerable<string> ParentServices { get; set; }
+        public IEnumerable<Service> ConnectedServices { get; set; }
+        public IEnumerable<Service> ParentServices { get; set; }
         //parent services are redundant entries for connected services, but are used just to track which connections are parent/child relationships
+    }
+
+    /// <summary>
+    /// This view model exists to translate a service into a format acceptable for the client.
+    /// </summary>
+    public class ServiceViewModel
+    {
+        public ServiceViewModel()
+        {
+            Selectable = true;
+            ConnectedServices = new List<string>();
+            ParentServices = new List<string>();
+        }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool ParentInclude { get; set; }
+        public bool Selectable { get; set; }
+        public List<string> ConnectedServices { get; set; }
+        public List<string> ParentServices { get; set; }
     }
 }

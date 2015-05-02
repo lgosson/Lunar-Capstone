@@ -10,8 +10,8 @@ namespace LunarLogicServices.DAL
     {
         protected override void Seed(ServiceContext context)
         {
-            
-            
+
+
             Service s1 = new Service() { ID = 1, Selectable = false, Name = "Lunar Logic", Description = "Comes From Server. Has a really long description for reasons. It is called Service01 because it is the base service (which may not even BE a service)." };
             Service s2 = new Service() { ID = 2, Name = "Service02", Description = "Another Service" };
             Service s3 = new Service() { ID = 3, Name = "Service03", Description = "The Third Service" };
@@ -21,15 +21,16 @@ namespace LunarLogicServices.DAL
             Service s7 = new Service() { ID = 7, Name = "Service07", Description = "Yet another" };
             Service s8 = new Service() { ID = 8, Name = "Service08", Description = "Yet another" };
 
-            s1.ConnectedServices = new List<string>() { s2.Name, s5.Name, s6.Name, s7.Name, s8.Name};
-            s2.ConnectedServices = new List<string>() { s1.Name, s3.Name, s4.Name };
-            s3.ConnectedServices = new List<string>() { s2.Name };
-            s4.ConnectedServices = new List<string>() { s2.Name };
-            s5.ConnectedServices = new List<string>() { s1.Name };
-            s6.ConnectedServices = new List<string>() { s1.Name };
-            s7.ConnectedServices = new List<string>() { s1.Name };
-            s8.ConnectedServices = new List<string>() { s1.Name };
+            s1.ConnectedServices = new List<Service>() { s2, s5, s6, s7, s8 };
+            s2.ConnectedServices = new List<Service>() { s1, s3, s4 };
+            s3.ConnectedServices = new List<Service>() { s2 };
+            s4.ConnectedServices = new List<Service>() { s2 };
+            s5.ConnectedServices = new List<Service>() { s1 };
+            s6.ConnectedServices = new List<Service>() { s1 };
+            s7.ConnectedServices = new List<Service>() { s1 };
+            s8.ConnectedServices = new List<Service>() { s1 };
 
+            s1.ParentServices = new List<Service>();
             s2.ParentServices = s2.ConnectedServices;
             s3.ParentServices = s3.ConnectedServices;
             s4.ParentServices = s4.ConnectedServices;
