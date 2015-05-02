@@ -77,14 +77,19 @@
                     sys.addEdge(result[i].Name, result[i].ConnectedServices[j]);
                 }
             }
+            haveSelected(result);
             listSetup(result);
             sys.graft();
         }
 
         function listSetup(result) {
-            for (i = 0; i < result.length; i++) {
-                $('#servicelist ul').append("<li>" + result[i].Name + "</li>");
+            for (i = 1; i < result.length; i++) {
+                $('#servicelist ul').append("<li class='servicelistitem'>" + result[i].Name + "</li>");
             }
+        }
+
+        function haveSelected(result) {
+            $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
         }
     </script>
 </body>

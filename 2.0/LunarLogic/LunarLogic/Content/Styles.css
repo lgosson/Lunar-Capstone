@@ -20,6 +20,20 @@
         overflow:auto;
     }
 
+    .servicelistitem {
+        list-style-type: none;
+        font-family: 'Century Gothic';
+    }
+
+    .servicelistitem:hover {
+        color: orange;
+        background-color:#222328;
+    }
+
+    #haveselected {
+        font-family: 'Century Gothic';
+    }
+
     header {
         background-color: #222328;
         padding-top: 4px;
@@ -43,7 +57,7 @@
     }
 
     .serviceInfo {
-        //color: red;
+        font-family: 'Century Gothic';
     }
 
     h2 {

@@ -252,9 +252,11 @@
 
                   document.getElementById("nodeselect").innerHTML = window.selectedServices.join('\n');  // Display selected nodes on label in view
 
-                  var arraylength = window.selectedServices.length * 14.1;
+                  var arraylength = window.selectedServices.length * 14.1; // Progress bar length
 
-                  $('#pb').progressbar({ value: arraylength });
+                  $('#pb').progressbar({ value: arraylength }); // Update progress bar
+
+                  $('#haveselected').html("I have chosen " + window.selectedServices.length + " services out of");
 
                   if (dragged.node !== null) dragged.node.fixed = true
               },
