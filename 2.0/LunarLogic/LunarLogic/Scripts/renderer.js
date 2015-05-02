@@ -221,13 +221,14 @@
               },
 
               toggleNode: function (selected) {
-                  //******************** If you come across this section, feel free to help me get it polished ************//
                   // Changes selected property on mouse click
                   if (selected.node.data.selected === false) {
                       selected.node.data.selected = true;
+                      $('#'+ selected.node.data.id).css("color", "red");
                   }
                   else {
                       selected.node.data.selected = false
+                      $('#' + selected.node.data.id).css("color", "black");
                   }
 
                   // Changes color of node

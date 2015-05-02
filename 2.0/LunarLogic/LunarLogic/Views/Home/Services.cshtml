@@ -85,7 +85,8 @@
 
         function listSetup(result) {
             for (i = 1; i < result.length; i++) {
-                $('#servicelist ul').append("<li class='servicelistitem'>" + result[i].Name + "</li>");
+                var id = i + 1;
+                $('#servicelist ul').append('<li class=servicelistitem id=' + id + '>' + result[i].Name + '</li>');
             }
         }
 
@@ -93,6 +94,7 @@
             $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
             window.servicesResults = result;
         }
+
     </script>
 </body>
 </html>
