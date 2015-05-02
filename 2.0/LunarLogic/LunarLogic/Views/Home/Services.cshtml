@@ -77,7 +77,14 @@
                     sys.addEdge(result[i].Name, result[i].ConnectedServices[j]);
                 }
             }
+            listSetup(result);
             sys.graft();
+        }
+
+        function listSetup(result) {
+            for (i = 0; i < result.length; i++) {
+                $('#servicelist ul').append("<li>" + result[i].Name + "</li>");
+            }
         }
     </script>
 </body>

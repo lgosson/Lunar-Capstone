@@ -9,6 +9,17 @@
         //color: red;
     }
 
+    #pb {
+         width: 220px;
+    }
+
+    #servicelist {
+        height:400px;
+        width:220px;
+        border:1px solid #ccc;
+        overflow:auto;
+    }
+
     header {
         background-color: #222328;
         padding-top: 4px;
