@@ -23,7 +23,9 @@
 <body style="background: linear-gradient(darkblue, black)">
 
     <div class="container-fluid">
-        <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
+        <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a>
+        <br />
+        <span id="nodestuff" style="color: red;">NODE STUFF HERE</span></div>
         <div class="row">
         <div class="col-md-2">
             @Html.Partial("_ServiceInformation")
@@ -38,6 +40,7 @@
 
     <script type="text/javascript">
         window.selectedServices = [];
+        var nodestuff = "this is some stuff here";
 
         (function () {
 
@@ -76,7 +79,14 @@
                 }
             }
             sys.graft();
+            listSetup();
         }
+
+        function listSetup(result) {
+            alert("something");
+        }
+
+        
     </script>
 </body>
 </html>
