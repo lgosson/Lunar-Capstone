@@ -251,8 +251,6 @@
                       window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
                   }
 
-                  document.getElementById("nodeselect").innerHTML = window.selectedServices.join('\n');  // Display selected nodes on label in view
-
                   // *** Updating progress bar *** //
                   var onehundredpercentofprogressbar = 100 / (window.servicesResults.length - 1);
                   var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
