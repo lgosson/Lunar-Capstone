@@ -252,11 +252,13 @@
 
                   document.getElementById("nodeselect").innerHTML = window.selectedServices.join('\n');  // Display selected nodes on label in view
 
-                  var arraylength = window.selectedServices.length * 14.1; // Progress bar length
+                  // *** Updating progress bar *** //
+                  var onehundredpercentofprogressbar = 100 / (window.servicesResults.length - 1);
+                  var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
+                  $('#pb').progressbar({ value: barprogress });
 
-                  $('#pb').progressbar({ value: arraylength }); // Update progress bar
-
-                  $('#haveselected').html("I have chosen " + window.selectedServices.length + " services out of");
+                  // Update how many services the user has selected
+                  $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.servicesResults.length - 1) + " services");
 
                   if (dragged.node !== null) dragged.node.fixed = true
               },
