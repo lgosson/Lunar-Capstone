@@ -65,15 +65,17 @@
                     'shape': 'dot',
                     label: result[i].Name,
                     desc: result[i].Description,
-                    id: result[i].ID,
                     'selectable': result[i].Selectable,
                     'connected': result[i].ConnectedServices,
                     'selected': false
                 });
             }
-            //GET THIS TO WORK BEFORE MOVING ONTO DYNAMIC NODE CREATION/DELETIO
-            //var n = sys.getNode('1');
-            //alert(n.node.id);
+            /* THIS IS HOW TO GET AND FULLY REMOVE A NODE
+            var n = sys.getNode('1');
+            alert(n.name);
+            sys.pruneNode(n);
+            sys.pruneEdge(n);
+            */
 
             for (i = 0; i < result.length; i++) {
 
