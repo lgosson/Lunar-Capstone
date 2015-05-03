@@ -28,12 +28,27 @@ namespace LunarLogicServices.Models
     /// </summary>
     public class ServiceViewModel
     {
-        public ServiceViewModel()
+        public ServiceViewModel(Service s)
         {
-            Selectable = true;
+            ID = s.ID;
+            Name = s.Name;
+            Description = s.Description;
+            Selectable = s.Selectable;
+            ParentInclude = s.ParentInclude;
+
             ConnectedServices = new List<string>();
+            foreach (Service connected in s.ConnectedServices)
+            {
+                ConnectedServices.Add(connected.Name);
+            }
+
             ParentServices = new List<string>();
+            foreach (Service connected in s.ParentServices)
+            {
+                ParentServices.Add(connected.Name);
+            }
         }
+
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

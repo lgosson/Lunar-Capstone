@@ -101,7 +101,7 @@
             ctx.moveTo(tail.x, tail.y)
             ctx.lineTo(head.x, head.y)
             ctx.stroke()
-          ctx.restore()
+            ctx.restore()
 
           // draw an arrowhead if this is a -> style edge
           if (edge.data.directed){

@@ -64,22 +64,9 @@ namespace LunarLogic.Controllers
 
             List<Service> servicesToConvert = new List<Service>(){s1,s2,s3,s4,s5,s6,s7,s8};
             List<ServiceViewModel> svms  = new List<ServiceViewModel>(){};
-
             foreach(Service s in servicesToConvert)
             {
-                var svm = new ServiceViewModel { ID = s.ID, Name = s.Name, Description = s.Description, Selectable = s.Selectable, ParentInclude = s.ParentInclude};
-
-                foreach(Service connected in s.ConnectedServices)
-                {
-                    svm.ConnectedServices.Add(connected.Name);
-                }
-
-                foreach(Service connected in s.ParentServices)
-                {
-                    svm.ParentServices.Add(connected.Name);
-                }
-
-                svms.Add(svm);
+                svms.Add(new ServiceViewModel(s));
             }
 
             return Json(svms, JsonRequestBehavior.AllowGet);
