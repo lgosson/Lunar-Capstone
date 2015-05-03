@@ -30,7 +30,7 @@ namespace LunarLogicServices.Models
     {
         public ServiceViewModel(Service s)
         {
-            ID = s.ID;
+            ID = s.ID.ToString();
             Name = s.Name;
             Description = s.Description;
             Selectable = s.Selectable;
@@ -39,17 +39,17 @@ namespace LunarLogicServices.Models
             ConnectedServices = new List<string>();
             foreach (Service connected in s.ConnectedServices)
             {
-                ConnectedServices.Add(connected.Name);
+                ConnectedServices.Add(connected.ID.ToString());
             }
 
             ParentServices = new List<string>();
             foreach (Service connected in s.ParentServices)
             {
-                ParentServices.Add(connected.Name);
+                ParentServices.Add(connected.ID.ToString());
             }
         }
 
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool ParentInclude { get; set; }
