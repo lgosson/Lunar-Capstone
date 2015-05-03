@@ -224,7 +224,7 @@
                   // Changes selected property on mouse click
                   if (selected.node.data.selected === false) {
                       selected.node.data.selected = true;
-                      $('#'+ selected.node.data.id).css("color", "red");
+                      $('#' + selected.node.data.id).css("color", "red");
                   }
                   else {
                       selected.node.data.selected = false
