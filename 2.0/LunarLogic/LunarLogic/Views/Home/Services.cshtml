@@ -58,12 +58,11 @@
             var sys = arbor.ParticleSystem(50, 1000, .5);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
-
+            
             for (i = 0; i < result.length; i++) {
-                sys.addNode(result[i].Name, {
+                sys.addNode(result[i].ID, {
                     'color': 'red',
                     'shape': 'dot',
-                    id: result[i].ID,
                     label: result[i].Name,
                     desc: result[i].Description,
                     'selectable': result[i].Selectable,
@@ -71,11 +70,14 @@
                     'selected': false
                 });
             }
+            //GET THIS TO WORK BEFORE MOVING ONTO DYNAMIC NODE CREATION/DELETIO
+            //var n = sys.getNode('1');
+            //alert(n.node.id);
 
             for (i = 0; i < result.length; i++) {
 
                 for (j = 0; j < result[i].ConnectedServices.length; j++) {
-                    sys.addEdge(result[i].Name, result[i].ConnectedServices[j]);
+                    sys.addEdge(result[i].ID, result[i].ConnectedServices[j]);
                 }
             }
             haveSelected(result);
