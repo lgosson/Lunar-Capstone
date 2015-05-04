@@ -16,8 +16,21 @@
         particleSystem.screenPadding(40)
 
         that.initMouseHandling();
+        that.listclicker();
 
         //**$(window).resize(this.windowsized);
+      },
+
+      listclicker: function () {
+          $('document').ready(function () {
+              $('li').click(function () {
+                  var liId = this.id;
+                  //alert(liId);
+                  particleSystem.eachNode(function (node, pt) {
+                      if (node.data.name == liId && node.data.selected == false) node.data.selected = true
+                  })
+              })
+          });
       },
 
       //**windowsized: function () {
@@ -53,7 +66,8 @@
           }
 
           // draw a rectangle centered at pt
-          if (node.data.color) ctx.fillStyle = node.data.color
+          if (node.data.color) ctx.fillStyle = "green"
+              if (node.data.selected === true) ctx.fillStyle = "blue"
           else ctx.fillStyle = "rgba(0,0,0,.2)"
           if (node.data.color=='none') ctx.fillStyle = "white"
 

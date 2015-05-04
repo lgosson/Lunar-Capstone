@@ -82,6 +82,7 @@
         function graphDraw(result, sys) {
             for (i = 0; i < result.length; i++) {
                 sys.addNode(result[i].name, {
+                    name: result[i].name,
                     label: result[i].label,
                     'desc': result[i].desc,
                     'selectable': result[i].selectable,
