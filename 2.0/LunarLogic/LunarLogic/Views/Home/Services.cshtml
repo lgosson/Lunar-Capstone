@@ -27,18 +27,19 @@
             <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
         </header>
         <div class="row">
-        <div class="col-md-2">
-            @Html.Partial("_ServiceInformation")
+            <div class="col-md-2">
+                @Html.Partial("_ServiceInformation")
+            </div>
+            <div class="col-md-8"><canvas id="viewport" width="1200" height="850"></canvas></div>
+            <div id="serviceinfo" class="col-md-2">
+                @Html.Partial("_PersonalPlan")
+            </div>
         </div>
-        <div class="col-md-8"><canvas id="viewport" width="1200" height="850"></canvas></div>
-        <div id="serviceinfo" class="col-md-2">
-            @Html.Partial("_PersonalPlan")
-        </div>
-    </div>
-        
+
     </div>
 
     <script type="text/javascript">
+        window.services = [];
         window.selectedServices = [];
         window.servicesResults = [];
 
@@ -58,46 +59,73 @@
             var sys = arbor.ParticleSystem(50, 1000, .5);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
-            
+
             for (i = 0; i < result.length; i++) {
-                sys.addNode(result[i].ID, {
-                    'color': 'red',
-                    'shape': 'dot',
-                    label: result[i].Name,
-                    desc: result[i].Description,
-                    'selectable': result[i].Selectable,
-                    'connected': result[i].ConnectedServices,
-                    'selected': false
+                var s = new service();
+                s.name = result[i].ID;
+                s.label = result[i].Name;
+                s.desc = result[i].Description;
+                s.selectable = result[i].Selectable;
+                s.selected = false;
+                s.connected = result[i].ConnectedServices;
+                s.color = 'red';
+                s.shape = 'dot';
+
+                window.services.push(s);
+            }
+            haveSelected(window.services);
+            listSetup(window.services);
+            //this needs to be at the BOTTOM. nothing after sys.graft() will execute. particle sys BUG?
+            graphDraw(window.services, sys);
+        }
+
+        function graphDraw(result, sys) {
+            for (i = 0; i < result.length; i++) {
+                sys.addNode(result[i].name, {
+                    label: result[i].label,
+                    'desc': result[i].desc,
+                    'selectable': result[i].selectable,
+                    'selected': result[i].selected,
+                    'connected': result[i].connected,
+                    'color': result[i].color,
+                    'shape': result[i].shape
                 });
             }
-            /* THIS IS HOW TO GET AND FULLY REMOVE A NODE
-            var n = sys.getNode('1');
-            alert(n.name);
-            sys.pruneNode(n);
-            sys.pruneEdge(n);
-            */
-
+            
             for (i = 0; i < result.length; i++) {
-
-                for (j = 0; j < result[i].ConnectedServices.length; j++) {
-                    sys.addEdge(result[i].ID, result[i].ConnectedServices[j]);
+                for (j = 0; j < result[i].connected.length; j++) {
+                    sys.addEdge(result[i].name, result[i].connected[j]);
                 }
             }
-            haveSelected(result);
-            listSetup(result);
+            //not currently used; will be
+            //sys.pruneNode(result[i].ID);
+            //sys.pruneEdge(result[i].ID);
             sys.graft();
         }
 
         function listSetup(result) {
-            for (i = 1; i < result.length; i++) {
-                var id = i + 1;
-                $('#servicelist ul').append('<li class=servicelistitem id=' + id + '>' + result[i].Name + '</li>');
+            for (i = 0; i < result.length; i++) {
+                if (result[i].selectable == true) {
+                    var id = i + 1;
+                    $('#servicelist ul').append('<li class=servicelistitem id=' + id + '>' + result[i].label + '</li>');
+                }
             }
         }
 
         function haveSelected(result) {
             $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
             window.servicesResults = result;
+        }
+
+        function service() {
+            name = '';
+            label = '';
+            desc = '';
+            selectable = false;
+            selected = false;
+            connected = [];
+            color = 'red';
+            shape = 'dot';
         }
 
     </script>
