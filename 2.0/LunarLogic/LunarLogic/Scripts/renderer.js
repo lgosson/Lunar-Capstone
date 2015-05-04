@@ -16,18 +16,41 @@
         particleSystem.screenPadding(40)
 
         that.initMouseHandling();
-        that.listclicker();
+        that.listitemClick();
 
         //**$(window).resize(this.windowsized);
       },
 
-      listclicker: function () {
+      listitemClick: function () {
           $('document').ready(function () {
               $('li').click(function () {
                   var liId = this.id;
-                  //alert(liId);
                   particleSystem.eachNode(function (node, pt) {
-                      if (node.data.name == liId && node.data.selected == false) node.data.selected = true
+                      
+
+                      if (node.data.name == liId && node.data.selected == false) {
+                          node.data.selected = true;
+                          window.selectedServices[window.selectedServices.length] = node.data.label;
+                      }
+                      else if (node.data.name == liId && node.data.selected == true) {
+                          node.data.selected = false;
+                          for (i = 0; i < window.selectedServices.length; i++) {
+                              if (node.data.label === window.selectedServices[i]) {
+                                  inNodeSelects = true;
+                                  window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
+                              }
+                          }
+                      }
+
+                      $('#nodeselected').html(window.selectedServices.toString());
+
+                      // *** Updating progress bar *** //
+                      var onehundredpercentofprogressbar = 100 / (window.servicesResults.length - 1);
+                      var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
+                      $('#pb').progressbar({ value: barprogress });
+
+                      // Update how many services the user has selected
+                      $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.servicesResults.length - 1) + " services");
                   })
               })
           });
@@ -66,9 +89,9 @@
           }
 
           // draw a rectangle centered at pt
-          if (node.data.color) ctx.fillStyle = "green"
-              if (node.data.selected === true) ctx.fillStyle = "blue"
-          else ctx.fillStyle = "rgba(0,0,0,.2)"
+          if (node.data.color) ctx.fillStyle = node.data.color
+          if (node.data.selected === false) ctx.fillStyle = "blue"
+            else ctx.fillStyle = "rgba(0,0,0,.2)"
           if (node.data.color=='none') ctx.fillStyle = "white"
 
           if (node.data.shape=='dot'){
