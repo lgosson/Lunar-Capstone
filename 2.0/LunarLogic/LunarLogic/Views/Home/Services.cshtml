@@ -80,27 +80,42 @@
         }
 
         function graphDraw(result, sys) {
+            var display = [];
             for (i = 0; i < result.length; i++) {
-                sys.addNode(result[i].name, {
-                    name: result[i].name,
-                    label: result[i].label,
-                    'desc': result[i].desc,
-                    'selectable': result[i].selectable,
-                    'selected': result[i].selected,
-                    'connected': result[i].connected,
-                    'color': result[i].color,
-                    'shape': result[i].shape
+
+                if(result[i].selectable == false || result[i].selected == true){
+                    display.push(result[i]);
+                    for (j = 0; j < result[i].connected.length; j++) {
+                        for (k = 0; k < result.length; k++) {
+                            if (result[k].name == result[i].connected[j]) {
+                                display.push(result[k]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (i = 0; i < display.length; i++) {
+                sys.addNode(display[i].name, {
+                    name: display[i].name,
+                    label: display[i].label,
+                    'desc': display[i].desc,
+                    'selectable': display[i].selectable,
+                    'selected': display[i].selected,
+                    'connected': display[i].connected,
+                    'color': display[i].color,
+                    'shape': display[i].shape
                 });
             }
             
-            for (i = 0; i < result.length; i++) {
-                for (j = 0; j < result[i].connected.length; j++) {
-                    sys.addEdge(result[i].name, result[i].connected[j]);
+            for (i = 0; i < display.length; i++) {
+                for (j = 0; j < display[i].connected.length; j++) {
+                    for (k = 0; k < display.length; k++) {
+                        if(display[k].name == display[i].connected[j])
+                            sys.addEdge(display[i].name, display[i].connected[j]);
+                    }
                 }
             }
-            //not currently used; will be
-            //sys.pruneNode(result[i].ID);
-            //sys.pruneEdge(result[i].ID);
             sys.graft();
         }
 
