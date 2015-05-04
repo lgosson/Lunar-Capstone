@@ -1,4 +1,5 @@
 ﻿body {
+    background-color: #EEEEEE;
 }
     .contactLabel{
         float: left;
@@ -18,11 +19,14 @@
         width:220px;
         border:1px solid #ccc;
         overflow:auto;
+        background-color: #333333;
     }
 
     .servicelistitem {
         list-style-type: none;
         font-family: 'Century Gothic';
+        font-size: large;
+        color: lightgrey;
     }
 
     .servicelistitem:hover {
