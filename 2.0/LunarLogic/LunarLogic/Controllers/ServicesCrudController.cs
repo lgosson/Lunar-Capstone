@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using LunarLogicServices.DAL;
-using LunarLogicServices.Models;
+using LunarLogic.Models;
+using LunarLogic.DAL;
 
-namespace LunarLogicServices.Controllers
+namespace LunarLogic.Controllers
 {
     public class ServicesCrudController : Controller
     {

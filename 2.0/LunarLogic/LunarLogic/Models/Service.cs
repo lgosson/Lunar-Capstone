@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace LunarLogicServices.Models
+namespace LunarLogic.Models
 {
     public class Service
     {
@@ -18,8 +18,9 @@ namespace LunarLogicServices.Models
         public string Description { get; set; }
         public bool ParentInclude { get; set; }
         public bool Selectable { get; set; }
-        public IEnumerable<Service> ConnectedServices { get; set; }
-        public IEnumerable<Service> ParentServices { get; set; }
+
+        public virtual ICollection<Service> ConnectedServices { get; set; }
+        public virtual ICollection<Service> ParentServices { get; set; }
         //parent services are redundant entries for connected services, but are used just to track which connections are parent/child relationships
     }
 

@@ -1,12 +1,12 @@
-﻿using LunarLogicServices.Models;
+﻿using LunarLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LunarLogicServices.DAL
+namespace LunarLogic.DAL
 {
-    public class ServiceInitializer : System.Data.Entity. DropCreateDatabaseIfModelChanges<ServiceContext>
+    public class ServiceInitializer : System.Data.Entity. DropCreateDatabaseIfModelChanges <ServiceContext>
     {
         protected override void Seed(ServiceContext context)
         {
@@ -30,7 +30,7 @@ namespace LunarLogicServices.DAL
             s7.ConnectedServices = new List<Service>() { s1 };
             s8.ConnectedServices = new List<Service>() { s1 };
 
-            s1.ParentServices = new List<Service>();
+            s1.ParentServices = s1.ConnectedServices;
             s2.ParentServices = s2.ConnectedServices;
             s3.ParentServices = s3.ConnectedServices;
             s4.ParentServices = s4.ConnectedServices;
