@@ -58,3 +58,7 @@ Temporary Items
 *.ldf
 # do not let specific config file update. (due to various differences in sql server versions between machines)
 Web.config
+
+
+#this is the command used for ignoring a file. Replace filena.extension with the necessary file
+#git update-index --assume-unchanged filename.extension

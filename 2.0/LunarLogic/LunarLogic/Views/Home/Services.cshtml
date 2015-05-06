@@ -77,7 +77,8 @@
             listSetup(window.services);
             //this needs to be at the BOTTOM. nothing after sys.graft() will execute. particle sys BUG?
             //also, try to remove need to pass in sys here. Renderer has internal particle system. Try using that.
-            sys.renderer.graphDraw(window.services, sys);
+            sys.renderer.init(sys);
+            sys.renderer.graphDraw(window.services);
         }
 
         function listSetup(result) {

@@ -21,7 +21,7 @@
                 //**$(window).resize(this.windowsized);
             },
 
-            graphDraw: function (result, sys) {
+            graphDraw: function (result) {
                 var display = [];
                 for (i = 0; i < result.length; i++) {
                     if (result[i].selectable == false || result[i].selected == true) {
@@ -35,20 +35,20 @@
                         }
                     }
                     else {
-                        var n = sys.getNode(result[i].name);
+                        var n = particleSystem.getNode(result[i].name);
                         if (n != null) {
-                            var edges = sys.getEdgesTo(n);
+                            var edges = particleSystem.getEdgesTo(n);
                             for (e = 0; e < e.length; e++) {
-                                sys.pruneEdge(edges[e]);
+                                particleSystem.pruneEdge(edges[e]);
                             }
-                            sys.pruneNode(n);
+                            particleSystem.pruneNode(n);
                         }
                     }
                 }
 
                 for (i = 0; i < display.length; i++) {
-                    if (sys.getNode(display[i].name) == null) {
-                        sys.addNode(display[i].name, {
+                    if (particleSystem.getNode(display[i].name) == null) {
+                        particleSystem.addNode(display[i].name, {
                             name: display[i].name,
                             label: display[i].label,
                             'desc': display[i].desc,
@@ -65,11 +65,11 @@
                     for (j = 0; j < display[i].connected.length; j++) {
                         for (k = 0; k < display.length; k++) {
                             if (display[k].name == display[i].connected[j])
-                                sys.addEdge(display[i].name, display[i].connected[j]);
+                                particleSystem.addEdge(display[i].name, display[i].connected[j]);
                         }
                     }
                 }
-                sys.graft();
+                particleSystem.graft();
             },
 
             //**windowsized: function () {
