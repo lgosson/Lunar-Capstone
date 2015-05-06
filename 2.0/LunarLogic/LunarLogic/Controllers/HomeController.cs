@@ -36,6 +36,7 @@ namespace LunarLogic.Controllers
         
         public JsonResult GetServiceData()
         {
+            #region pre-database test data
             //test. Eventually services come from db
             
             //Service s1 = new Service() { ID = 1, Selectable = false, Name = "Lunar Logic", Description = "Comes From Server. Has a really long description for reasons. It is called Service01 because it is the base service (which may not even BE a service)." };
@@ -64,11 +65,10 @@ namespace LunarLogic.Controllers
            // s6.ParentServices = s6.ConnectedServices;
            // s7.ParentServices = s7.ConnectedServices;
            // s8.ParentServices = s8.ConnectedServices;
-
-            
+            //new List<Service>(){s1,s2,s3,s4,s5,s6,s7,s8};
+            #endregion data
 
             List<Service> servicesToConvert =  db.Services.ToList(); 
-            //new List<Service>(){s1,s2,s3,s4,s5,s6,s7,s8};
 
            List<ServiceViewModel> svms  = new List<ServiceViewModel>(){};
             foreach(Service s in servicesToConvert)

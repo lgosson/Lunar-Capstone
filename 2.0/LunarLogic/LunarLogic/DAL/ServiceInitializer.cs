@@ -11,8 +11,6 @@ namespace LunarLogic.DAL
     {
         protected override void Seed(ServiceContext context)
         {
-
-
             Service s1 = new Service() { ID = 1, Selectable = false, Name = "Lunar Logic", Description = "Comes From Server. Has a really long description for reasons. It is called Service01 because it is the base service (which may not even BE a service)." };
             Service s2 = new Service() { ID = 2, Name = "Service02", Description = "Another Service" };
             Service s3 = new Service() { ID = 3, Name = "Service03", Description = "The Third Service" };

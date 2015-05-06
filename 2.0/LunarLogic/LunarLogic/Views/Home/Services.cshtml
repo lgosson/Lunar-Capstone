@@ -76,59 +76,8 @@
             haveSelected(window.services);
             listSetup(window.services);
             //this needs to be at the BOTTOM. nothing after sys.graft() will execute. particle sys BUG?
-            graphDraw(window.services, sys);
-        }
-
-        function graphDraw(result, sys) {
-            var display = [];
-            for (i = 0; i < result.length; i++) {
-                if (result[i].selectable == false || result[i].selected == true) {
-                    display.push(result[i]);
-                    for (j = 0; j < result[i].connected.length; j++) {
-                        for (k = 0; k < result.length; k++) {
-                            if (result[k].name == result[i].connected[j]) {
-                                display.push(result[k]);
-                            }
-                        }
-                    }
-                }
-                else {
-                    var n = sys.getNode(result[i].name);
-                    if (n != null)
-                    {
-                        var edges = sys.getEdgesTo(n);
-                        for (e = 0; e < e.length; e++) {
-                            sys.pruneEdge(edges[e]);
-                        }
-                        sys.pruneNode(n);
-                    }
-                }
-            }
-
-            for (i = 0; i < display.length; i++) {
-                if (sys.getNode(display[i].name) == null) {
-                    sys.addNode(display[i].name, {
-                        name: display[i].name,
-                        label: display[i].label,
-                        'desc': display[i].desc,
-                        'selectable': display[i].selectable,
-                        'selected': display[i].selected,
-                        'connected': display[i].connected,
-                        'color': display[i].color,
-                        'shape': display[i].shape
-                    });
-                }
-            }
-            
-            for (i = 0; i < display.length; i++) {
-                for (j = 0; j < display[i].connected.length; j++) {
-                    for (k = 0; k < display.length; k++) {
-                        if(display[k].name == display[i].connected[j])
-                            sys.addEdge(display[i].name, display[i].connected[j]);
-                    }
-                }
-            }
-            sys.graft();
+            //also, try to remove need to pass in sys here. Renderer has internal particle system. Use that?
+            sys.renderer.graphDraw(window.services, sys);
         }
 
         function listSetup(result) {
