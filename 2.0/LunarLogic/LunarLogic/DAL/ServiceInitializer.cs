@@ -6,7 +6,8 @@ using System.Web;
 
 namespace LunarLogic.DAL
 {
-    public class ServiceInitializer : System.Data.Entity. DropCreateDatabaseIfModelChanges <ServiceContext>
+    public class ServiceInitializer : System.Data.Entity. //DropCreateDatabaseIfModelChanges <ServiceContext>
+        DropCreateDatabaseAlways<ServiceContext>
     {
         protected override void Seed(ServiceContext context)
         {

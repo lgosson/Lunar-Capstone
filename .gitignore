@@ -56,3 +56,5 @@ Temporary Items
 *.log 
 *.mdf
 *.ldf
+# do not let specific config file update. (due to various differences in sql server versions between machines)
+Web.config
