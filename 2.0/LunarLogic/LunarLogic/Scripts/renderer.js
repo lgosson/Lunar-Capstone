@@ -21,6 +21,10 @@
                 //**$(window).resize(this.windowsized);
             },
 
+            initialize: function (system){
+                particleSystem = system;
+            },
+
             graphDraw: function (result) {
                 var display = [];
                 for (i = 0; i < result.length; i++) {
@@ -182,6 +186,7 @@
                     }
                 })
             },
+
             initMouseHandling: function () {
                 // no-nonsense drag and drop (thanks springy.js)
                 selected = null;

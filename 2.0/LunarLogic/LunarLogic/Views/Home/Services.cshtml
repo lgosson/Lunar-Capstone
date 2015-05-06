@@ -77,7 +77,7 @@
             listSetup(window.services);
             //this needs to be at the BOTTOM. nothing after sys.graft() will execute. particle sys BUG?
             //also, try to remove need to pass in sys here. Renderer has internal particle system. Try using that.
-            sys.renderer.init(sys);
+            sys.renderer.initialize(sys);
             sys.renderer.graphDraw(window.services);
         }
 
