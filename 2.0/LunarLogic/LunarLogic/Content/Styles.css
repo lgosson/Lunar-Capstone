@@ -63,6 +63,7 @@
         background-color: #222328;
         padding-top: 4px;
         padding-bottom: 4px;
+        box-shadow: 0 0 5px black;
     }
 
     input, textarea {
@@ -83,3 +84,16 @@
     .serviceInfo {
         font-family: 'Century Gothic';
     }
+
+    #pplan {
+  position: fixed;
+  //top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: rgb(68, 68, 68);
+  color: white;
+  padding: 30px;
+  box-shadow: 0 0 5px black;
+  text-align: center;
+}

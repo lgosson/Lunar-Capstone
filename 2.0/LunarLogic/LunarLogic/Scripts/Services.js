@@ -43,6 +43,24 @@
 //})
 $(document).ready(function () {
     $('#pb').progressbar();
+
+        $(document).ready(function () {
+            $('#pplan').sidebar({
+                side: "right"
+            });
+
+            $("#sidebar").on("click", function () {
+                $("#pplan").sidebar({
+                    speed: 300,
+                    side: "right"
+                }).trigger("sidebar:open");
+            });
+            $("#sidebarclose").on("click", function () {
+                $("#pplan").sidebar({
+                    side: "right"
+                }).trigger("sidebar:close");
+            });
+        });
 });
 
 

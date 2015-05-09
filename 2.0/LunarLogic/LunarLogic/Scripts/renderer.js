@@ -110,8 +110,8 @@
 
                     // draw a rectangle centered at pt
                     if (node.data.color) ctx.fillStyle = node.data.color
-                    if (node.data.selected === false) ctx.fillStyle = "blue"
-                    else ctx.fillStyle = "rgba(0,0,0,.2)"
+                    if (node.data.selected === false) ctx.fillStyle = "rgba(0,0,0,.2)"
+                    else ctx.fillStyle = "blue";
                     if (node.data.color == 'none') ctx.fillStyle = "white"
 
                     if (node.data.shape == 'dot') {
@@ -259,10 +259,8 @@
                     },
 
                     singleclicked: function (e) {
-                        var si = document.getElementById('sname')
-                        si.innerHTML = selected.node.data.label
-                        si = document.getElementById('sdescription')
-                        si.innerHTML = selected.node.data.desc
+                        $('#sname').html(selected.node.data.label);
+                        $('#sdescription').html(selected.node.data.desc);
                         si = document.getElementById('sconnected')
                         si.innerHTML = '';
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
@@ -336,9 +334,16 @@
                         $(this).css("background-color", "grey");
                         var liId = this.id;
                         particleSystem.eachNode(function (node, pt) {
-
-
                             if (node.data.name == liId && node.data.selected == false) {
+                                if (node.data.name == liId) {
+                                    $('#sname').html(node.data.label);
+                                    $('#sdescription').html(node.data.desc);
+                                    si = document.getElementById('sconnected')
+                                    si.innerHTML = '';
+                                    for (var i = 0; i < node.data.connected.length; i++) {
+                                        si.innerHTML += node.data.connected[i] + '<br/>'
+                                    };
+                                }
                                 node.data.selected = true;
                                 window.selectedServices[window.selectedServices.length] = node.data.label;
                             }
