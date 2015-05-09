@@ -2,43 +2,43 @@
 
 
 <div>
-    <h4 class="serviceInfo">Service Information</h4>
+    <br />
+    <h2 class="serviceInfoheader" id="serviceinfoheader">Service Information</h2>
     <hr />
-    <dl class="dl-horizontal">
-        <dt class="serviceInfo">
+    <ul class="dl-horizontal" id="serviceinfolist">
+        <li class="serviceInfo">
             @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd id="sname" class="serviceInfo">
+        </li>
+        <li id="sname" class="serviceInfo">
             @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt class="serviceInfo">
+        </li>
+        <li class="serviceInfo">
             @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        </li>
 
-        <dd id="sdescription" class="serviceInfo">
+        <li id="sdescription" class="serviceInfo">
             @Html.DisplayFor(model => model.Description)
-        </dd>
+        </li>
 
-        <dt class="serviceInfo">
-            @Html.DisplayNameFor(model => model.ConnectedServices)
-        </dt>
+        <li class="serviceInfo">
+            @*@Html.DisplayNameFor(model => model.ConnectedServices)*@
+            Services you may be interested in:
+        </li>
 
-        @if(Model != null && Model.ConnectedServices != null)
+        @if (Model != null && Model.ConnectedServices != null)
         {
-            foreach(string s in Model.ConnectedServices)
+            foreach (string s in Model.ConnectedServices)
             {
-                <dd>
+                <li>
                     @s
-                </dd>
+                </li>
             }
         }
         //otherwise there is no info that was passed in here, so there needs to be an element with an id for client-side population
         else
         {
-            <dd id="sconnected"> </dd>
+            <li id="sconnected"> </li>
         }
 
-    </dl>
+    </ul>
 </div>

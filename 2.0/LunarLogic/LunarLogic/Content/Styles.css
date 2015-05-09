@@ -7,7 +7,6 @@
         text-align: right;
         margin-top: 8px;
         clear: left;
-        //color: red;
     }
 
     #pb {
@@ -19,7 +18,7 @@
         width:220px;
         border:1px solid #ccc;
         overflow:auto;
-        background-color: #333333;
+        background-color: #FCFCFC;
     }
 
     .servicelistitem {
@@ -34,8 +33,30 @@
         background-color:#222328;
     }
 
+    .serviceInfo {
+        text-align: center;
+        margin-right: 20px;
+        font-weight: bold;
+    }
+
     #haveselected {
         font-family: 'Century Gothic';
+    }
+
+    #serviceinfolist {
+        list-style-type: none;
+        padding-top: 12px;
+        margin-top: 12px;
+        font-family: 'Century Gothic';
+        font-size: large;
+        font-weight: bold;
+    }
+
+    #serviceinfoheader{
+        font-family: 'Century Gothic';
+        text-align: center;
+        margin-left: 20px;
+        font-weight:bolder;
     }
 
     header {
@@ -50,7 +71,6 @@
     }
     
     .nodeselect {
-        //color: red;
         margin-left: 30px;
         font-size: 18px;
         padding-top: 20px;
@@ -62,12 +82,4 @@
 
     .serviceInfo {
         font-family: 'Century Gothic';
-    }
-
-    h2 {
-        //color: red;
-    }
-
-    dd {
-        //color: red;
     }

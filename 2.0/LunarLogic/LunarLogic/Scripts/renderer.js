@@ -287,7 +287,7 @@
                         else {
                             selected.node.data.selected = false
                             $('#' + selected.node.name).css("color", "lightgrey");
-                            $('#' + selected.node.name).css("background-color", "#333333");
+                            $('#' + selected.node.name).css("background-color", "#FCFCFC");
                         }
 
                         // Changes color of node
@@ -331,7 +331,7 @@
 
             listItemClick: function () {
                 $('document').ready(function () {
-                    $('li').click(function () {
+                    $('li.servicelistitem').click(function () {
                         $(this).css("color", "orange");
                         $(this).css("background-color", "grey");
                         var liId = this.id;
@@ -344,7 +344,7 @@
                             }
                             else if (node.data.name == liId && node.data.selected == true) {
                                 $('#' + node.data.name).css("color", "lightgrey");
-                                $('#' + node.data.name).css("background-color", "#333333");
+                                $('#' + node.data.name).css("background-color", "#FCFCFC");
                                 node.data.selected = false;
                                 for (i = 0; i < window.selectedServices.length; i++) {
                                     if (node.data.label === window.selectedServices[i]) {
