@@ -50,7 +50,7 @@ $(document).ready(function () {
             });
 
             $("#sidebartoggle").on("click", function () {
-                $("#personalplan").trigger("sidebar:toggle");
+                $("#personalplan").trigger("sidebar:toggle", [{ speed: 350 }]);
             });
         });
 });

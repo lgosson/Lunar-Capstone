@@ -6,13 +6,13 @@
     <h2 class="serviceInfoheader" id="serviceinfoheader">Service Information</h2>
     <hr />
     <ul class="dl-horizontal" id="serviceinfolist">
-        <li class="serviceInfo">
+        <li class="serviceInfoHead">
             @Html.DisplayNameFor(model => model.Name)
         </li>
         <li id="sname" class="serviceInfo">
             @Html.DisplayFor(model => model.Name)
         </li>
-        <li class="serviceInfo">
+        <li class="serviceInfoHead">
             @Html.DisplayNameFor(model => model.Description)
         </li>
 
@@ -20,7 +20,7 @@
             @Html.DisplayFor(model => model.Description)
         </li>
 
-        <li class="serviceInfo">
+        <li class="serviceInfoHead">
             @*@Html.DisplayNameFor(model => model.ConnectedServices)*@
             Services you may be interested in:
         </li>
@@ -29,7 +29,7 @@
         {
             foreach (string s in Model.ConnectedServices)
             {
-                <li>
+                <li class="serviceInfo">
                     @s
                 </li>
             }
