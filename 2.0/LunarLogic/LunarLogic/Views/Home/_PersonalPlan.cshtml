@@ -6,8 +6,7 @@
     <link href="~/Content/Styles.css" rel="stylesheet" />
 </head>
 <div>
-    <br />
-    <h2 class="serviceInfo">My Personal Plan</h2>
+    <h2 id="personalplanheader">My Personal Plan</h2>
     <br />
     <div id="pb"></div>
     <dl>
@@ -22,7 +21,7 @@
     </dl>
 
     <form action="@Url.Action("ContactForm", "Home")">
-        <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" />
+        <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" id="contactbutton" />
     </form>
     <br />
 </div>

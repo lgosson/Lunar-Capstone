@@ -266,6 +266,7 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
+                        $("#personalplan").trigger("sidebar:open"); // Open personal plan sidebar
                     },
 
                     doubleclicked: function (e) {

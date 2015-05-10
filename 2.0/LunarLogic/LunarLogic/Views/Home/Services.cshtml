@@ -26,15 +26,14 @@
    <div class="container-fluid">
     <header>
         <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
-        <a href="#" id="sidebar">Toggle</a>
-        <a href="#" id="sidebarclose">Close</a>
+        <a href="#" id="sidebartoggle" class="btn btn-danger">Personal Plan</a>
     </header>
     <div class="row">
         <div class="col-md-2">
             @Html.Partial("_ServiceInformation")
         </div>
         <div class="col-md-8"><canvas id="viewport" width="1200" height="850"></canvas></div>
-        <div id="pplan" class="col-md-2">
+        <div id="personalplan" class="col-md-2">
             @Html.Partial("_PersonalPlan")
         </div>
     </div>
