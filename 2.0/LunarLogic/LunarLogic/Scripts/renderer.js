@@ -1,5 +1,7 @@
 (function () {
 
+    window.services = [];
+
     Renderer = function (canvas) {
         var canvas = $(canvas).get(0)
         var ctx = canvas.getContext("2d");
@@ -21,12 +23,13 @@
                 //**$(window).resize(this.windowsized);
             },
 
-            initialize: function (system){
+            initialize: function (system, result){
                 particleSystem = system;
             },
 
             graphDraw: function (result) {
                 var display = [];
+
                 for (i = 0; i < result.length; i++) {
                     if (result[i].selectable == false || result[i].selected == true) {
                         display.push(result[i]);
@@ -38,7 +41,8 @@
                             }
                         }
                     }
-                    else {
+                        
+                    /* else {
                         var n = particleSystem.getNode(result[i].name);
                         if (n != null) {
                             var edges = particleSystem.getEdgesTo(n);
@@ -47,7 +51,7 @@
                             }
                             particleSystem.pruneNode(n);
                         }
-                    }
+                    }*/
                 }
 
                 for (i = 0; i < display.length; i++) {
@@ -64,6 +68,22 @@
                         });
                     }
                 }
+
+                particleSystem.eachNode(function (node, pt) {
+                    var remove = true;
+
+                    for (i = 0; i < display.length; i++) {
+                        if (node.name == display[i].name) remove = false;
+                    }
+
+                    if (remove) {
+                        var edges = particleSystem.getEdgesTo(node);
+                        for (e = 0; e < e.length; e++) {
+                            particleSystem.pruneEdge(edges[e]);
+                        }
+                        particleSystem.pruneNode(node);
+                    }
+                });
 
                 for (i = 0; i < display.length; i++) {
                     for (j = 0; j < display[i].connected.length; j++) {
@@ -267,11 +287,21 @@
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
                         $("#personalplan").trigger("sidebar:open"); // Open personal plan sidebar
+
+                        that.graphDraw(window.services);
                     },
 
                     doubleclicked: function (e) {
 
                         handler.toggleNode(selected);
+
+                        for (i = 0; i < window.services.length; i++) {
+                            if (window.services[i].name == selected.node.name) {
+                                window.services[i].selected = !window.services[i].selected;
+                            }
+                        }
+
+                        that.graphDraw(window.services);
 
                         return false
                     },
