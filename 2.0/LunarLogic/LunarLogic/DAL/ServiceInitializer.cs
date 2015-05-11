@@ -33,7 +33,7 @@ namespace LunarLogic.DAL
             s5.ConnectedServices = new List<Service>() { s1 };
             s6.ConnectedServices = new List<Service>() { s1 };
             s7.ConnectedServices = new List<Service>() { s1, s14 };
-            s8.ConnectedServices = new List<Service>() { s1 };
+            s8.ConnectedServices = new List<Service>() { s1, s10 };
             s9.ConnectedServices = new List<Service>() { s3, s11 };
             s10.ConnectedServices = new List<Service>() { s8, s12, s14 };
             s11.ConnectedServices = new List<Service>() { s9 };
@@ -41,21 +41,21 @@ namespace LunarLogic.DAL
             s13.ConnectedServices = new List<Service>() { s6 };
             s14.ConnectedServices = new List<Service>() { s10, s7 };
 
-            s1.ParentServices = s1.ConnectedServices;
-            s2.ParentServices = s2.ConnectedServices;
-            s3.ParentServices = s3.ConnectedServices;
-            s4.ParentServices = s4.ConnectedServices;
+            s1.ParentServices = new List<Service>() { s1 };
+            s2.ParentServices = new List<Service>() { s1, s3, s4 };
+            s3.ParentServices = new List<Service>() { s2 };
+            s4.ParentServices = new List<Service>() { s2 };
             s5.ParentServices = s5.ConnectedServices;
             s6.ParentServices = s6.ConnectedServices;
-            s7.ParentServices = s7.ConnectedServices;
+            s7.ParentServices = new List<Service>() { s1 };
             s8.ParentServices = s8.ConnectedServices;
-            s9.ParentServices = s9.ConnectedServices;
-            s10.ParentServices = s10.ConnectedServices;
+            s9.ParentServices = new List<Service>() { s3 };
+            s10.ParentServices = new List<Service>() { s8 };
             s11.ParentServices = s11.ConnectedServices;
             s12.ParentServices = s12.ConnectedServices;
             s13.ParentServices = s13.ConnectedServices;
-            s14.ParentServices = s14.ConnectedServices;
-
+            s14.ParentServices = new List<Service>() { s10 };
+            
             var services = new List<Service> { s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14 };
 
             services.ForEach(s => context.Services.Add(s));

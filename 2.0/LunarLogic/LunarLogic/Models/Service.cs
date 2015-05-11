@@ -43,11 +43,8 @@ namespace LunarLogic.Models
                 ConnectedServices.Add(connected.ID.ToString());
             }
 
-            ParentServices = new List<string>();
-            foreach (Service connected in s.ParentServices)
-            {
-                ParentServices.Add(connected.ID.ToString());
-            }
+            //only one parent service can currently exist. (This is a workaround for not being able to change the nav prop ParentServices for the Service model)
+            foreach (Service serv in s.ParentServices) ParentService = serv.ID.ToString();
         }
 
         public string ID { get; set; }
@@ -56,6 +53,6 @@ namespace LunarLogic.Models
         public bool ParentInclude { get; set; }
         public bool Selectable { get; set; }
         public List<string> ConnectedServices { get; set; }
-        public List<string> ParentServices { get; set; }
+        public string ParentService { get; set; }
     }
 }

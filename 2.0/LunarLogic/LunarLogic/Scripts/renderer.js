@@ -40,6 +40,23 @@
                                 }
                             }
                         }
+
+                        //INITIAL WORK on recusively revealing all parents from selected nodes to the base
+                        /*
+                        var cur = result[i];
+                        var go = true;
+
+                        do {
+                            go = false;
+                            for (p = 0; p < result.length; p++) {
+                                if (result[p].name == cur.parent) {
+                                    go = true;
+                                    display.push(cur);
+                                    cur = result[p];
+                                }
+                            }
+                        } while (go);
+                        */
                     }
                 }
 
@@ -52,7 +69,7 @@
                             'selectable': display[i].selectable,
                             'selected': display[i].selected,
                             'connected': display[i].connected,
-                            //'parent': display[i].parent,
+                            'parent': display[i].parent,
                             'color': display[i].color,
                             'shape': display[i].shape
                         });
