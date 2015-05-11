@@ -139,7 +139,7 @@
                     // draw a rectangle centered at pt
                     if (node.data.color) ctx.fillStyle = node.data.color
                     if (node.data.selected === false) ctx.fillStyle = "rgba(0,0,0,.2)"
-                    else ctx.fillStyle = "blue";
+                    else ctx.fillStyle = "#97233F";
                     if (node.data.color == 'none') ctx.fillStyle = "white"
 
                     if (node.data.shape == 'dot') {
@@ -152,7 +152,7 @@
 
                     // draw the text
                     if (label) {
-                        ctx.font = "14px Helvetica"
+                        ctx.font = "12px Helvetica"
                         ctx.textAlign = "center"
                         ctx.fillStyle = "white"
                         if (node.data.color == 'none') ctx.fillStyle = '#333333'
@@ -287,14 +287,14 @@
                     },
 
                     singleclicked: function (e) {
-                        $('#sname').html(selected.node.data.label);
+                        $('#sname').html(selected.node.data.label); // Updates service information partial view
                         $('#sdescription').html(selected.node.data.desc);
                         si = document.getElementById('sconnected')
                         si.innerHTML = '';
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
-                        }
-                        $("#personalplan").trigger("sidebar:open"); // Open personal plan sidebar
+                        } 
+                        $("#personalplan").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
 
                         that.graphDraw(window.services);
                     },
@@ -319,13 +319,13 @@
                         // Changes selected property on mouse click
                         if (selected.node.data.selected === false) {
                             selected.node.data.selected = true;
-                            $('#' + selected.node.name).css("color", "orange");
-                            $('#' + selected.node.name).css("background-color", "grey");
+                            $('#' + selected.node.name).css("color", "white");
+                            $('#' + selected.node.name).css("background-color", "#97233F");
                         }
                         else {
                             selected.node.data.selected = false
-                            $('#' + selected.node.name).css("color", "lightgrey");
-                            $('#' + selected.node.name).css("background-color", "#FCFCFC");
+                            $('#' + selected.node.name).css("color", "black");
+                            $('#' + selected.node.name).css("background-color", "white");
                         }
 
                         // Changes color of node
@@ -370,8 +370,8 @@
             listItemClick: function () {
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
-                        $(this).css("color", "orange");
-                        $(this).css("background-color", "grey");
+                        $(this).css("color", "white");
+                        $(this).css("background-color", "#97233F");
                         var liId = this.id;
                         particleSystem.eachNode(function (node, pt) {
                             if (node.data.name == liId && node.data.selected == false) {
@@ -388,8 +388,8 @@
                                 window.selectedServices[window.selectedServices.length] = node.data.label;
                             }
                             else if (node.data.name == liId && node.data.selected == true) {
-                                $('#' + node.data.name).css("color", "lightgrey");
-                                $('#' + node.data.name).css("background-color", "#FCFCFC");
+                                $('#' + node.data.name).css("color", "black");
+                                $('#' + node.data.name).css("background-color", "white");
                                 node.data.selected = false;
                                 for (i = 0; i < window.selectedServices.length; i++) {
                                     if (node.data.label === window.selectedServices[i]) {

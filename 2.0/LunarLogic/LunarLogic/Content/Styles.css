@@ -11,7 +11,7 @@
     width: 235px;
     border: 1px solid #ccc;
     overflow: auto;
-    background-color: #FCFCFC;
+    background-color: white;
 }
 
 .servicelistitem {
@@ -27,7 +27,6 @@
     }
 
 .serviceInfo {
-    text-align: center;
     margin-right: 20px;
     font-family: 'Century Gothic';
 }
@@ -48,8 +47,11 @@
     text-align: center;
     margin-left: 20px;
 }
+
+#serviceinfosidebar {
+
+}
 .serviceInfoHead {    
-    font-weight: bold;
 }
 
 header {
