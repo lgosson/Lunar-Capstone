@@ -67,6 +67,7 @@
                 s.selectable = result[i].Selectable;
                 s.selected = false;
                 s.connected = result[i].ConnectedServices;
+                //s.parent = result[i].ParentService;
                 s.color = 'red';
                 s.shape = 'dot';
 
@@ -101,6 +102,7 @@
             selectable = false;
             selected = false;
             connected = [];
+            parent = null;
             color = 'red';
             shape = 'dot';
         }

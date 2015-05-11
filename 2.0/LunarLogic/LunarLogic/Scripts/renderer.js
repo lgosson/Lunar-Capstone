@@ -41,17 +41,6 @@
                             }
                         }
                     }
-                        
-                    /* else {
-                        var n = particleSystem.getNode(result[i].name);
-                        if (n != null) {
-                            var edges = particleSystem.getEdgesTo(n);
-                            for (e = 0; e < e.length; e++) {
-                                particleSystem.pruneEdge(edges[e]);
-                            }
-                            particleSystem.pruneNode(n);
-                        }
-                    }*/
                 }
 
                 for (i = 0; i < display.length; i++) {
@@ -63,6 +52,7 @@
                             'selectable': display[i].selectable,
                             'selected': display[i].selected,
                             'connected': display[i].connected,
+                            //'parent': display[i].parent,
                             'color': display[i].color,
                             'shape': display[i].shape
                         });
@@ -93,6 +83,7 @@
                         }
                     }
                 }
+
                 particleSystem.graft();
             },
 
@@ -295,18 +286,19 @@
 
                         handler.toggleNode(selected);
 
-                        for (i = 0; i < window.services.length; i++) {
-                            if (window.services[i].name == selected.node.name) {
-                                window.services[i].selected = !window.services[i].selected;
-                            }
-                        }
-
                         that.graphDraw(window.services);
 
                         return false
                     },
 
                     toggleNode: function (selected) {
+                        //update list of services to reflect service selection/deselection
+                        for (i = 0; i < window.services.length; i++) {
+                            if (window.services[i].name == selected.node.name) {
+                                window.services[i].selected = !window.services[i].selected;
+                            }
+                        }
+
                         // Changes selected property on mouse click
                         if (selected.node.data.selected === false) {
                             selected.node.data.selected = true;
