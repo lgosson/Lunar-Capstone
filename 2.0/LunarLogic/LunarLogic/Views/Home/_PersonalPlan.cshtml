@@ -5,21 +5,14 @@
     <script src="~/Scripts/services.js"></script>
     <link href="~/Content/Styles.css" rel="stylesheet" />
 </head>
-<div>
+<div id="personalplandiv">
     <h3 id="personalplanheader">My Personal Plan</h3>
     <br />
     <div id="pb"></div>
-    <dl>
-        <dd>
-            <h4 id="haveselected"></h4>
-        </dd>
-        <dd>
-            <div id="servicelist">
-                <ul></ul>
-            </div>
-        </dd>
-    </dl>
-
+    <h4 id="haveselected"></h4>
+    <div id="servicelist">
+        <ul></ul>
+    </div>
     <form action="@Url.Action("ContactForm", "Home")">
         <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" id="contactbutton" />
     </form>

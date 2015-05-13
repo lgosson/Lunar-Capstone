@@ -2,8 +2,34 @@
     background-color: #F3F3EE;
 }
 
+/* Personal Plan Sidebar*/
+
+#personalplan {
+    position: fixed;
+    top: 180px;
+    right: 0;
+    bottom: 50px;
+    width: 300px;
+    background: #DBDBD5;
+    padding: 30px;
+    box-shadow: 0 0 5px black;
+    text-align: center;
+}
+
+#personalplandiv {
+    position: fixed;
+}
+
+#personalplanheader {
+    font-family: 'Century Gothic';
+}
+
 #pb {
     width: 235px;
+}
+
+#haveselected {
+    font-family: 'Century Gothic';
 }
 
 #servicelist {
@@ -26,13 +52,28 @@
         background-color: #97233F;
     }
 
-.serviceInfo {
-    margin-right: 20px;
-    font-family: 'Century Gothic';
+#contactbutton {
+    margin-left: 40px;
 }
 
-#haveselected {
+#sidebartoggle {
+    position: absolute;
+    right: 90px;
+    top: 130px;
+    font-weight: bold;
+}
+
+/* End Personal Plan Styles*/
+
+/* Service Information Sidebar*/
+
+#serviceinfosidebar {
+}
+
+#serviceinfoheader {
     font-family: 'Century Gothic';
+    text-align: center;
+    margin-left: 20px;
 }
 
 #serviceinfolist {
@@ -42,16 +83,12 @@
     font-size: large;
 }
 
-#serviceinfoheader {
+.serviceInfo {
+    margin-right: 20px;
     font-family: 'Century Gothic';
-    text-align: center;
-    margin-left: 20px;
 }
 
-#serviceinfosidebar {
-
-}
-.serviceInfoHead {    
+.serviceInfoHead {
 }
 
 header {
@@ -60,6 +97,10 @@ header {
     padding-bottom: 4px;
     box-shadow: 0 0 5px black;
 }
+
+/* End Service Information Styles*/
+
+/* Contact Form */
 
 input, textarea {
     margin-top: 8px;
@@ -72,33 +113,6 @@ input, textarea {
     padding-top: 20px;
 }
 
-#personalplan {
-    position: fixed;
-    top: 180px;
-    right: 0;
-    bottom: 50px;
-    width: 300px;
-    background: #DBDBD5;
-    padding: 30px;
-    box-shadow: 0 0 5px black;
-    text-align: center;
-}
-
-#personalplanheader {
-    font-family: 'Century Gothic';
-}
-
-#sidebartoggle {
-    position: absolute;
-    right: 90px;
-    top: 130px;
-    font-weight: bold;
-}
-
-#contactbutton {
-    margin-left: 40px;
-}
-
 .contactLabel {
     float: left;
     width: 100px;
@@ -106,3 +120,5 @@ input, textarea {
     margin-top: 8px;
     clear: left;
 }
+
+/* End Contact Form Styles*/
