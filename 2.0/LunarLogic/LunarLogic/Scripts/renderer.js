@@ -23,7 +23,7 @@
                 //**$(window).resize(this.windowsized);
             },
 
-            initialize: function (system, result){
+            initialize: function (system, result) {
                 particleSystem = system;
             },
 
@@ -100,8 +100,7 @@
                         }
                     }
                 }
-
-                particleSystem.graft();
+                particleSysem.graft();
             },
 
             //**windowsized: function () {
@@ -293,7 +292,7 @@
                         si.innerHTML = '';
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
-                        } 
+                        }
                         $("#personalplan").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
 
                         that.graphDraw(window.services);
@@ -301,70 +300,70 @@
 
                     doubleclicked: function (e) {
 
-                        handler.toggleNode(selected);
-
-                        that.graphDraw(window.services);
+                        that.toggleNode(selected);
 
                         return false
-                    },
-
-                    toggleNode: function (selected) {
-                        //update list of services to reflect service selection/deselection
-                        for (i = 0; i < window.services.length; i++) {
-                            if (window.services[i].name == selected.node.name) {
-                                window.services[i].selected = !window.services[i].selected;
-                            }
-                        }
-
-                        // Changes selected property on mouse click
-                        if (selected.node.data.selected === false) {
-                            selected.node.data.selected = true;
-                            $('#' + selected.node.name).css("color", "white");
-                            $('#' + selected.node.name).css("background-color", "#97233F");
-                        }
-                        else {
-                            selected.node.data.selected = false
-                            $('#' + selected.node.name).css("color", "black");
-                            $('#' + selected.node.name).css("background-color", "white");
-                        }
-
-                        // Changes color of node
-                        if (selected.node.data.selected == true) {
-                            selected.node.data.color = 'blue';
-                        }
-                        else
-                            selected.node.data.color = 'red';
-
-                        var inNodeSelects = false;  // Will be true if node has already been selected
-                        // Loops through the selected services array to determine if selected node on mouse click has already been selected
-                        for (i = 0; i < window.selectedServices.length; i++) {
-                            if (selected.node.data.label === window.selectedServices[i]) {
-                                inNodeSelects = true;
-                                window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
-                            }
-                        }
-
-                        if (inNodeSelects === false) {
-                            window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
-                        }
-
-                        // *** Updating progress bar *** //
-                        var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                        var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
-                        $('#pb').progressbar({ value: barprogress });
-
-                        // Update how many services the user has selected
-                        $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.services.length - 1) + " services");
-
-                        if (dragged.node !== null) dragged.node.fixed = true
-                    },
-
-                    setSelectedById: function (num) {
-
                     }
                 }
+
                 $(canvas).mousedown(handler.clicked);
                 $(canvas).mouseup(handler.clickedUp);
+            },
+
+            toggleNode: function (selected) {
+
+                if (selected.node == null) {
+                    var n = { node: null };
+                    n.node = selected;
+                    selected = n;
+                }
+
+                //update list of services to reflect service selection/deselection
+                for (i = 0; i < window.services.length; i++) {
+                    if (window.services[i].name == selected.node.name) {
+                        window.services[i].selected = !window.services[i].selected;
+                    }
+                }
+
+                // Changes selected property on mouse click
+                if (selected.node.data.selected === false) {
+                    selected.node.data.selected = true;
+                    $('#' + selected.node.name).css("color", "white");
+                    $('#' + selected.node.name).css("background-color", "#97233F");
+                }
+                else {
+                    selected.node.data.selected = false
+                    $('#' + selected.node.name).css("color", "black");
+                    $('#' + selected.node.name).css("background-color", "white");
+                }
+
+                // Changes color of node
+                if (selected.node.data.selected == true) {
+                    selected.node.data.color = 'blue';
+                }
+                else
+                    selected.node.data.color = 'red';
+
+                var inNodeSelects = false;  // Will be true if node has already been selected
+                // Loops through the selected services array to determine if selected node on mouse click has already been selected
+                for (i = 0; i < window.selectedServices.length; i++) {
+                    if (selected.node.data.label === window.selectedServices[i]) {
+                        inNodeSelects = true;
+                        window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
+                    }
+                }
+
+                if (inNodeSelects === false) {
+                    window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
+                }
+
+                // *** Updating progress bar *** //
+                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
+                var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
+                $('#pb').progressbar({ value: barprogress });
+
+                // Update how many services the user has selected
+                $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.services.length - 1) + " services");
             },
 
             listItemClick: function () {
@@ -375,19 +374,21 @@
                         var liId = this.id;
                         particleSystem.eachNode(function (node, pt) {
                             if (node.data.name == liId && node.data.selected == false) {
-                                if (node.data.name == liId) {
-                                    $('#sname').html(node.data.label);
-                                    $('#sdescription').html(node.data.desc);
-                                    si = document.getElementById('sconnected')
-                                    si.innerHTML = '';
-                                    for (var i = 0; i < node.data.connected.length; i++) {
-                                        si.innerHTML += node.data.connected[i] + '<br/>'
-                                    };
-                                }
+                                that.toggleNode(node);
+                                $('#sname').html(node.data.label);
+                                $('#sdescription').html(node.data.desc);
+                                si = document.getElementById('sconnected')
+                                si.innerHTML = '';
+                                for (var i = 0; i < node.data.connected.length; i++) {
+                                    si.innerHTML += node.data.connected[i] + '<br/>'
+                                };
+                                that.graphDraw(window.services);
+
                                 node.data.selected = true;
                                 window.selectedServices[window.selectedServices.length] = node.data.label;
                             }
                             else if (node.data.name == liId && node.data.selected == true) {
+                                that.toggleNode(node);
                                 $('#' + node.data.name).css("color", "black");
                                 $('#' + node.data.name).css("background-color", "white");
                                 node.data.selected = false;
@@ -397,6 +398,7 @@
                                         window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
                                     }
                                 }
+                                that.graphDraw(window.services);
                             }
 
                             $('#nodeselected').html(window.selectedServices.toString());
