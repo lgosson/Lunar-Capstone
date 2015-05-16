@@ -346,24 +346,25 @@
 
                 var inNodeSelects = false;  // Will be true if node has already been selected
                 // Loops through the selected services array to determine if selected node on mouse click has already been selected
-                for (i = 0; i < window.selectedServices.length; i++) {
-                    if (selected.node.data.label === window.selectedServices[i]) {
+                for (i = 0; i < window.services.length; i++) {
+                    if (selected.node.name === window.services[i].name) {
                         inNodeSelects = true;
-                        window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
+                        //window.services.splice(i, 1);  // If node is already selected, take it out of the array
                     }
-                }
-
-                if (inNodeSelects === false) {
-                    window.selectedServices[window.selectedServices.length] = selected.node.data.label; // If selected node is not in array, add it
                 }
 
                 // *** Updating progress bar *** //
                 var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
+                var barprogress = window.services.length * onehundredpercentofprogressbar;
                 $('#pb').progressbar({ value: barprogress });
 
+                var num = 0;
+                for (i = 0; i < window.services.length; i++) {
+                    if (window.services[i].selected) num++;
+                }
+
                 // Update how many services the user has selected
-                $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.services.length - 1) + " services");
+                $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
             },
 
             listItemClick: function () {
@@ -385,31 +386,31 @@
                                 that.graphDraw(window.services);
 
                                 node.data.selected = true;
-                                window.selectedServices[window.selectedServices.length] = node.data.label;
+                                window.services[window.services.length] = node.data.label;
                             }
                             else if (node.data.name == liId && node.data.selected == true) {
                                 that.toggleNode(node);
                                 $('#' + node.data.name).css("color", "black");
                                 $('#' + node.data.name).css("background-color", "white");
                                 node.data.selected = false;
-                                for (i = 0; i < window.selectedServices.length; i++) {
-                                    if (node.data.label === window.selectedServices[i]) {
+                                for (i = 0; i < window.services.length; i++) {
+                                    if (node.name === window.services[i].name) {
                                         inNodeSelects = true;
-                                        window.selectedServices.splice(i, 1);  // If node is already selected, take it out of the array
+                                        //window.services.splice(i, 1);  // If node is already selected, take it out of the array
                                     }
                                 }
                                 that.graphDraw(window.services);
                             }
 
-                            $('#nodeselected').html(window.selectedServices.toString());
+                            $('#nodeselected').html(window.services.toString());
 
                             // *** Updating progress bar *** //
                             var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                            var barprogress = window.selectedServices.length * onehundredpercentofprogressbar;
+                            var barprogress = window.services.length * onehundredpercentofprogressbar;
                             $('#pb').progressbar({ value: barprogress });
 
                             // Update how many services the user has selected
-                            $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (window.services.length - 1) + " services");
+                            $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
                         })
                     })
                 });
