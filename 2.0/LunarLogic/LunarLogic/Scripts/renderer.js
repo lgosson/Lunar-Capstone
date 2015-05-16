@@ -349,7 +349,6 @@
                 for (i = 0; i < window.services.length; i++) {
                     if (selected.node.name === window.services[i].name) {
                         inNodeSelects = true;
-                        //window.services.splice(i, 1);  // If node is already selected, take it out of the array
                     }
                 }
 
@@ -393,12 +392,6 @@
                                 $('#' + node.data.name).css("color", "black");
                                 $('#' + node.data.name).css("background-color", "white");
                                 node.data.selected = false;
-                                for (i = 0; i < window.services.length; i++) {
-                                    if (node.name === window.services[i].name) {
-                                        inNodeSelects = true;
-                                        //window.services.splice(i, 1);  // If node is already selected, take it out of the array
-                                    }
-                                }
                                 that.graphDraw(window.services);
                             }
 
