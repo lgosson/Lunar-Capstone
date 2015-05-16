@@ -163,7 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ServicesCrudController.cs" />
+    <Compile Include="Controllers\ManageServicesController.cs" />
     <Compile Include="DAL\ServiceContext.cs" />
     <Compile Include="DAL\ServiceInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -309,6 +309,11 @@
     <Content Include="Views\Home\_PersonalPlan.cshtml" />
     <Content Include="Views\Home\_ServiceInformation.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\ManageServices\Create.cshtml" />
+    <Content Include="Views\ManageServices\Delete.cshtml" />
+    <Content Include="Views\ManageServices\Details.cshtml" />
+    <Content Include="Views\ManageServices\Edit.cshtml" />
+    <Content Include="Views\ManageServices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

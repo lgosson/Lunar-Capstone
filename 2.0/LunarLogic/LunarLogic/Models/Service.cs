@@ -55,4 +55,6 @@ namespace LunarLogic.Models
         public List<string> ConnectedServices { get; set; }
         public string ParentService { get; set; }
     }
+
+
 }

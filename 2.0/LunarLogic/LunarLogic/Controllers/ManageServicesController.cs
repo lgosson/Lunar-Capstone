@@ -6,22 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using LunarLogic.Models;
 using LunarLogic.DAL;
+using LunarLogic.Models;
 
 namespace LunarLogic.Controllers
 {
-    public class ServicesCrudController : Controller
+    [AllowAnonymous]
+    public class ManageServicesController : Controller
     {
         private ServiceContext db = new ServiceContext();
 
-        // GET: ServicesCrud
+        // GET: ManageServices
         public ActionResult Index()
         {
             return View(db.Services.ToList());
         }
 
-        // GET: ServicesCrud/Details/5
+        // GET: ManageServices/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,13 +37,13 @@ namespace LunarLogic.Controllers
             return View(service);
         }
 
-        // GET: ServicesCrud/Create
+        // GET: ManageServices/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ServicesCrud/Create
+        // POST: ManageServices/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -59,7 +60,7 @@ namespace LunarLogic.Controllers
             return View(service);
         }
 
-        // GET: ServicesCrud/Edit/5
+        // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,10 +72,13 @@ namespace LunarLogic.Controllers
             {
                 return HttpNotFound();
             }
+           
+
+            ViewBag.ServiceList = db.Services.ToList();
             return View(service);
         }
 
-        // POST: ServicesCrud/Edit/5
+        // POST: ManageServices/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -90,7 +94,7 @@ namespace LunarLogic.Controllers
             return View(service);
         }
 
-        // GET: ServicesCrud/Delete/5
+        // GET: ManageServices/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,7 +109,7 @@ namespace LunarLogic.Controllers
             return View(service);
         }
 
-        // POST: ServicesCrud/Delete/5
+        // POST: ManageServices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
