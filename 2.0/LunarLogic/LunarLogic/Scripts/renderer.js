@@ -352,15 +352,15 @@
                     }
                 }
 
-                // *** Updating progress bar *** //
-                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                var barprogress = window.services.length * onehundredpercentofprogressbar;
-                $('#pb').progressbar({ value: barprogress });
-
                 var num = 0;
                 for (i = 0; i < window.services.length; i++) {
                     if (window.services[i].selected) num++;
                 }
+
+                //Updating progress bar
+                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
+                var barprogress = num * onehundredpercentofprogressbar;
+                $('#pb').progressbar({ value: barprogress });
 
                 // Update how many services the user has selected
                 $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
