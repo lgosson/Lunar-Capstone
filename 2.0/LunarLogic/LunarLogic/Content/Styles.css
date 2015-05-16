@@ -6,14 +6,14 @@
 
 #personalplan {
     position: fixed;
-    top: 180px;
+    top: 0px;
     right: 0;
-    bottom: 50px;
-    width: 300px;
+    bottom: 0px;
+    width: 23%;
     background: #DBDBD5;
     padding: 30px;
     box-shadow: 0 0 5px black;
-    text-align: center;
+   // text-align: center;
 }
 
 #personalplandiv {
@@ -24,8 +24,9 @@
     font-family: 'Century Gothic';
 }
 
-#pb {
-    width: 235px;
+#pb {  /*Progress Bar*/
+    width: 300px;
+    margin-left: 17%;
 }
 
 #haveselected {
@@ -33,18 +34,19 @@
 }
 
 #servicelist {
-    height: 400px;
-    width: 235px;
+    //position: fixed;
+    height: 300px;
+    width: 130%;
     border: 1px solid #ccc;
     overflow: auto;
-    background-color: white;
+    background-color: #F3F3EE;
 }
 
 .servicelistitem {
     list-style-type: none;
     font-family: 'Century Gothic';
     font-size: large;
-    margin-right: 48px;
+    margin-left: 30px;
 }
 
     .servicelistitem:hover {
@@ -53,13 +55,14 @@
     }
 
 #contactbutton {
-    margin-left: 40px;
+    margin-left: 36%;
+    top: 00px;
 }
 
 #sidebartoggle {
     position: absolute;
-    right: 90px;
-    top: 130px;
+    right: 490px;
+    top: 30px;
     font-weight: bold;
 }
 
@@ -91,11 +94,16 @@
 .serviceInfoHead {
 }
 
+#sdescription {
+    overflow: auto;
+    min-height: 220px;
+    max-height: 220px;
+}
+
 header {
-    background-color: #015172;
+    background-color: #DBDBD5;
     padding-top: 4px;
     padding-bottom: 4px;
-    box-shadow: 0 0 5px black;
 }
 
 /* End Service Information Styles*/
