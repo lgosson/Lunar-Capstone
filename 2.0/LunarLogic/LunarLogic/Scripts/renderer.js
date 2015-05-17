@@ -100,7 +100,26 @@
                         }
                     }
                 }
+                that.updateNodes();
                 particleSysem.graft();
+            },
+
+            updateNodes: function(){
+                particleSystem.eachNode(function (node, pt) {
+                
+                    for(i = 0; i < window.services.length; i++){
+                        if(node.data.name == window.services[i].name){
+                            node.data.selected = window.services[i].selected;
+
+                            // Changes color of node
+                            if (node.data.selected == true) {
+                                node.data.color = 'blue';
+                            }
+                            else
+                                node.data.color = 'red';
+                        }
+                    }
+                });
             },
 
             //**windowsized: function () {
@@ -294,8 +313,6 @@
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
                         $("#personalplan").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
-
-                        that.graphDraw(window.services);
                     },
 
                     doubleclicked: function (e) {
@@ -311,44 +328,18 @@
             },
 
             toggleNode: function (selected) {
-
-                if (selected.node == null) {
-                    var n = { node: null };
-                    n.node = selected;
+                if(selected.node != null){
+                    var n = {
+                        name: selected.node.name,
+                        selected: selected.node.data.selected
+                    };
                     selected = n;
                 }
-
+                
                 //update list of services to reflect service selection/deselection
                 for (i = 0; i < window.services.length; i++) {
-                    if (window.services[i].name == selected.node.name) {
+                    if (window.services[i].name == selected.name) {
                         window.services[i].selected = !window.services[i].selected;
-                    }
-                }
-
-                // Changes selected property on mouse click
-                if (selected.node.data.selected === false) {
-                    selected.node.data.selected = true;
-                    $('#' + selected.node.name).css("color", "white");
-                    $('#' + selected.node.name).css("background-color", "#97233F");
-                }
-                else {
-                    selected.node.data.selected = false
-                    $('#' + selected.node.name).css("color", "black");
-                    $('#' + selected.node.name).css("background-color", "white");
-                }
-
-                // Changes color of node
-                if (selected.node.data.selected == true) {
-                    selected.node.data.color = 'blue';
-                }
-                else
-                    selected.node.data.color = 'red';
-
-                var inNodeSelects = false;  // Will be true if node has already been selected
-                // Loops through the selected services array to determine if selected node on mouse click has already been selected
-                for (i = 0; i < window.services.length; i++) {
-                    if (selected.node.name === window.services[i].name) {
-                        inNodeSelects = true;
                     }
                 }
 
@@ -357,6 +348,8 @@
                     if (window.services[i].selected) num++;
                 }
 
+                //TODO: move progress bar and service selection updates to their own functions
+
                 //Updating progress bar
                 var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
                 var barprogress = num * onehundredpercentofprogressbar;
@@ -364,47 +357,46 @@
 
                 // Update how many services the user has selected
                 $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
+                that.graphDraw(window.services);
             },
 
             listItemClick: function () {
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
-                        $(this).css("color", "white");
-                        $(this).css("background-color", "#97233F");
                         var liId = this.id;
-                        particleSystem.eachNode(function (node, pt) {
-                            if (node.data.name == liId && node.data.selected == false) {
-                                that.toggleNode(node);
-                                $('#sname').html(node.data.label);
-                                $('#sdescription').html(node.data.desc);
-                                si = document.getElementById('sconnected')
-                                si.innerHTML = '';
-                                for (var i = 0; i < node.data.connected.length; i++) {
-                                    si.innerHTML += node.data.connected[i] + '<br/>'
-                                };
-                                that.graphDraw(window.services);
+                        var num;
 
-                                node.data.selected = true;
-                                window.services[window.services.length] = node.data.label;
+                        for (i = 0; i < window.services.length; i++) {
+                            if (window.services[i].name == liId) {
+                                num = i;
+                                if (window.services[i].selected == false) {
+                                    $('#sname').html(window.services[i].label);
+                                    $('#sdescription').html(window.services[i].desc);
+                                    si = document.getElementById('sconnected')
+                                    si.innerHTML = '';
+                                    for (j = 0; j < window.services[i].connected.length; j++) {
+                                        si.innerHTML += window.services[i].connected[j] + '<br/>'
+                                    };
+
+                                    $('#' + window.services[i].name).css("color", "white");
+                                    $('#' + window.services[i].name).css("background-color", "#97233F");
+                                }
+                                else {
+                                    $('#' + window.services[i].name).css("color", "black");
+                                    $('#' + window.services[i].name).css("background-color", "white");
+                                }
                             }
-                            else if (node.data.name == liId && node.data.selected == true) {
-                                that.toggleNode(node);
-                                $('#' + node.data.name).css("color", "black");
-                                $('#' + node.data.name).css("background-color", "white");
-                                node.data.selected = false;
-                                that.graphDraw(window.services);
-                            }
+                        }
+                        $('#nodeselected').html(window.services.toString());
 
-                            $('#nodeselected').html(window.services.toString());
+                        // *** Updating progress bar *** //
+                        var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
+                        var barprogress = window.services.length * onehundredpercentofprogressbar;
+                        $('#pb').progressbar({ value: barprogress });
 
-                            // *** Updating progress bar *** //
-                            var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                            var barprogress = window.services.length * onehundredpercentofprogressbar;
-                            $('#pb').progressbar({ value: barprogress });
-
-                            // Update how many services the user has selected
-                            $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
-                        })
+                        // Update how many services the user has selected
+                        $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
+                        that.toggleNode(window.services[num]);
                     })
                 });
             }
