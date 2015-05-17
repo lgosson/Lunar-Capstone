@@ -88,6 +88,7 @@
             sys.renderer.graphDraw(window.services);
         }
 
+        // Personal plan list setup
         function listSetup(result) {
             for (i = 0; i < result.length; i++) {
                 if (result[i].selectable == true) {
@@ -97,10 +98,11 @@
             }
         }
 
+        // "Have selected" indicator
         function haveSelected(result) {
             $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
             window.servicesResults = result;
-        }
+        }          
 
         function service() {
             name = '';

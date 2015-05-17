@@ -5,37 +5,42 @@
     Layout = null;
 }
 
-<h2>Contact Form</h2>
+<h2 id="contactheader">Contact Form</h2>
 <hr />
 <form>
     <div class="row">
-        @Html.LabelFor(model => Model.FirstName, "First Name:", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.FirstName, "First Name", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.FirstName)
     </div>
     <div class="row">
-        @Html.LabelFor(model => Model.LastName, "Last Name:", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.LastName, "Last Name", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.LastName)
     </div>
     <div class="row">
-        @Html.LabelFor(model => Model.Phone, "Phone:", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.Phone, "Phone", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.Phone)
     </div>
     <div class="row">
-        @Html.LabelFor(model => Model.Email, "Email:", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.Email, "Email", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.Email)
     </div>
     <div class="row">
-        @Html.LabelFor(model => Model.Comment, "Comments:", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.Comment, "Comments", new { @class = "contactLabel" })
         @Html.TextAreaFor(mode => Model.Comment)
     </div>
     <div class="row">
         <span id="nodeselect" class="nodeselect"></span>
     </div>
+    <h3 id="interestedin">Services I'm interested in</h3>
+    <hr />
+    <div class="row" id="contactformlist">
+        <ul id="contactformlist"></ul>
+    </div>
     <div class="row" id="submit">
         <input type="button" id="send" value="Send" class="btn btn-primary" />
-        <input type="reset" id="reset" value="Reset" class="btn btn-primary" style="margin-left: 5px;" />
+        <input type="reset" id="reset" value="Reset" class="btn btn-primary" />
     </div>
-    <input type="submit" value="Back to Personal Plan" onclick="" class="btn alert-warning" id="backtoplan" />
+    <input type="submit" value="Back to Personal Plan" onclick="" class="btn btn-danger" id="backtoplan" />
 </form>
 
 <script type="text/javascript">
@@ -61,6 +66,6 @@
         contact.Phone = $("#Phone").val();
         contact.Email = $("#Email").val();
         contact.Comment = $("#Comment").val();
-        contact.Services = $("#nodeselect").html();
+        contact.Services = $("#contactformlist").html();
     }
 </script>

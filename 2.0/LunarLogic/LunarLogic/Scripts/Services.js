@@ -64,6 +64,8 @@ $(document).ready(function () {
             $("#backtoplan").on("click", function () {
                 $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
             });
+
+            
         });
 });
 

@@ -335,11 +335,18 @@
                     };
                     selected = n;
                 }
-                
+
                 //update list of services to reflect service selection/deselection
                 for (i = 0; i < window.services.length; i++) {
                     if (window.services[i].name == selected.name) {
                         window.services[i].selected = !window.services[i].selected;
+                        // Updates contact form list
+                        if (window.services[i].selected == true) {
+                            $('#contactformlist ul').append('<li class=servicelistitem id=c' + window.services[i].name + '>' + window.services[i].label + '</li>');
+                        }
+                        else {
+                            $('#c' + window.services[i].name).remove();
+                        }
                     }
                 }
 
@@ -357,16 +364,17 @@
 
                 // Update how many services the user has selected
                 $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
-                that.graphDraw(window.services);
+                that.graphDraw(window.services);                
             },
 
             listItemClick: function () {
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
                         var liId = this.id;
-                        var num;
+                        var num;                                               
 
                         for (i = 0; i < window.services.length; i++) {
+
                             if (window.services[i].name == liId) {
                                 num = i;
                                 if (window.services[i].selected == false) {
@@ -378,10 +386,15 @@
                                         si.innerHTML += window.services[i].connected[j] + '<br/>'
                                     };
 
+                                    // Add selected list item to contact form list
+                                    //$('#contactformlist ul').append('<li id=c' + window.services[i].name + '>' + window.services[i].label + '</li>');
+
+                                    // Change CSS properties for selected or deselected list items
                                     $('#' + window.services[i].name).css("color", "white");
                                     $('#' + window.services[i].name).css("background-color", "#97233F");
                                 }
                                 else {
+                                    //$('#c' + window.services[i].name).remove();  // Remove from contact form list
                                     $('#' + window.services[i].name).css("color", "black");
                                     $('#' + window.services[i].name).css("background-color", "white");
                                 }
