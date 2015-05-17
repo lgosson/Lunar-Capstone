@@ -33,11 +33,14 @@
 
 #haveselected {
     font-family: 'Century Gothic';
+    color: grey;
+    font-style: italic;
+    margin-left: 100px;
 }
 
 #servicelist {
     height: 300px;
-    width: 130%;
+    width: 120%;
     border: 1px solid #ccc;
     overflow: auto;
     background-color: #F3F3EE;
@@ -101,6 +104,7 @@
 }
 
 .serviceInfoHead {
+    color: grey;
 }
 #snamehead {
     float: left;
