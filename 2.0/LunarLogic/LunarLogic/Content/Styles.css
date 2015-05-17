@@ -2,7 +2,56 @@
     background-color: #F3F3EE;
 }
 
-/* Personal Plan Sidebar*/
+/* Service Information Partial View*/
+
+#serviceinfosidebar {
+}
+
+#serviceinfoheader {
+    font-family: 'Century Gothic';
+    text-align: center;
+    margin-left: 20px;
+    color: #015172;
+}
+
+#serviceinfolist {
+    list-style-type: none;
+    margin-top: 24px;
+    font-family: 'Century Gothic';
+    font-size: large;
+}
+
+.serviceInfo {
+    margin-right: 20px;
+    font-family: 'Century Gothic';
+}
+
+.serviceInfoHead {
+    color: grey;
+}
+#snamehead {
+    float: left;
+}
+
+#sname {
+    float: left;
+    margin-left: 30px;
+}
+
+#sdescriptionhead {
+    clear: both;
+}
+
+#sdescription {
+    width: 103%;
+    overflow: auto;
+    min-height: 220px;
+    max-height: 220px;
+}
+
+/* End Service Information Styles*/
+
+/* Personal Plan Partial View*/
 
 #personalplan {
     position: fixed;
@@ -13,7 +62,6 @@
     background: #DBDBD5;
     padding: 30px;
     box-shadow: 0 0 5px black;
-   // text-align: center;
 }
 
 #personalplandiv {
@@ -22,6 +70,8 @@
 
 #personalplanheader {
     font-family: 'Century Gothic';
+    margin-left: 40%;
+    color: #015172
 }
 
 #pb {  /*Progress Bar*/
@@ -31,12 +81,14 @@
 
 #haveselected {
     font-family: 'Century Gothic';
+    color: grey;
+    font-style: italic;
+    margin-left: 95px;
 }
 
 #servicelist {
-    //position: fixed;
     height: 300px;
-    width: 130%;
+    width: 120%;
     border: 1px solid #ccc;
     overflow: auto;
     background-color: #F3F3EE;
@@ -46,12 +98,20 @@
     list-style-type: none;
     font-family: 'Century Gothic';
     font-size: large;
-    margin-left: 30px;
+    padding-top: 14px;
+    padding-left: 30px;
+    margin-left: -40px;
+    color: #015172;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
+    box-shadow: 0 0 8px #ccc;
 }
 
     .servicelistitem:hover {
         color: white;
         background-color: #97233F;
+        box-shadow: 0 0 5px black;
     }
 
 #contactbutton {
@@ -68,47 +128,19 @@
 
 /* End Personal Plan Styles*/
 
-/* Service Information Sidebar*/
-
-#serviceinfosidebar {
-}
-
-#serviceinfoheader {
-    font-family: 'Century Gothic';
-    text-align: center;
-    margin-left: 20px;
-}
-
-#serviceinfolist {
-    list-style-type: none;
-    margin-top: 24px;
-    font-family: 'Century Gothic';
-    font-size: large;
-}
-
-.serviceInfo {
-    margin-right: 20px;
-    font-family: 'Century Gothic';
-}
-
-.serviceInfoHead {
-}
-
-#sdescription {
-    overflow: auto;
-    min-height: 220px;
-    max-height: 220px;
-}
-
-header {
-    background-color: #DBDBD5;
-    padding-top: 4px;
-    padding-bottom: 4px;
-}
-
-/* End Service Information Styles*/
 
 /* Contact Form */
+
+#contactform {
+    position: fixed;
+    top: 0px;
+    right: 0;
+    bottom: 0px;
+    width: 23%;
+    background: #DBDBD5;
+    padding: 30px;
+    box-shadow: 0 0 5px black;
+}
 
 input, textarea {
     margin-top: 8px;
@@ -130,3 +162,10 @@ input, textarea {
 }
 
 /* End Contact Form Styles*/
+
+header {
+    background-color: #DBDBD5;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    box-shadow: 0 0 40px #ccc;
+}
