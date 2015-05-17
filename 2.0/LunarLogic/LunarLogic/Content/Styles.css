@@ -22,6 +22,8 @@
 
 #personalplanheader {
     font-family: 'Century Gothic';
+    margin-left: 40%;
+    color: #015172
 }
 
 #pb {  /*Progress Bar*/
@@ -34,7 +36,6 @@
 }
 
 #servicelist {
-    //position: fixed;
     height: 300px;
     width: 130%;
     border: 1px solid #ccc;
@@ -46,7 +47,14 @@
     list-style-type: none;
     font-family: 'Century Gothic';
     font-size: large;
-    margin-left: 30px;
+    padding-top: 14px;
+    padding-left: 30px;
+    margin-left: -40px;
+    color: #015172;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
+    box-shadow: 0 0 8px #ccc;
 }
 
     .servicelistitem:hover {
@@ -77,6 +85,7 @@
     font-family: 'Century Gothic';
     text-align: center;
     margin-left: 20px;
+    color: #015172;
 }
 
 #serviceinfolist {
@@ -93,8 +102,21 @@
 
 .serviceInfoHead {
 }
+#snamehead {
+    float: left;
+}
+
+#sname {
+    float: left;
+    margin-left: 30px;
+}
+
+#sdescriptionhead {
+    clear: both;
+}
 
 #sdescription {
+    width: 103%;
     overflow: auto;
     min-height: 220px;
     max-height: 220px;
@@ -104,6 +126,7 @@ header {
     background-color: #DBDBD5;
     padding-top: 4px;
     padding-bottom: 4px;
+    box-shadow: 0 0 40px #ccc;
 }
 
 /* End Service Information Styles*/
