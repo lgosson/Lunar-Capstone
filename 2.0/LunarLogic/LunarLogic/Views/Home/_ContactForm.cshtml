@@ -5,21 +5,8 @@
     Layout = null;
 }
 
-<head>
-    <title>LL Services</title>
-    <script src="~/Scripts/jquery.js"></script>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
-    <script src="~/Scripts/services.js"></script>
-    <link href="~/Content/Styles.css" rel="stylesheet" />
-</head>
-
-
-
-<br />
 <h2>Contact Form</h2>
 <hr />
-
 <form>
     <div class="row">
         @Html.LabelFor(model => Model.FirstName, "First Name:", new { @class = "contactLabel" })
@@ -42,17 +29,13 @@
         @Html.TextAreaFor(mode => Model.Comment)
     </div>
     <div class="row">
-        <span class="nodeselect">Personal Plan</span>
-    </div>
-    <div class="row">
         <span id="nodeselect" class="nodeselect"></span>
     </div>
-
     <div class="row" id="submit">
         <input type="button" id="send" value="Send" class="btn btn-primary" />
         <input type="reset" id="reset" value="Reset" class="btn btn-primary" style="margin-left: 5px;" />
     </div>
-
+    <input type="submit" value="Back to Personal Plan" onclick="" class="btn alert-warning" id="backtoplan" />
 </form>
 
 <script type="text/javascript">

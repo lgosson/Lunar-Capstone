@@ -1,11 +1,4 @@
-﻿<head>
-    <title>Personal Plan</title>
-    <script src="~/Scripts/jquery-ui.min.js"></script>
-    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
-    <script src="~/Scripts/services.js"></script>
-    <link href="~/Content/Styles.css" rel="stylesheet" />
-</head>
-@Html.Partial("_ServiceInformation")
+﻿@Html.Partial("_ServiceInformation")
 <div id="personalplandiv">
     <h4 id="personalplanheader">My Personal Plan</h4>
     <hr />
@@ -14,8 +7,5 @@
     <div id="servicelist">
         <ul></ul>
     </div>
-    <form action="@Url.Action("ContactForm", "Home")">
-        <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" id="contactbutton" />
-    </form>
-    <br />
+    <input type="submit" value="Contact Lunar Logic" onclick="" class="btn btn-primary" id="contactbutton" />
 </div>

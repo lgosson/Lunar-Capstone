@@ -52,6 +52,18 @@ $(document).ready(function () {
             $("#sidebartoggle").on("click", function () {
                 $("#personalplan").trigger("sidebar:toggle", [{ speed: 350 }]);
             });
+
+            $('#contactform').sidebar({
+                side: "right"
+            });
+
+            $("#contactbutton").on("click", function () {
+                $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
+            });
+
+            $("#backtoplan").on("click", function () {
+                $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
+            });
         });
 });
 
