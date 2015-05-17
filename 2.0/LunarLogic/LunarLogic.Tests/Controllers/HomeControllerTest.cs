@@ -9,6 +9,7 @@ using LunarLogic.Controllers;
 
 namespace LunarLogic.Tests.Controllers
 {
+    /*
     [TestClass]
     public class HomeControllerTest
     {
@@ -51,4 +52,5 @@ namespace LunarLogic.Tests.Controllers
             Assert.IsNotNull(result);
         }
     }
+     */
 }

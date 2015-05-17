@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LunarLogic.Models
 {
@@ -56,5 +57,17 @@ namespace LunarLogic.Models
         public string ParentService { get; set; }
     }
 
+    public class ServiceListViewModel
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool ParentInclude { get; set; }
+        public bool Selectable { get; set; }
+        public ICollection<Service> ConnectedServices { get; set; }
+        public List<string> ConnectedServicesStringList { get; set; }
 
+        public IEnumerable<MultiSelectList> ConnectedServicesSelectList { get; set; }
+    }
+    
 }

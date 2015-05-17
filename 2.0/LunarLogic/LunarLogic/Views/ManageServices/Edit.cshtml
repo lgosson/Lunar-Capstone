@@ -54,12 +54,14 @@
             </div>
         </div>
 
+        
+
         <div class="form-group">
             @Html.LabelFor(model => model.ConnectedServices, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="dropdown">
-                    @Html.ListBoxFor(model => model.ConnectedServices, new MultiSelectList(ViewBag.ServiceList, "ID", "Name"))
-                 
+                    @Html.ListBox("listDeal", (MultiSelectList)ViewBag.ServiceList, new { multiple="multiple", size = "15" })
+
                 </div>
             </div>
         </div>
@@ -76,6 +78,9 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+

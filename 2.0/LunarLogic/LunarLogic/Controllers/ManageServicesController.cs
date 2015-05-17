@@ -63,6 +63,8 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
+            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -72,19 +74,55 @@ namespace LunarLogic.Controllers
             {
                 return HttpNotFound();
             }
-           
 
-            ViewBag.ServiceList = db.Services.ToList();
+            //ViewBag.ConnectedListString = (service.ConnectedServices.ToList()).ToString();
+            //ViewBag.ConnectedList = service.ConnectedServices.ToList();
+            
+            var conList = service.ConnectedServices.ToList();
+            List<int> intList = new List<int>();
+            ViewBag.ConList = conList;
+            foreach(var item in conList)
+            {
+                int i = item.ID;
+                intList.Add(i);
+            }
+                       
+            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray(), service.ID.ToString());
+            
+
+
             return View(service);
         }
 
         // POST: ManageServices/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,ParentInclude,Selectable")] Service service)
+        public ActionResult Edit([Bind(Include = "ID,Name,Description,ParentInclude,Selectable")] Service service)//, List<string> listDeal)
         {
+            /*
+            foreach(var postItem in listDeal)
+            {
+                foreach (var serv in db.Services.ToList())
+                {
+                    int p = Convert.ToInt32(postItem);
+                    if (p == serv.ID)
+                    {
+
+                        if (service.ConnectedServices != null)
+                        {
+
+                            service.ConnectedServices.Distinct.Add(serv);
+                        }
+                    }
+                }
+            }
+             */
+
+           //service.ConnectedServices = listDeal;
+   
             if (ModelState.IsValid)
             {
                 db.Entry(service).State = EntityState.Modified;

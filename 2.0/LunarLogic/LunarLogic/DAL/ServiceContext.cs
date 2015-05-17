@@ -25,5 +25,7 @@ namespace LunarLogic.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+    public System.Data.Entity.DbSet<LunarLogic.Models.ServiceListViewModel> ServiceListViewModels { get; set; }
     }
 }
