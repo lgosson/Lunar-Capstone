@@ -101,7 +101,7 @@
                     }
                 }
                 that.updateNodes();
-                particleSysem.graft();
+                //particleSystem.graft();
             },
 
             updateNodes: function(){
