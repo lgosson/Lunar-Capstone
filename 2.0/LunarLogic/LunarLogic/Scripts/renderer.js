@@ -317,6 +317,7 @@
 
                     doubleclicked: function (e) {
 
+                        that.listUpdate(selected.node.name);
                         that.toggleNode(selected);
 
                         return false
@@ -371,36 +372,7 @@
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
                         var liId = this.id;
-                        var num;                                               
-
-                        for (i = 0; i < window.services.length; i++) {
-
-                            if (window.services[i].name == liId) {
-                                num = i;
-                                if (window.services[i].selected == false) {
-                                    $('#sname').html(window.services[i].label);
-                                    $('#sdescription').html(window.services[i].desc);
-                                    si = document.getElementById('sconnected')
-                                    si.innerHTML = '';
-                                    for (j = 0; j < window.services[i].connected.length; j++) {
-                                        si.innerHTML += window.services[i].connected[j] + '<br/>'
-                                    };
-
-                                    // Add selected list item to contact form list
-                                    //$('#contactformlist ul').append('<li id=c' + window.services[i].name + '>' + window.services[i].label + '</li>');
-
-                                    // Change CSS properties for selected or deselected list items
-                                    $('#' + window.services[i].name).css("color", "white");
-                                    $('#' + window.services[i].name).css("background-color", "#97233F");
-                                }
-                                else {
-                                    //$('#c' + window.services[i].name).remove();  // Remove from contact form list
-                                    $('#' + window.services[i].name).css("color", "black");
-                                    $('#' + window.services[i].name).css("background-color", "white");
-                                }
-                            }
-                        }
-                        $('#nodeselected').html(window.services.toString());
+                        var result =  that.listUpdate(liId);
 
                         // *** Updating progress bar *** //
                         var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
@@ -409,9 +381,37 @@
 
                         // Update how many services the user has selected
                         $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
-                        that.toggleNode(window.services[num]);
+                        that.toggleNode(window.services[result]);
                     })
                 });
+            },
+
+            listUpdate: function (liId) {
+                var num;
+                for (i = 0; i < window.services.length; i++) {
+                    if (window.services[i].name == liId) {
+                        num = i;
+                        if (window.services[i].selected == false) {
+                            $('#sname').html(window.services[i].label);
+                            $('#sdescription').html(window.services[i].desc);
+                            si = document.getElementById('sconnected')
+                            si.innerHTML = '';
+                            for (j = 0; j < window.services[i].connected.length; j++) {
+                                si.innerHTML += window.services[i].connected[j] + '<br/>'
+                            };
+
+                            // Change CSS properties for selected or deselected list items
+                            $('#' + window.services[i].name).css("color", "white");
+                            $('#' + window.services[i].name).css("background-color", "#97233F");
+                        }
+                        else {
+                            //$('#c' + window.services[i].name).remove();  // Remove from contact form list
+                            $('#' + window.services[i].name).css("color", "black");
+                            $('#' + window.services[i].name).css("background-color", "white");
+                        }
+                    }
+                }
+                return num;
             }
         }
 
