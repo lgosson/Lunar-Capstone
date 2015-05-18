@@ -38,12 +38,14 @@
         <div class="row">
             <div class="col-md-10"><canvas id="viewport" width="1200" height="850"></canvas></div>
             <div id="personalplan" class="col-md-2">
-                @Html.Partial("_PersonalPlan")
+                <div>
+                    @Html.Partial("_PersonalPlan")
+                </div>
+                <div id="contactform">
+                    @Html.Partial("_ContactForm")
+                </div>
             </div>
-        </div>
-        <div id="contactform">
-            @Html.Partial("_ContactForm")
-        </div>
+        </div>        
     </div>
     <script type="text/javascript">
         window.selectedServices = [];
