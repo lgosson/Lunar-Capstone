@@ -99,33 +99,39 @@ namespace LunarLogic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,ParentInclude,Selectable")] Service service)//, List<string> listDeal)
+        public ActionResult Edit(Service service, int[] listDeal)//, List<string> listDeal)
         {
-            /*
+            
             foreach(var postItem in listDeal)
             {
                 foreach (var serv in db.Services.ToList())
                 {
                     int p = Convert.ToInt32(postItem);
+                    var itemToAdd = db.Services.Find(p);
                     if (p == serv.ID)
                     {
 
                         if (service.ConnectedServices != null)
                         {
-
-                            service.ConnectedServices.Distinct.Add(serv);
+                            if (itemToAdd != null)
+                            {
+                                if (!service.ConnectedServices.Contains(itemToAdd))
+                                {
+                                    service.ConnectedServices.Add(itemToAdd);
+                                }
+                            }
                         }
                     }
                 }
             }
-             */
+             
 
            //service.ConnectedServices = listDeal;
    
             if (ModelState.IsValid)
             {
                 db.Entry(service).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
