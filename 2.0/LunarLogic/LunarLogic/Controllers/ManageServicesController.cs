@@ -40,15 +40,15 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Create
         public ActionResult Create()
         {
-            var services = db.Services.ToList();
-            List<SelectListItem> items = new SelectList(;
-            
-            foreach(Service s in services)
-            {
-                string
-            }
-            
-            //http://stackoverflow.com/questions/3151082/problem-with-asp-net-mvc-selectlist-and-listselectlistitems
+            /*
+            var selectItems = from service in db.Services.ToList()
+                              select new SelectListItem
+                              {
+                                  Text = service.Name,
+                                  Value = service.ID.ToString()
+                              }; */
+
+            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name");
 
             return View();
         }
