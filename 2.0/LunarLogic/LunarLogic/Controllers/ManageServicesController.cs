@@ -101,8 +101,10 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Edit(Service service, int[] listDeal)//, List<string> listDeal)
         {
-            
-            foreach(var postItem in listDeal)
+            var serviceChanged = (from s in db.Services
+                              where s.ID == service.ID
+                              select s).FirstOrDefault();
+            foreach (var postItem in listDeal)
             {
                 foreach (var serv in db.Services.ToList())
                 {
@@ -111,26 +113,23 @@ namespace LunarLogic.Controllers
                     if (p == serv.ID)
                     {
 
-                        if (service.ConnectedServices != null)
+                        if (serviceChanged.ConnectedServices != null)
                         {
                             if (itemToAdd != null)
                             {
-                                if (!service.ConnectedServices.Contains(itemToAdd))
+                                if (!serviceChanged.ConnectedServices.Contains(itemToAdd))
                                 {
-                                    service.ConnectedServices.Add(itemToAdd);
+                                    serviceChanged.ConnectedServices.Add(itemToAdd);
                                 }
                             }
                         }
                     }
                 }
-            }
-             
-
-           //service.ConnectedServices = listDeal;
+            }           
    
             if (ModelState.IsValid)
             {
-                db.Entry(service).State = EntityState.Modified;
+                db.Entry(serviceChanged).State = EntityState.Modified;
                 
                 db.SaveChanges();
                 return RedirectToAction("Index");
