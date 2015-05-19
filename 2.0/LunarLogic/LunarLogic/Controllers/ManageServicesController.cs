@@ -57,16 +57,56 @@ namespace LunarLogic.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,ParentInclude,Selectable")] Service service)
+        public ActionResult Create(Service service, int[] servList)
         {
+            
+
+            service.ID = (db.Services.Count() + 1);
+
+            //var serviceChanged = (from s in db.Services
+               //                   where s.ID == service.ID
+                   //               select s).FirstOrDefault();
+
+            var serviceAdded = service;
+
+            foreach (var postItem in servList)
+            {
+                foreach (var serv in db.Services.ToList())
+                {
+                    int p = Convert.ToInt32(postItem);
+                    var itemToAdd = db.Services.Find(p);
+                    if (p == serv.ID)
+                    {
+                        serviceAdded.ConnectedServices = new List<Service>();
+                        if (serviceAdded.ConnectedServices != null)
+                        {
+                            if (itemToAdd != null)
+                            {
+                                if (!serviceAdded.ConnectedServices.Contains(itemToAdd))
+                                {
+                                    serviceAdded.ConnectedServices.Add(itemToAdd);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                db.Services.Add(service);
+                //db.Entry(serviceAdded).State = EntityState.Added;
+                db.Services.Add(new Service
+                {
+                    ID = service.ID,
+                    Name = service.Name,
+                    Description = service.Description,
+                    ParentInclude = service.ParentInclude,
+                    Selectable = service.Selectable,
+                    ConnectedServices = service.ConnectedServices
+                });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(service);
         }
 
@@ -96,8 +136,11 @@ namespace LunarLogic.Controllers
                 int i = item.ID;
                 intList.Add(i);
             }
-                       
-            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray(), service.ID.ToString());
+
+                      
+            
+            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray()); //, service.ID.ToString()); 
+                                                                                //this last parameter cause bugs with diesableing single digit services if the service is 10+
             
 
 
@@ -135,7 +178,9 @@ namespace LunarLogic.Controllers
                         }
                     }
                 }
-            }           
+            }      
+     
+            
    
             if (ModelState.IsValid)
             {
