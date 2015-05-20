@@ -61,7 +61,7 @@ namespace LunarLogic.Controllers
         {
             
 
-            service.ID = (db.Services.Count() + 1);
+            //service.ID = (db.Services.Count() + 1);
 
             //var serviceChanged = (from s in db.Services
                //                   where s.ID == service.ID
@@ -137,10 +137,11 @@ namespace LunarLogic.Controllers
                 intList.Add(i);
             }
 
-                      
+            List<string> disabledList = new List<string>();
+            disabledList.Add(service.ID.ToString());
             
-            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray()); //, service.ID.ToString()); 
-                                                                                //this last parameter cause bugs with diesableing single digit services if the service is 10+
+            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray(), disabledList); 
+                                                                             
             
 
 

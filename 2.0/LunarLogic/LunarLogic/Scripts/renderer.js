@@ -8,8 +8,8 @@
         var gfx = arbor.Graphics(canvas)
         var particleSystem = null
 
-        //**var cWidth = canvas.width = window.innerWidth;
-        //**var cHeight = canvas.height = window.innerHeight;
+        var cWidth = canvas.width = window.innerWidth;
+        var cHeight = canvas.height = window.innerHeight;
 
         var that = {
             init: function (system) {
@@ -20,7 +20,7 @@
                 that.initMouseHandling();
                 that.listItemClick();
 
-                //**$(window).resize(this.windowsized);
+                $(window).resize(this.windowsized);
             },
 
             initialize: function (system, result) {
@@ -122,19 +122,19 @@
                 });
             },
 
-            //**windowsized: function () {
-            //**    cWidth = (window.innerWidth)*.8;
-            //**    cHeight = window.innerHeight;
+                windowsized: function () {
+                cWidth = (window.innerWidth)*.8;
+                cHeight = window.innerHeight;
 
-            //**   particleSystem.screenSize(cWidth, cHeight);
-            //**},
+              particleSystem.screenSize(cWidth, cHeight);
+            },
 
             redraw: function () {
 
                 if (!particleSystem) return
 
 
-                //**ctx.fillRect(0, 0, canvas.width, canvas.height);
+                //ctx.fillRect(0, 0, canvas.width, canvas.height);
                 gfx.clear() // convenience ƒ: clears the whole canvas rect
 
                 // draw the nodes & save their bounds for edge drawing
