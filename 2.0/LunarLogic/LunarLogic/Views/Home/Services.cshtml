@@ -95,7 +95,7 @@
             for (i = 0; i < result.length; i++) {
                 if (result[i].selectable == true) {
                     var id = i + 1;
-                    $('#servicelist ul').append('<li class=servicelistitem id=' + id + '>' + result[i].label + '</li>');
+                    $('#servicelist ul').append('<a href="#"><li class=servicelistitem id=' + id + '>' + result[i].label + '</li></a>');
                 }
             }
         }

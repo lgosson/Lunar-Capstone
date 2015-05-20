@@ -67,7 +67,6 @@
 }
 
 #personalplandiv {
-    position: fixed;
 }
 
 #personalplanheader {
@@ -108,6 +107,7 @@
     border-style: solid;
     border-color: #ccc;
     box-shadow: 0 0 8px #ccc;
+    text-decoration: none;
 }
 
     .servicelistitem:hover {
