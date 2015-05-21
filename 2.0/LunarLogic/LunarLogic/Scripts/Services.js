@@ -45,12 +45,12 @@ $(document).ready(function () {
     $('#pb').progressbar();
 
     $(document).ready(function () {
-        $('#personalplan').sidebar({
+        $('#sidebar').sidebar({
             side: "right"
         });
 
         $("#sidebartoggle").on("click", function () {
-            $("#personalplan").trigger("sidebar:toggle", [{ speed: 350 }]);
+            $("#sidebar").trigger("sidebar:toggle", [{ speed: 350 }]);
         });
 
         $('#contactform').sidebar({
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
         $("#backtoplan").on("click", function () {
             $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
-            $("#personalplan").trigger("sidebar:open", [{ speed: 350 }]);
+            $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]);
         });
     });
 });

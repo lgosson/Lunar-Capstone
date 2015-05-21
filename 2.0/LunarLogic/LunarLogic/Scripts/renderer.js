@@ -312,7 +312,7 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
-                        $("#personalplan").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
+                        $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
                     },
 
                     doubleclicked: function (e) {

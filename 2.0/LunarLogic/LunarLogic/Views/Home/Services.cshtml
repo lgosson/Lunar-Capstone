@@ -30,15 +30,15 @@
     <title>Lunar Logic Services</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="maindiv">
         <header>
             <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
             <a href="#" id="sidebartoggle" class="btn btn-danger">Personal Plan</a>
         </header>
-        <div class="row">
+        <div class="row" id="rowdiv">
             <div class="col-md-10"><canvas id="viewport" width="1200" height="850"></canvas></div>
-            <div id="personalplan" class="col-md-2">
-                <div>
+            <div id="sidebar" class="col-md-2">
+                <div id="personalplandiv">
                     @Html.Partial("_PersonalPlan")
                 </div>
                 <div id="contactform">
