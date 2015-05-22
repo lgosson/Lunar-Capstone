@@ -403,11 +403,12 @@
                             // Change CSS properties for selected or deselected list items
                             $('#' + window.services[i].name).css("color", "white");
                             $('#' + window.services[i].name).css("background-color", "#97233F");
+                            $('a:visited:active').css("text-decoration", "none");
                         }
                         else {
-                            //$('#c' + window.services[i].name).remove();  // Remove from contact form list
-                            $('#' + window.services[i].name).css("color", "black");
-                            $('#' + window.services[i].name).css("background-color", "white");
+                            $('#' + window.services[i].name).css("color", " #015172");
+                            $('#' + window.services[i].name).css("background-color", "#F3F3EE");
+                            $('a').css("text-decoration", "none");
                         }
                     }
                 }
