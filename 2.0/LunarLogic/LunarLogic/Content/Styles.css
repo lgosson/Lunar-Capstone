@@ -197,7 +197,7 @@ textarea {
     margin-top: 8px;
     float: left;
     min-width: 175px;
-    min-height: 120px;
+    height: 120px;
 }
 
 #interestedin {

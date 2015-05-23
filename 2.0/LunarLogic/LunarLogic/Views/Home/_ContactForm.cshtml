@@ -4,28 +4,37 @@
     ViewBag.Title = "Services";
     Layout = null;
 }
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <h2 id="contactheader">Contact Us</h2>
-<form>
+
+@using (Html.BeginForm())
+{
     <div class="row">
-        @Html.LabelFor(model => Model.FirstName, "First Name", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.FirstName, "First Name*", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.FirstName)
+        @Html.ValidationMessageFor(model => model.FirstName)
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.LastName, "Last Name", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.LastName)
+        @Html.ValidationMessageFor(model => model.LastName)
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.Phone, "Phone", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.Phone)
+        @Html.ValidationMessageFor(model => model.Phone)
     </div>
     <div class="row">
-        @Html.LabelFor(model => Model.Email, "Email", new { @class = "contactLabel" })
+        @Html.LabelFor(model => Model.Email, "Email*", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.Comment, "Comments", new { @class = "contactLabel" })
         @Html.TextAreaFor(mode => Model.Comment)
+        @Html.ValidationMessageFor(model => model.Comment)
     </div>
     <div class="row">
         <span id="nodeselect" class="nodeselect"></span>
@@ -39,8 +48,7 @@
         <input type="reset" id="reset" value="Reset" class="btn btn-primary" />
     </div>
     <input type="button" value="Back to Personal Plan" class="btn btn-danger" id="backtoplan" />
-</form>
-
+}
 <script type="text/javascript">
     $('#send').click(function () {
         var request = new ContactModel();
