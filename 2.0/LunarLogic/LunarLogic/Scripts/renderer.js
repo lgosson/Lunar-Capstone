@@ -31,7 +31,8 @@
                 var display = [];
 
                 for (i = 0; i < result.length; i++) {
-                    if (result[i].selectable == false || result[i].selected == true) {
+                    //alert(result[i].name + '    ' + result[i].hovered);
+                    if (result[i].selectable == false || result[i].selected == true || result[i].hovered == true) {
                         display.push(result[i]);
                         for (j = 0; j < result[i].connected.length; j++) {
                             for (k = 0; k < result.length; k++) {
@@ -104,11 +105,11 @@
                 //particleSystem.graft();
             },
 
-            updateNodes: function(){
+            updateNodes: function () {
                 particleSystem.eachNode(function (node, pt) {
-                
-                    for(i = 0; i < window.services.length; i++){
-                        if(node.data.name == window.services[i].name){
+
+                    for (i = 0; i < window.services.length; i++) {
+                        if (node.data.name == window.services[i].name) {
                             node.data.selected = window.services[i].selected;
 
                             // Changes color of node
@@ -122,11 +123,11 @@
                 });
             },
 
-                windowsized: function () {
-                cWidth = (window.innerWidth)*.8;
+            windowsized: function () {
+                cWidth = (window.innerWidth) * .8;
                 cHeight = window.innerHeight;
 
-              particleSystem.screenSize(cWidth, cHeight);
+                particleSystem.screenSize(cWidth, cHeight);
             },
 
             redraw: function () {
@@ -239,43 +240,75 @@
                 nearest = null;
                 var dragged = null;
                 var oldmass = 1;
+                var hovered = false;
+                var hvrTol = 30;
 
-                var lastClick = new Date().getTime();
-                var newClick = lastClick;
-                var dblClickTolerance = 300;
+                var date = new Date();
+                var dwn = date.getTime();
+                var dwnTol = 10;
                 var wasDragged = false;
 
                 // set up a handler object that will initially listen for mousedowns then
                 // for moves and mouseups while dragging
                 var handler = {
                     clicked: function (e) {
+                        if (!hovered) return;
+
+                        if (dragged.node !== null) dragged.node.fixed = true;
+
+                        that.listUpdate(selected.node.name);
+                        that.toggleNode(selected);
+                        
+                        //$(canvas).bind('mousemove', handler.dragged);
+                        //$(window).bind('mouseup', handler.dropped);
+                    },
+
+                    down: function(e){
+                        dwn = date.getTime();
+                        $(canvas).bind('mousemove', handler.dragged);
+                        $(window).bind('mouseup', handler.dropped);
+                    },
+
+                    up: function (e) {
+                        if (!wasDragged) {
+                            handler.clicked(e);
+                        }
+                        wasDragged = false;
+                    },
+
+                    moved: function (e) {
                         var pos = $(canvas).offset();
                         _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
                         selected = nearest = dragged = particleSystem.nearest(_mouseP);
 
-                        if (dragged.node !== null) dragged.node.fixed = true
-
-                        newClick = new Date().getTime();
-                        if (newClick - lastClick < dblClickTolerance) {
-                            if (selected.node.data.selectable == true) handler.doubleclicked(e)
+                        if (selected.distance < hvrTol) {
+                            hovered = true;
+                            handler.hover(e);
                         }
-                        else {
-                            $(canvas).bind('mousemove', handler.dragged)
-                            $(window).bind('mouseup', handler.dropped)
-                        }
-
-                        lastClick = new Date().getTime();
-                        return false
+                        else hovered = false;
                     },
 
-                    clickedUp: function (e) {
-                        if (!wasDragged) {
-                            if (selected.node.data.selectable == true) handler.singleclicked(e)
+                    hover: function (e) {
+                        for (i = 0; i < window.services.length; i++) {
+                            if (window.services[i].name == selected.node.name) {
+                                window.services[i].hovered = true;
+                                selected.node.hovered = true;
+                            }
+                            else {
+                                window.services[i].hovered = false;
+                            }
                         }
-                        else wasDragged = false
-                        $(canvas).unbind('mousemove', handler.dragged)
-                        $(window).unbind('mouseup', handler.dropped)
-                        return false
+
+                        $('#sname').html(selected.node.data.label); // Updates service information partial view
+                        $('#sdescription').html(selected.node.data.desc);
+                        si = document.getElementById('sconnected')
+                        si.innerHTML = '';
+                        for (var i = 0; i < selected.node.data.connected.length; i++) {
+                            si.innerHTML += selected.node.data.connected[i] + '<br/>'
+                        }
+                        $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
+
+                        that.graphDraw(window.services);
                     },
 
                     dragged: function (e) {
@@ -285,10 +318,10 @@
                         if (!nearest) return
                         if (dragged !== null && dragged.node !== null) {
                             var p = particleSystem.fromScreen(s)
-                            dragged.node.p = p
+                            dragged.node.p = p;
+                            wasDragged = true;
                         }
 
-                        wasDragged = true;
                         return false
                     },
 
@@ -302,34 +335,16 @@
                         $(window).unbind('mouseup', handler.dropped)
                         _mouseP = null
                         return false
-                    },
-
-                    singleclicked: function (e) {
-                        $('#sname').html(selected.node.data.label); // Updates service information partial view
-                        $('#sdescription').html(selected.node.data.desc);
-                        si = document.getElementById('sconnected')
-                        si.innerHTML = '';
-                        for (var i = 0; i < selected.node.data.connected.length; i++) {
-                            si.innerHTML += selected.node.data.connected[i] + '<br/>'
-                        }
-                        $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
-                    },
-
-                    doubleclicked: function (e) {
-
-                        that.listUpdate(selected.node.name);
-                        that.toggleNode(selected);
-
-                        return false
                     }
                 }
 
-                $(canvas).mousedown(handler.clicked);
-                $(canvas).mouseup(handler.clickedUp);
+                $(canvas).mousedown(handler.down);
+                $(canvas).mouseup(handler.up);
+                $(canvas).mousemove(handler.moved);
             },
 
             toggleNode: function (selected) {
-                if(selected.node != null){
+                if (selected.node != null) {
                     var n = {
                         name: selected.node.name,
                         selected: selected.node.data.selected
@@ -365,14 +380,14 @@
 
                 // Update how many services the user has selected
                 $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
-                that.graphDraw(window.services);                
+                that.graphDraw(window.services);
             },
 
             listItemClick: function () {
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
                         var liId = this.id;
-                        var result =  that.listUpdate(liId);
+                        var result = that.listUpdate(liId);
 
                         // *** Updating progress bar *** //
                         var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
