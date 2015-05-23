@@ -5,8 +5,7 @@
     Layout = null;
 }
 
-<h2 id="contactheader">Contact Form</h2>
-<hr />
+<h2 id="contactheader">Contact Us</h2>
 <form>
     <div class="row">
         @Html.LabelFor(model => Model.FirstName, "First Name", new { @class = "contactLabel" })
@@ -32,15 +31,14 @@
         <span id="nodeselect" class="nodeselect"></span>
     </div>
     <h3 id="interestedin">Services I'm interested in</h3>
-    <hr />
     <div class="row" id="contactformlist">
-        <ul id="contactformlist"></ul>
+        <ul></ul>
     </div>
-    <div class="row" id="submit">
+    <div class="row" id="submitarea">
         <input type="button" id="send" value="Send" class="btn btn-primary" />
         <input type="reset" id="reset" value="Reset" class="btn btn-primary" />
     </div>
-    <input type="button" value="Back to Personal Plan" onclick="" class="btn btn-danger" id="backtoplan" />
+    <input type="button" value="Back to Personal Plan" class="btn btn-danger" id="backtoplan" />
 </form>
 
 <script type="text/javascript">

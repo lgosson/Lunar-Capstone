@@ -122,9 +122,7 @@
     position: relative;
     height: 100%;
     width: 104%;
-    border: 1px solid #ccc;
     overflow: auto;
-    background-color: #F3F3EE;
 }
 
 .servicelistitem {
@@ -139,7 +137,6 @@
     border-style: solid;
     border-color: #ccc;
     box-shadow: 0 0 8px #ccc;
-    text-decoration: none;
 }
 
     .servicelistitem:hover {
@@ -149,7 +146,7 @@
     }
 
 #contactbutton {
-    margin-left: 36%;
+    margin-left: 31%;
     margin-top: 8px;
 }
 
@@ -167,23 +164,25 @@
 
 #contactform {
     position: fixed;
-    //overflow: auto;
     top: 0px;
     right: 0;
     bottom: 0px;
     width: 23%;
+    height: 100%;
     background: #DBDBD5;
     padding: 30px;
     box-shadow: 0 0 5px black;
 }
 
 #contactheader {
+    position: relative;
     font-family: 'Century Gothic';
-    margin-left: 25%;
-    color: #015172
+    margin: -2% auto 5% 25%;
+    color: #015172;
 }
 
 .contactLabel {
+    position: relative;
     font-family: 'Century Gothic';
     color: grey;
     float: left;
@@ -197,25 +196,25 @@
 textarea {
     margin-top: 8px;
     float: left;
-    min-width: 225px;
+    min-width: 175px;
     min-height: 120px;
 }
 
 #interestedin {
     font-family: 'Century Gothic';
-    margin-left: 18%;
-    margin-top: 25px;
+    margin: 25px auto 3% 12%;
     color: #015172
 }
 
 #contactformlist {
+    position: relative;
     list-style-type: none;
     overflow: auto;
-    max-height: 350px;
+    max-height: 37%;
 }
 
 #send {
-    margin-left: 115px;
+    margin-left: 22%;
     width: 110px;
 }
 
@@ -226,7 +225,11 @@ textarea {
 
 #backtoplan {
     margin-top: 2px;
-    margin-left: 135px;
+    margin-left: 28%;
+}
+
+#submitarea {
+    margin-top: 20px;
 }
 
 /* End Contact Form Styles*/
@@ -238,6 +241,14 @@ header {
     box-shadow: 0 0 40px #ccc;
 }
 
-a:link:active, a:visited:active, a:hover { 
+a, a:link:active, a:visited:active, a:hover { 
     text-decoration: none;
+}
+
+form {
+    height: 100%;
+}
+
+ul {
+    background-color: #F3F3EE;
 }
