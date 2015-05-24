@@ -213,6 +213,20 @@ textarea {
     max-height: 37%;
 }
 
+.selectedservice {
+    list-style-type: none;
+    font-family: 'Century Gothic';
+    font-size: large;
+    padding-top: 14px;
+    padding-left: 30px;
+    margin-left: -40px;
+    color: #015172;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
+    box-shadow: 0 0 8px #ccc;
+}
+
 #send {
     margin-left: 22%;
     width: 110px;
