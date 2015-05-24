@@ -44,28 +44,32 @@
 $(document).ready(function () {
     $('#pb').progressbar();
 
-    $(document).ready(function () {
-        $('#sidebar').sidebar({
-            side: "right"
-        });
-
-        $("#sidebartoggle").on("click", function () {
-            $("#sidebar").trigger("sidebar:toggle", [{ speed: 350 }]);
-        });
-
-        $('#contactform').sidebar({
-            side: "right"
-        });
-
-        $("#contactbutton").on("click", function () {
-            $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
-        });
-
-        $("#backtoplan").on("click", function () {
-            $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
-            $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]);
-        });
+    $('#sidebar').sidebar({
+        side: "right"
     });
+
+    $("#sidebartoggle").on("click", function () {
+        $("#sidebar").trigger("sidebar:toggle", [{ speed: 350 }]);
+    });
+
+    $('#contactform').sidebar({
+        side: "right"
+    });
+
+    $("#contactbutton").on("click", function () {
+        $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
+    });
+
+    $("#backtoplan").on("click", function () {
+        $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
+        $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]);
+    });
+
+    $('#reset').click(function () {
+        //$('#contactformlist ul').empty();
+    });
+
+    $('#Phone').mask("(999) 999-9999");
 });
 
 

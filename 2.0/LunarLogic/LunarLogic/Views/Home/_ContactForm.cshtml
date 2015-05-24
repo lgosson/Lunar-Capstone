@@ -6,6 +6,7 @@
 }
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.min.js"></script>
 
 <h2 id="contactheader">Contact Us</h2>
 
@@ -13,28 +14,28 @@
 {
     <div class="row">
         @Html.LabelFor(model => Model.FirstName, "First Name*", new { @class = "contactLabel" })
-        @Html.EditorFor(model => model.FirstName)
-        @Html.ValidationMessageFor(model => model.FirstName)
+        @Html.EditorFor(model => model.FirstName)<br />
+        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validation-msg" })
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.LastName, "Last Name", new { @class = "contactLabel" })
-        @Html.EditorFor(model => model.LastName)
-        @Html.ValidationMessageFor(model => model.LastName)
+        @Html.EditorFor(model => model.LastName)<br />
+        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "validation-msg" })
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.Phone, "Phone", new { @class = "contactLabel" })
-        @Html.EditorFor(model => model.Phone)
-        @Html.ValidationMessageFor(model => model.Phone)
+        @Html.EditorFor(model => model.Phone)<br />
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "validation-msg" })
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.Email, "Email*", new { @class = "contactLabel" })
-        @Html.EditorFor(model => model.Email)
-        @Html.ValidationMessageFor(model => model.Email)
+        @Html.EditorFor(model => model.Email)<br />
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation-msg" })
     </div>
     <div class="row">
         @Html.LabelFor(model => Model.Comment, "Comments", new { @class = "contactLabel" })
-        @Html.TextAreaFor(mode => Model.Comment)
-        @Html.ValidationMessageFor(model => model.Comment)
+        @Html.TextAreaFor(mode => Model.Comment)<br />
+        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "validation-msg" })
     </div>
     <div class="row">
         <span id="nodeselect" class="nodeselect"></span>

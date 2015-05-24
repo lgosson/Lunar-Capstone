@@ -246,6 +246,10 @@ textarea {
     margin-top: 20px;
 }
 
+.validation-msg {
+    color: red;
+}
+
 /* End Contact Form Styles*/
 
 header {
