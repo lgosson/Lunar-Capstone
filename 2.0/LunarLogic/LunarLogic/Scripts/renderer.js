@@ -364,10 +364,14 @@
                         window.services[i].selected = !window.services[i].selected;
                         // Updates contact form list
                         if (window.services[i].selected == true) {
-                            $('#contactformlist ul').append('<li class=servicelistitem id=c' + window.services[i].name + '>' + window.services[i].label + '</li>');
+                            $('#noneselected').remove();
+                            $('#contactformlist ul').append('<li class=selectedservice id=c' + window.services[i].name + '>' + window.services[i].label + '</li>');
                         }
                         else {
                             $('#c' + window.services[i].name).remove();
+                            if ($('#contactformlist ul li').length == 0) {
+                                $('#contactformlist ul').append("<li class=selectedservice id=noneselected>You haven't selected any services yet!</li>")
+                            }
                         }
                     }
                 }
@@ -424,12 +428,12 @@
                             // Change CSS properties for selected or deselected list items
                             $('#' + window.services[i].name).css("color", "white");
                             $('#' + window.services[i].name).css("background-color", "#97233F");
+                            $('a').css("text-decoration", "none");
                             $('a:visited:active').css("text-decoration", "none");
                         }
                         else {
                             $('#' + window.services[i].name).css("color", " #015172");
                             $('#' + window.services[i].name).css("background-color", "#F3F3EE");
-                            $('a').css("text-decoration", "none");
                         }
                     }
                 }
