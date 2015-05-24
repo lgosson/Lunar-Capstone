@@ -131,9 +131,7 @@
             },
 
             redraw: function () {
-
                 if (!particleSystem) return
-
 
                 //ctx.fillRect(0, 0, canvas.width, canvas.height);
                 gfx.clear() // convenience ƒ: clears the whole canvas rect
@@ -179,7 +177,6 @@
                         ctx.fillText(label || "", pt.x, pt.y + 4)
                     }
                 })
-
 
                 // draw the edges
                 particleSystem.eachEdge(function (edge, pt1, pt2) {
@@ -239,34 +236,37 @@
                 selected = null;
                 nearest = null;
                 var dragged = null;
+                var wasDragged = false;
                 var oldmass = 1;
                 var hovered = false;
                 var hvrTol = 30;
-
-                var date = new Date();
-                var dwn = date.getTime();
-                var dwnTol = 10;
-                var wasDragged = false;
-
+                var dragTol = 20;
+                var oldDown = null;
+                
                 // set up a handler object that will initially listen for mousedowns then
                 // for moves and mouseups while dragging
                 var handler = {
+                    calcMousePos: function (e) {
+                        var pos = $(canvas).offset();
+                        _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top);
+                        selected = nearest = dragged = particleSystem.nearest(_mouseP);
+                        return _mouseP;
+                    },
+
                     clicked: function (e) {
+                        handler.judgeHover(e);
                         if (!hovered) return;
 
                         if (dragged.node !== null) dragged.node.fixed = true;
 
                         that.listUpdate(selected.node.name);
                         that.toggleNode(selected);
-                        
-                        //$(canvas).bind('mousemove', handler.dragged);
-                        //$(window).bind('mouseup', handler.dropped);
                     },
 
-                    down: function(e){
-                        dwn = date.getTime();
+                    down: function (e) {
                         $(canvas).bind('mousemove', handler.dragged);
                         $(window).bind('mouseup', handler.dropped);
+                        oldDown = handler.calcMousePos(e);
                     },
 
                     up: function (e) {
@@ -277,10 +277,11 @@
                     },
 
                     moved: function (e) {
-                        var pos = $(canvas).offset();
-                        _mouseP = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
-                        selected = nearest = dragged = particleSystem.nearest(_mouseP);
+                        handler.judgeHover(e);
+                    },
 
+                judgeHover: function(e){
+                    handler.calcMousePos(e);
                         if (selected.distance < hvrTol) {
                             hovered = true;
                             handler.hover(e);
@@ -292,7 +293,6 @@
                         for (i = 0; i < window.services.length; i++) {
                             if (window.services[i].name == selected.node.name) {
                                 window.services[i].hovered = true;
-                                selected.node.hovered = true;
                             }
                             else {
                                 window.services[i].hovered = false;
@@ -312,14 +312,15 @@
                     },
 
                     dragged: function (e) {
-                        var old_nearest = nearest && nearest.node._id
-                        var pos = $(canvas).offset();
-                        var s = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
+                        var s = handler.calcMousePos(e);
                         if (!nearest) return
                         if (dragged !== null && dragged.node !== null) {
                             var p = particleSystem.fromScreen(s)
                             dragged.node.p = p;
-                            wasDragged = true;
+                            var pos = handler.calcMousePos(e);
+                            if (Math.abs(pos.x - oldDown.x) + Math.abs(pos.y - oldDown.y) > dragTol) {
+                                wasDragged = true;
+                            }
                         }
 
                         return false
@@ -343,7 +344,7 @@
                 $(canvas).mousemove(handler.moved);
             },
 
-            toggleNode: function (selected) {
+            convertNode: function (selected) {
                 if (selected.node != null) {
                     var n = {
                         name: selected.node.name,
@@ -351,6 +352,11 @@
                     };
                     selected = n;
                 }
+                return selected;
+            },
+
+            toggleNode: function (selected) {
+                selected = that.convertNode(selected);
 
                 //update list of services to reflect service selection/deselection
                 for (i = 0; i < window.services.length; i++) {
