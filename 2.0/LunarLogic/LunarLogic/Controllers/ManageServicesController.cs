@@ -40,13 +40,7 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Create
         public ActionResult Create()
         {
-            /*
-            var selectItems = from service in db.Services.ToList()
-                              select new SelectListItem
-                              {
-                                  Text = service.Name,
-                                  Value = service.ID.ToString()
-                              }; */
+            
 
             ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name");
 
@@ -59,14 +53,7 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Create(Service service, int[] servList)
         {
-            
-
-            //service.ID = (db.Services.Count() + 1);
-
-            //var serviceChanged = (from s in db.Services
-               //                   where s.ID == service.ID
-                   //               select s).FirstOrDefault();
-
+          
             var serviceAdded = service;
 
             foreach (var postItem in servList)
@@ -100,7 +87,6 @@ namespace LunarLogic.Controllers
                     ID = service.ID,
                     Name = service.Name,
                     Description = service.Description,
-                    ParentInclude = service.ParentInclude,
                     Selectable = service.Selectable,
                     ConnectedServices = service.ConnectedServices
                 });
@@ -125,9 +111,7 @@ namespace LunarLogic.Controllers
                 return HttpNotFound();
             }
 
-            //ViewBag.ConnectedListString = (service.ConnectedServices.ToList()).ToString();
-            //ViewBag.ConnectedList = service.ConnectedServices.ToList();
-            
+                        
             var conList = service.ConnectedServices.ToList();
             List<int> intList = new List<int>();
             ViewBag.ConList = conList;
@@ -153,12 +137,12 @@ namespace LunarLogic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public ActionResult Edit(Service service, int[] listDeal)//, List<string> listDeal)
+        public ActionResult Edit(Service service, int[] servList)
         {
             var serviceChanged = (from s in db.Services
                               where s.ID == service.ID
                               select s).FirstOrDefault();
-            foreach (var postItem in listDeal)
+            foreach (var postItem in servList)
             {
                 foreach (var serv in db.Services.ToList())
                 {
