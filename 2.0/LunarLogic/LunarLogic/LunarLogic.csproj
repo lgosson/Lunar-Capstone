@@ -250,6 +250,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="bin\LunarLogic.dll.config" />
+    <None Include="Properties\PublishProfiles\lunarlogicservices %288%29.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\graphics.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

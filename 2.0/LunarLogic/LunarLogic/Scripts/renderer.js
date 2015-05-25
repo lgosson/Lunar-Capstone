@@ -426,14 +426,14 @@
                             };
 
                             // Change CSS properties for selected or deselected list items
-                            $('#' + window.services[i].name).css("color", "white");
-                            $('#' + window.services[i].name).css("background-color", "#97233F");
+                            $('#' + window.services[i].name).removeClass("servicelistitem");
+                            $('#' + window.services[i].name).addClass("selecteditem");
                             $('a').css("text-decoration", "none");
                             $('a:visited:active').css("text-decoration", "none");
                         }
                         else {
-                            $('#' + window.services[i].name).css("color", " #015172");
-                            $('#' + window.services[i].name).css("background-color", "#F3F3EE");
+                            $('#' + window.services[i].name).removeClass("selecteditem");
+                            $('#' + window.services[i].name).addClass("servicelistitem");
                         }
                     }
                 }

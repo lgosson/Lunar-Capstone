@@ -18,34 +18,28 @@
     <script src="~/Scripts/arbor-tween.js"></script>
     <script src="~/Scripts/graphics.js"></script>
     <script src="~/Scripts/renderer.js"></script>
-    <!-- Bootstrap -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <!-- Sidebar -->
     <script src="~/Scripts/jquery.sidebar.min.js"></script>
     <!-- Styles and Scripts -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Styles.css" rel="stylesheet" />
     <script src="~/Scripts/services.js"></script>
 
     <title>Lunar Logic Services</title>
 </head>
 <body>
-    <div class="container-fluid" id="maindiv">
-        <header>
-            <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
-            <a href="#" id="sidebartoggle" class="btn btn-danger">Personal Plan</a>
-        </header>
-        <div class="row" id="rowdiv">
-            <div class="col-md-10"><canvas id="viewport" width="1200" height="850"></canvas></div>
-            <div id="sidebar" class="col-md-2">
-                <div id="personalplandiv">
-                    @Html.Partial("_PersonalPlan")
-                </div>
-                <div id="contactform">
-                    @Html.Partial("_ContactForm")
-                </div>
-            </div>
-        </div>        
+    <header>
+        <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
+        <a href="#" id="sidebartoggle" class="btn btn-danger">Personal Plan</a>
+    </header>
+    <canvas id="viewport" width="800" height="600"></canvas>
+    <div id="sidebar">
+        <div id="personalplandiv">
+            @Html.Partial("_PersonalPlan")
+        </div>
+        <div id="contactform">
+            @Html.Partial("_ContactForm")
+        </div>
     </div>
     <script type="text/javascript">
         window.selectedServices = [];
@@ -105,7 +99,7 @@
         function haveSelected(result) {
             $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
             window.servicesResults = result;
-        }          
+        }
 
         function service() {
             name = '';
