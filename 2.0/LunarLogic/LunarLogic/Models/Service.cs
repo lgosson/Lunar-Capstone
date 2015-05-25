@@ -20,6 +20,7 @@ namespace LunarLogic.Models
         public string Description { get; set; }
         public bool ParentInclude { get; set; }
         public bool Selectable { get; set; }
+        public string ImageURL { get; set; }
 
         public virtual ICollection<Service> ConnectedServices { get; set; }
         public virtual ICollection<Service> ParentServices { get; set; }
