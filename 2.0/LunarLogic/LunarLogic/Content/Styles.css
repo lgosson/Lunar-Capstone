@@ -18,7 +18,6 @@
 /* Styles for _ServiceInformation Partial View*/
 
 #personalplandiv {
-    position: relative;
     height: 100%;
 }
 
@@ -28,26 +27,30 @@
 
 #serviceinfoheader {
     position: relative;
-    top: -30px;
+    top: -11%;
+    font-size: 1.6em;
     font-family: 'Century Gothic';
     text-align: center;
     margin-left: 20px;
     color: #015172;
 }
 
-#serviceinfolist {
+#servicedetails {
     position: relative;
-    top: -19px;
+    top: -12%;
     height: 100%;
     list-style-type: none;
     font-family: 'Century Gothic';
     font-size: large;
 }
 
-.serviceInfo {
-    display: block;
+.serviceInfo { /* Right now this should be #sconnected? */
     margin-right: 20px;
     font-family: 'Century Gothic';
+}
+
+#sconnected {
+
 }
 
 .serviceInfoHead {
@@ -69,14 +72,13 @@
 }
 
 #sdescription {
-    width: 104%;
+    width: 102%;
     overflow: auto;
-    max-height: 60%;
+    height: 60%;
 }
 
 #servicesInterestedIn {
-    min-height: 1px;
-    max-height: 1px;
+    height: 25%;
 }
 
 /* End Service Information Styles*/
@@ -85,18 +87,19 @@
 
 #personalplan {
     position: relative;
-    height: 40%;
-    top: -10px;
+    height: 38%;
+    top: 1%;
 }
 
 #personalplanheader {
     font-family: 'Century Gothic';
     margin-left: 22%;
     color: #015172;
+    font-size: 1.6em;
 }
 
 #pb { /*Progress Bar*/
-    width: 300px;
+    width: 82%;
     margin-left: 8%;
 }
 
@@ -109,7 +112,7 @@
 
 #servicelist {
     height: 100%;
-    width: 104%;
+    width: 102%;
     overflow: auto;
 }
 
@@ -150,7 +153,7 @@
 
 #contactbutton {
     margin-left: 31%;
-    margin-top: 8px;
+    margin-top: 2%;
 }
 
 #sidebartoggle {
