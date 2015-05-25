@@ -1,21 +1,20 @@
 (function () {
-
     window.services = [];
 
     Renderer = function (canvas) {
-        var canvas = $(canvas).get(0)
+        canvas = $(canvas).get(0);
         var ctx = canvas.getContext("2d");
-        var gfx = arbor.Graphics(canvas)
-        var particleSystem = null
+        var gfx = arbor.Graphics(canvas);
+        var particleSystem = null;
 
         var cWidth = canvas.width = window.innerWidth;
         var cHeight = canvas.height = window.innerHeight;
 
         var that = {
             init: function (system) {
-                particleSystem = system
-                particleSystem.screenSize(canvas.width, canvas.height)
-                particleSystem.screenPadding(40)
+                particleSystem = system;
+                particleSystem.screenSize(canvas.width, canvas.height);
+                particleSystem.screenPadding(40);
 
                 that.initMouseHandling();
                 that.listItemClick();
@@ -31,7 +30,6 @@
                 var display = [];
 
                 for (i = 0; i < result.length; i++) {
-                    //alert(result[i].name + '    ' + result[i].hovered);
                     if (result[i].selectable == false || result[i].selected == true || result[i].hovered == true) {
                         display.push(result[i]);
                         for (j = 0; j < result[i].connected.length; j++) {
@@ -60,17 +58,29 @@
                         */
                     }
                 }
+                var pnt = null;
+
+                for (i = 0; i < display.length; i++) {
+                    if (display[i].hovered == true) {
+                        var nd = particleSystem.getNode(display[i].name);
+                        pnt = nd.p;
+                    }
+                }
+
+                var newNodeNames = [];
 
                 for (i = 0; i < display.length; i++) {
                     if (particleSystem.getNode(display[i].name) == null) {
+                        newNodeNames.push(display[i].name);
                         particleSystem.addNode(display[i].name, {
                             name: display[i].name,
                             label: display[i].label,
                             'desc': display[i].desc,
                             'selectable': display[i].selectable,
                             'selected': display[i].selected,
+                            //'hovered': display[i].hovered,
                             'connected': display[i].connected,
-                            'parent': display[i].parent,
+                            //'parent': display[i].parent,
                             'color': display[i].color,
                             'shape': display[i].shape
                         });
@@ -101,13 +111,15 @@
                         }
                     }
                 }
+
+                //window.setTimeout(that.newNodePos(newNodeNames, pnt), 10);
+
                 that.updateNodes();
                 //particleSystem.graft();
             },
 
             updateNodes: function () {
                 particleSystem.eachNode(function (node, pt) {
-
                     for (i = 0; i < window.services.length; i++) {
                         if (node.data.name == window.services[i].name) {
                             node.data.selected = window.services[i].selected;
@@ -118,6 +130,20 @@
                             }
                             else
                                 node.data.color = 'red';
+                        }
+                    }
+                });
+            },
+
+            //DOES NOTHING GOOD RIGHT NOW: see graphdraw. 
+            newNodePos: function (nodes, pt) {
+                particleSystem.eachNode(function (node, pt) {
+                    for (i = 0; i < nodes.length; i++) {
+                        if (nodes[i] == node.name) {
+                            //node.p = new arbor.Point(pt.x, pt.y);
+                            node.p.x = pt.x;
+                            node.p.y = pt.y;
+                            alert(nodes[i] + '  ' + node.name);
                         }
                     }
                 });
@@ -239,7 +265,7 @@
                 var wasDragged = false;
                 var oldmass = 1;
                 var hovered = false;
-                var hvrTol = 30;
+                var hvrTol = 50;
                 var dragTol = 20;
                 var oldDown = null;
                 
@@ -280,8 +306,8 @@
                         handler.judgeHover(e);
                     },
 
-                judgeHover: function(e){
-                    handler.calcMousePos(e);
+                    judgeHover: function(e){
+                        handler.calcMousePos(e);
                         if (selected.distance < hvrTol) {
                             hovered = true;
                             handler.hover(e);

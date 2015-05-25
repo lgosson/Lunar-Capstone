@@ -58,7 +58,7 @@
         })()
 
         function graphSetup(result) {
-            var sys = arbor.ParticleSystem(100, 1000, .01);
+            var sys = arbor.ParticleSystem(50, 500, .01);
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
 
@@ -69,7 +69,7 @@
                 s.desc = result[i].Description;
                 s.selectable = result[i].Selectable;
                 s.selected = false;
-                s.hovered = false;
+                //s.hovered = false;
                 s.connected = result[i].ConnectedServices;
                 s.parent = result[i].ParentService;
                 s.color = 'red';
