@@ -21,6 +21,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Selectable)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </th>
         <th></th>
     </tr>
 
@@ -35,6 +38,9 @@
        
         <td>
             @Html.DisplayFor(modelItem => item.Selectable)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageURL)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

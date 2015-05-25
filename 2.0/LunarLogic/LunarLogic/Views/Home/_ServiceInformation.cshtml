@@ -1,7 +1,7 @@
 ﻿@model LunarLogic.Models.ServiceViewModel
 
 <h3 class="serviceInfoheader" id="serviceinfoheader">Service Information</h3>
-<div class="dl-horizontal" id="serviceinfolist">
+<div class="dl-horizontal" id="servicedetails">
     <h6 id="snamehead" class="serviceInfoHead">
         @Html.DisplayNameFor(model => model.Name)
     </h6>
@@ -15,13 +15,13 @@
     <p id="sdescription" class="serviceInfo">
         @Html.DisplayFor(model => model.Description)
         <br />
-    </p>
-
-    <h6 class="serviceInfoHead">
-        Services you may be interested in:
-    </h6>
+    </p>    
 
     <div id="servicesInterestedIn">
+        <h6 class="serviceInfoHead">
+            Services you may be interested in:
+        </h6>
+
         @if (Model != null && Model.ConnectedServices != null)
         {
             foreach (string s in Model.ConnectedServices)

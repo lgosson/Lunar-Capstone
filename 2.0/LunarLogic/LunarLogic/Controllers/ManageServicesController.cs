@@ -88,7 +88,8 @@ namespace LunarLogic.Controllers
                     Name = service.Name,
                     Description = service.Description,
                     Selectable = service.Selectable,
-                    ConnectedServices = service.ConnectedServices
+                    ConnectedServices = service.ConnectedServices,
+                    ImageURL = service.ImageURL
                 });
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -163,9 +164,10 @@ namespace LunarLogic.Controllers
                         }
                     }
                 }
-            }      
-     
-            
+            }
+
+            if (service.ImageURL != null)
+                serviceChanged.ImageURL = service.ImageURL;
    
             if (ModelState.IsValid)
             {
