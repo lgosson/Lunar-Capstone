@@ -265,7 +265,8 @@
                 var wasDragged = false;
                 var oldmass = 1;
                 var hovered = false;
-                var hvrTol = 50;
+                //TODO: Add another hover bool that is for a radius AROUND the node (for triggering reveal of node's connections).
+                var hvrTol = 150;
                 var dragTol = 20;
                 var oldDown = null;
                 
