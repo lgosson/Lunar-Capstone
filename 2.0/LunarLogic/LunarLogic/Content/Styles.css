@@ -3,13 +3,18 @@
     height: 100%;
 }
 
+#container, #viewport {
+    width: 100%;
+    height: 100%;
+}
+
 #sidebar {
     position: fixed;
     height: 100%;
     top: 0px;
     right: 0;
     bottom: 0px;
-    width: 23%;
+    width: 450px;
     background: #DBDBD5;
     padding: 30px;
     box-shadow: 0 0 5px black;
@@ -172,7 +177,7 @@
     top: 0px;
     right: 0;
     bottom: 0px;
-    width: 23%;
+    width: 450px;
     height: 100%;
     background: #DBDBD5;
     padding: 30px;

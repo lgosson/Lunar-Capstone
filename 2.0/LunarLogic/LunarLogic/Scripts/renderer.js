@@ -12,19 +12,22 @@
 
         var that = {
             init: function (system) {
-                particleSystem = system;
-                particleSystem.screenSize(canvas.width, canvas.height);
-                particleSystem.screenPadding(40);
+                if (particleSystem == null) {
+                    particleSystem = system;
+                    particleSystem.screenSize(canvas.width, canvas.height);
+                    particleSystem.screenPadding(40);
 
-                that.initMouseHandling();
-                that.listItemClick();
+                    that.initMouseHandling();
+                    that.listItemClick();
 
-                $(window).resize(this.windowsized);
+                    $(window).resize(this.windowsized);
+                }
             },
 
-            initialize: function (system, result) {
+            initialize: function (system) {
                 particleSystem = system;
             },
+
 
             graphDraw: function (result) {
                 var display = [];
@@ -39,31 +42,12 @@
                                 }
                             }
                         }
-
-                        //INITIAL WORK on recusively revealing all parents from selected nodes to the base
-                        /*
-                        var cur = result[i];
-                        var go = true;
-
-                        do {
-                            go = false;
-                            for (p = 0; p < result.length; p++) {
-                                if (result[p].name == cur.parent) {
-                                    go = true;
-                                    display.push(cur);
-                                    cur = result[p];
-                                }
-                            }
-                        } while (go);
-                        */
                     }
                 }
-                var pnt = null;
 
                 for (i = 0; i < display.length; i++) {
                     if (display[i].hovered == true) {
                         var nd = particleSystem.getNode(display[i].name);
-                        pnt = nd.p;
                     }
                 }
 
@@ -71,7 +55,6 @@
 
                 for (i = 0; i < display.length; i++) {
                     if (particleSystem.getNode(display[i].name) == null) {
-                        newNodeNames.push(display[i].name);
                         particleSystem.addNode(display[i].name, {
                             name: display[i].name,
                             label: display[i].label,
@@ -112,8 +95,6 @@
                     }
                 }
 
-                //window.setTimeout(that.newNodePos(newNodeNames, pnt), 10);
-
                 that.updateNodes();
                 //particleSystem.graft();
             },
@@ -135,25 +116,9 @@
                 });
             },
 
-            //DOES NOTHING GOOD RIGHT NOW: see graphdraw. 
-            newNodePos: function (nodes, pt) {
-                particleSystem.eachNode(function (node, pt) {
-                    for (i = 0; i < nodes.length; i++) {
-                        if (nodes[i] == node.name) {
-                            //node.p = new arbor.Point(pt.x, pt.y);
-                            node.p.x = pt.x;
-                            node.p.y = pt.y;
-                            alert(nodes[i] + '  ' + node.name);
-                        }
-                    }
-                });
-            },
-
             windowsized: function () {
-                cWidth = (window.innerWidth) * .8;
-                cHeight = window.innerHeight;
-
-                particleSystem.screenSize(cWidth, cHeight);
+                var c = document.getElementById('viewport');
+                particleSystem.screenSize(c.offsetWidth, c.offsetHeight);
             },
 
             redraw: function () {
@@ -269,7 +234,7 @@
                 var hvrTol = 150;
                 var dragTol = 20;
                 var oldDown = null;
-                
+
                 // set up a handler object that will initially listen for mousedowns then
                 // for moves and mouseups while dragging
                 var handler = {
@@ -307,7 +272,7 @@
                         handler.judgeHover(e);
                     },
 
-                    judgeHover: function(e){
+                    judgeHover: function (e) {
                         handler.calcMousePos(e);
                         if (selected.distance < hvrTol) {
                             hovered = true;
@@ -498,5 +463,5 @@
 
         return that
     }
-
+    //$(document).ready(Renderer.that.init());
 })()
