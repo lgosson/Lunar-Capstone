@@ -20,14 +20,21 @@
                     that.initMouseHandling();
                     that.listItemClick();
 
-                    $(window).resize(this.windowsized);
+                    $(window).resize(that.windowsized);
+                    that.windowsized;
                 }
             },
 
-            initialize: function (system) {
-                particleSystem = system;
+            windowsized: function () {
+                var c = document.getElementById('container');
+                var w = c.offsetWidth;
+                var h = c.offsetHeight;
+                
+                canvas.width = w;
+                canvas.height = h;
+                particleSystem.screenSize(w, h);
+                that.redraw();
             },
-
 
             graphDraw: function (result) {
                 var display = [];
@@ -114,11 +121,6 @@
                         }
                     }
                 });
-            },
-
-            windowsized: function () {
-                var c = document.getElementById('viewport');
-                particleSystem.screenSize(c.offsetWidth, c.offsetHeight);
             },
 
             redraw: function () {
