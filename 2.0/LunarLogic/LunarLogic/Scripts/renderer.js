@@ -72,7 +72,8 @@
                             'connected': display[i].connected,
                             //'parent': display[i].parent,
                             'color': display[i].color,
-                            'shape': display[i].shape
+                            'shape': display[i].shape,
+                            'imageurl': display[i].imageurl
                         });
                     }
                 }
@@ -293,6 +294,7 @@
                             }
                         }
 
+                        $('#imageloc').attr('src', selected.node.data.imageurl);
                         $('#sname').html(selected.node.data.label); // Updates service information partial view
                         $('#sdescription').html(selected.node.data.desc);
                         si = document.getElementById('sconnected')

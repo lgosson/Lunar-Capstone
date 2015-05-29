@@ -39,6 +39,7 @@ namespace LunarLogic.Models
             Description = s.Description;
             Selectable = s.Selectable;
             ParentInclude = s.ParentInclude;
+            ImageURL = s.ImageURL;
 
             ConnectedServices = new List<string>();
             foreach (Service connected in s.ConnectedServices)
@@ -57,6 +58,7 @@ namespace LunarLogic.Models
         public bool Selectable { get; set; }
         public List<string> ConnectedServices { get; set; }
         public string ParentService { get; set; }
+        public string ImageURL { get; set; }
     }
 
     public class ServiceListViewModel
@@ -66,6 +68,7 @@ namespace LunarLogic.Models
         public string Description { get; set; }
         public bool ParentInclude { get; set; }
         public bool Selectable { get; set; }
+        public string ImageURL { get; set; }
         public ICollection<Service> ConnectedServices { get; set; }
         public List<string> ConnectedServicesStringList { get; set; }
 

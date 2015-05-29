@@ -30,7 +30,8 @@
 <body>
     <header>
         <div style="margin-left:200px"><a href="http://lunarlogic.com"><img src="~/Images/logo.png" /></a></div>
-        <a href="#" id="sidebartoggle" class="btn btn-danger">Personal Plan</a>
+        <a href="#" id="sidebartoggle" class="btn btn-danger">Toggle Sidebar</a>
+        <img src="~/images/serviceicon3.png" id="imageloc" style="margin-right: 490px; float: right; height: 100px; width: 100px;" />
     </header>
     <div id="container">
         <canvas id="viewport" ></canvas>
@@ -76,6 +77,7 @@
                 s.parent = result[i].ParentService;
                 s.color = 'red';
                 s.shape = 'dot';
+                s.imageurl = result[i].ImageURL;
 
                 window.services.push(s);
             }
@@ -112,6 +114,7 @@
             parent = '';
             color = 'red';
             shape = 'dot';
+            imageurl = '';
         }
     </script>
 </body>
