@@ -72,6 +72,12 @@
     margin-top: 4px;
 }
 
+#serviceimage {
+    height: 50px; 
+    width: 50px;
+    margin-left: 20%;
+}
+
 #sdescriptionhead {
     clear: both;
 }
@@ -161,13 +167,6 @@
     margin-top: 2%;
 }
 
-#sidebartoggle {
-    position: absolute;
-    right: 690px;
-    top: 30px;
-    font-weight: bold;
-}
-
 /* End Personal Plan Styles*/
 
 /* Styles for _ContactForm partial view */
@@ -221,7 +220,7 @@ textarea {
 #contactformlist {
     list-style-type: none;
     overflow: auto;
-    max-height: 37%;
+    height: 37%;
 }
 
 .selectedservice {
@@ -238,6 +237,12 @@ textarea {
     box-shadow: 0 0 8px #ccc;
 }
 
+#submitarea {
+    position: relative;
+    margin-top: 20px;
+    top: 6%;
+}
+
 #send {
     margin-left: 22%;
     width: 110px;
@@ -250,11 +255,7 @@ textarea {
 
 #backtoplan {
     margin-top: 2px;
-    margin-left: 28%;
-}
-
-#submitarea {
-    margin-top: 20px;
+    margin-left: 29%;
 }
 
 /* End Contact Form Styles*/

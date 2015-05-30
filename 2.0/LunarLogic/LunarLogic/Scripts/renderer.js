@@ -302,7 +302,7 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
-                        //$('#serviceimage').attr('src', selected.node.data.imageurl);
+                        $('#serviceimage').attr('src', selected.node.data.imageurl);
                         $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
 
                         that.graphDraw(window.services);
@@ -422,7 +422,7 @@
                                 for (j = 0; j < window.services[i].connected.length; j++) {
                                     si.innerHTML += window.services[i].connected[j] + '<br/>'
                                 };
-                                //$('#serviceimage').attr('src', window.services[i].imageurl);
+                                $('#serviceimage').attr('src', window.services[i].imageurl);
                             }
                         }
                     })

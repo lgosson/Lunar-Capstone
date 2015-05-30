@@ -240,6 +240,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\fav.ico" />
     <Content Include="Images\logo.png" />
     <Content Include="obj\Debug\LunarLogic.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\LunarLogic.dll" />
