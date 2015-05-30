@@ -18,6 +18,7 @@
                     particleSystem.screenPadding(40);
 
                     that.initMouseHandling();
+                    that.listItemHover();
                     that.listItemClick();
 
                     $(window).resize(that.windowsized);
@@ -29,7 +30,7 @@
                 var c = document.getElementById('container');
                 var w = c.offsetWidth;
                 var h = c.offsetHeight;
-                
+
                 canvas.width = w;
                 canvas.height = h;
                 particleSystem.screenSize(w, h);
@@ -294,7 +295,6 @@
                             }
                         }
 
-                        $('#imageloc').attr('src', selected.node.data.imageurl);
                         $('#sname').html(selected.node.data.label); // Updates service information partial view
                         $('#sdescription').html(selected.node.data.desc);
                         si = document.getElementById('sconnected')
@@ -302,6 +302,7 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
+                        //$('#serviceimage').attr('src', selected.node.data.imageurl);
                         $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
 
                         that.graphDraw(window.services);
@@ -403,6 +404,27 @@
                         // Update how many services the user has selected
                         $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
                         that.toggleNode(window.services[result]);
+                    })
+                });
+            },
+
+            listItemHover: function () {
+                $('document').ready(function () {
+                    $('li.servicelistitem').hover(function () {
+                        var liId = this.id;
+                        for (i = 0; i < window.services.length; i++) {
+                            if (window.services[i].name == liId) {
+                                num = i;
+                                $('#sname').html(window.services[i].label);
+                                $('#sdescription').html(window.services[i].desc);
+                                si = document.getElementById('sconnected')
+                                si.innerHTML = '';
+                                for (j = 0; j < window.services[i].connected.length; j++) {
+                                    si.innerHTML += window.services[i].connected[j] + '<br/>'
+                                };
+                                //$('#serviceimage').attr('src', window.services[i].imageurl);
+                            }
+                        }
                     })
                 });
             },
