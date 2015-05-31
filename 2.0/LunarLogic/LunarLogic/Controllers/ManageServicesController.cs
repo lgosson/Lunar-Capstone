@@ -11,7 +11,7 @@ using LunarLogic.Models;
 
 namespace LunarLogic.Controllers
 {
-    [AllowAnonymous]
+    
     public class ManageServicesController : Controller
     {
         private ServiceContext db = new ServiceContext();
