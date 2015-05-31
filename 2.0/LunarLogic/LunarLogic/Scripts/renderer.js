@@ -22,7 +22,7 @@
                     that.listItemClick();
 
                     $(window).resize(that.windowsized);
-                    that.windowsized;
+                    that.windowsized();
                 }
             },
 
@@ -278,7 +278,7 @@
 
                     judgeHover: function (e) {
                         handler.calcMousePos(e);
-                        if (selected.distance < hvrTol) {
+                        if (selected != null && selected.distance < hvrTol) {
                             hovered = true;
                             handler.hover(e);
                         }
@@ -378,15 +378,7 @@
                     if (window.services[i].selected) num++;
                 }
 
-                //TODO: move progress bar and service selection updates to their own functions
-
-                //Updating progress bar
-                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                var barprogress = num * onehundredpercentofprogressbar;
-                $('#pb').progressbar({ value: barprogress });
-
-                // Update how many services the user has selected
-                $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
+                that.progressBarUpdate(num);
                 that.graphDraw(window.services);
             },
 
@@ -395,14 +387,6 @@
                     $('li.servicelistitem').click(function () {
                         var liId = this.id;
                         var result = that.listUpdate(liId);
-
-                        // *** Updating progress bar *** //
-                        var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                        var barprogress = window.services.length * onehundredpercentofprogressbar;
-                        $('#pb').progressbar({ value: barprogress });
-
-                        // Update how many services the user has selected
-                        $('#haveselected').html("I have chosen " + window.services.length + " out of " + (window.services.length - 1) + " services");
                         that.toggleNode(window.services[result]);
                     })
                 });
@@ -456,6 +440,16 @@
                     }
                 }
                 return num;
+            },
+
+            progressBarUpdate: function(num){
+                //Updating progress bar
+                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
+                var barprogress = num * onehundredpercentofprogressbar;
+                $('#pb').progressbar({ value: barprogress });
+
+                // Update how many services the user has selected
+                $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
             }
         }
 
@@ -489,5 +483,4 @@
 
         return that
     }
-    //$(document).ready(Renderer.that.init());
 })()
