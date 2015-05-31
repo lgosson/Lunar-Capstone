@@ -12,7 +12,20 @@ namespace LunarLogic.Controllers
     public class HomeController : Controller
     {
 
-        private ServiceContext db = new ServiceContext();
+        //private ServiceContext db = new ServiceContext();
+
+        private IServiceRepository serviceRepository;
+
+        public HomeController()
+        {
+            this.serviceRepository = new ServiceRepository(new ServiceContext());
+        }
+
+        public HomeController(IServiceRepository serviceRepository)
+        {
+            this.serviceRepository = serviceRepository;
+        }
+
          // GET: Services
         public ActionResult Index()
         {
@@ -68,7 +81,10 @@ namespace LunarLogic.Controllers
             //new List<Service>(){s1,s2,s3,s4,s5,s6,s7,s8};
             #endregion data
 
-            List<Service> servicesToConvert =  db.Services.ToList(); 
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servicesToConvert = enumerable.ToList();
+
+           
 
            List<ServiceViewModel> svms  = new List<ServiceViewModel>(){};
             foreach(Service s in servicesToConvert)

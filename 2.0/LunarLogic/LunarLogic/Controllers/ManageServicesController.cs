@@ -14,12 +14,29 @@ namespace LunarLogic.Controllers
     
     public class ManageServicesController : Controller
     {
-        private ServiceContext db = new ServiceContext();
+       //private ServiceContext db = new ServiceContext();
+        
+
+
+        private IServiceRepository serviceRepository;
+
+        public ManageServicesController()
+        {
+            this.serviceRepository = new ServiceRepository(new ServiceContext());
+        }
+
+        public ManageServicesController(IServiceRepository serviceRepository)
+        {
+            this.serviceRepository = serviceRepository;
+        }
 
         // GET: ManageServices
         public ActionResult Index()
         {
-            return View(db.Services.ToList());
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servs = enumerable.ToList();
+
+            return View(servs);
         }
 
         // GET: ManageServices/Details/5
@@ -29,7 +46,8 @@ namespace LunarLogic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Service service = db.Services.Find(id);
+            int id2 = id.GetValueOrDefault();
+            Service service = serviceRepository.GetServiceByID(id2);
             if (service == null)
             {
                 return HttpNotFound();
@@ -40,9 +58,10 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Create
         public ActionResult Create()
         {
-            
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servs = enumerable.ToList();
 
-            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name");
+            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name");
 
             return View();
         }
@@ -55,13 +74,15 @@ namespace LunarLogic.Controllers
         {
           
             var serviceAdded = service;
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servs = enumerable.ToList();
 
             foreach (var postItem in servList)
             {
-                foreach (var serv in db.Services.ToList())
+                foreach (var serv in servs)
                 {
                     int p = Convert.ToInt32(postItem);
-                    var itemToAdd = db.Services.Find(p);
+                    var itemToAdd = serviceRepository.GetServiceByID(p);
                     if (p == serv.ID)
                     {
                         serviceAdded.ConnectedServices = new List<Service>();
@@ -82,7 +103,7 @@ namespace LunarLogic.Controllers
             if (ModelState.IsValid)
             {
                 //db.Entry(serviceAdded).State = EntityState.Added;
-                db.Services.Add(new Service
+                serviceRepository.InsertService(new Service
                 {
                     ID = service.ID,
                     Name = service.Name,
@@ -91,7 +112,7 @@ namespace LunarLogic.Controllers
                     ConnectedServices = service.ConnectedServices,
                     ImageURL = service.ImageURL
                 });
-                db.SaveChanges();
+                serviceRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(service);
@@ -106,7 +127,8 @@ namespace LunarLogic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Service service = db.Services.Find(id);
+            int id2 = id.GetValueOrDefault();
+            Service service = serviceRepository.GetServiceByID(id2);
             if (service == null)
             {
                 return HttpNotFound();
@@ -124,8 +146,11 @@ namespace LunarLogic.Controllers
 
             List<string> disabledList = new List<string>();
             disabledList.Add(service.ID.ToString());
+
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servs = enumerable.ToList();
             
-            ViewBag.ServiceList = new MultiSelectList(db.Services.ToList(), "ID", "Name", intList.ToArray(), disabledList); 
+            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", intList.ToArray(), disabledList); 
                                                                              
             
 
@@ -140,15 +165,18 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Edit(Service service, int[] servList)
         {
-            var serviceChanged = (from s in db.Services
+            IEnumerable<Service> enumerable = serviceRepository.GetServices();
+            List<Service> servs = enumerable.ToList();
+
+            var serviceChanged = (from s in serviceRepository.GetServices()
                               where s.ID == service.ID
                               select s).FirstOrDefault();
             foreach (var postItem in servList)
             {
-                foreach (var serv in db.Services.ToList())
+                foreach (var serv in servs)
                 {
                     int p = Convert.ToInt32(postItem);
-                    var itemToAdd = db.Services.Find(p);
+                    var itemToAdd = serviceRepository.GetServiceByID(p);
                     if (p == serv.ID)
                     {
 
@@ -171,9 +199,10 @@ namespace LunarLogic.Controllers
    
             if (ModelState.IsValid)
             {
-                db.Entry(serviceChanged).State = EntityState.Modified;
-                
-                db.SaveChanges();
+                //db.Entry(serviceChanged).State = EntityState.Modified;
+                serviceRepository.UpdateService(serviceChanged);
+
+                serviceRepository.Save();
                 return RedirectToAction("Index");
             }
             return View(service);
@@ -186,7 +215,8 @@ namespace LunarLogic.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Service service = db.Services.Find(id);
+            int id2 = id.GetValueOrDefault();
+            Service service = serviceRepository.GetServiceByID(id2);
             if (service == null)
             {
                 return HttpNotFound();
@@ -199,9 +229,9 @@ namespace LunarLogic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Service service = db.Services.Find(id);
-            db.Services.Remove(service);
-            db.SaveChanges();
+            //Service service = serviceRepository.GetServiceByID(id);
+            serviceRepository.DeleteService(id);
+            serviceRepository.Save();
             return RedirectToAction("Index");
         }
 
@@ -209,7 +239,7 @@ namespace LunarLogic.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                serviceRepository.Dispose();
             }
             base.Dispose(disposing);
         }
