@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LunarLogic.Controllers
 {
@@ -96,42 +100,59 @@ namespace LunarLogic.Controllers
         }
 
         [HttpPost]
-        public JsonResult Contact(Contact c)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(Contact c)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        MailMessage msg = new MailMessage();
-            //        SmtpClient smtp = new SmtpClient();
-            //        MailAddress from = new MailAddress(c.Email.ToString());
-            //        StringBuilder sb = new StringBuilder();
-            //        msg.To.Add("jeseswood21@gmail.com");
-            //        msg.Subject = "Contact Form";
-            //        msg.IsBodyHtml = false;
-            //        smtp.Host = "aspmx.l.google.com";
-            //        smtp.Port = 25;
-            //        sb.Append("First name: " + c.FirstName);
-            //        sb.Append(Environment.NewLine);
-            //        sb.Append("Last name: " + c.LastName);
-            //        sb.Append(Environment.NewLine);
-            //        sb.Append("Phone: " + c.Phone);
-            //        sb.Append(Environment.NewLine);
-            //        sb.Append("Email: " + c.Email);
-            //        sb.Append(Environment.NewLine);
-            //        sb.Append("Comments: " + c.Comment);
-            //        msg.Body = sb.ToString();
-            //        smtp.Send(msg);
-            //        msg.Dispose();
-            //    }
-            //    catch
-            //    {
-            //        return View("Index");
-            //    }
-            //}
-            //return View();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    /*
+                    //provided gmail allows access from less secure apps, this works for gmail smtp
+                    MailMessage msg = new MailMessage();
+                    StringBuilder sb = new StringBuilder();
 
-            return Json(new { result = "something worked" });
+                    msg.From = new MailAddress(c.Email.ToString());
+                    msg.To.Add("lunarlogicservices@gmail.com");
+                    msg.Subject = "Interested in Lunar Logic's Services";
+                    sb.Append("First name: " + c.FirstName);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Last name: " + c.LastName);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Phone: " + c.Phone);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Email: " + c.Email);
+                    sb.Append(Environment.NewLine);
+                    sb.Append("Comments: " + c.Comment);
+                    msg.Body = sb.ToString();
+                    msg.IsBodyHtml = false;
+
+                    using (var smtp = new SmtpClient())
+                    {
+                        var cred = new NetworkCredential
+                        {
+                            UserName = "lunarlogicservices@gmail.com",
+                            Password = "arm5tr0n7ng"
+                        };
+
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        smtp.Credentials = cred;
+                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        await smtp.SendMailAsync(msg);
+                    }
+                 */
+
+                    //display sent msg
+                }
+                catch
+                {
+                    //display fail message
+                    return View("index");
+                }
+            }
+            return View();
         }
     }
 }
