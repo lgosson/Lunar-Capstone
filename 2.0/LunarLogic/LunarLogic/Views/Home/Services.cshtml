@@ -24,6 +24,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Styles.css" rel="stylesheet" />
     <script src="~/Scripts/services.js"></script>
+    <script src="~/Scripts/personalplan.js"></script>
     <link rel="shortcut icon" href="~/Images/fav.ico" />
     <title>Lunar Logic Services</title>
 </head>
@@ -83,6 +84,8 @@
             listSetup(window.services);
 
             sys.renderer.init(sys);
+            plan.init(sys.renderer);
+
             sys.renderer.graphDraw(window.services);
         }
 

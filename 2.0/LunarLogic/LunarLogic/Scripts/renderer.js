@@ -18,11 +18,11 @@
                     particleSystem.screenPadding(40);
 
                     that.initMouseHandling();
-                    that.listItemHover();
-                    that.listItemClick();
+                    //that.listItemHover();
+                    //that.listItemClick();
 
                     $(window).resize(that.windowsized);
-                    that.windowsized;
+                    that.windowsized();
                 }
             },
 
@@ -255,7 +255,7 @@
 
                         if (dragged.node !== null) dragged.node.fixed = true;
 
-                        that.listUpdate(selected.node.name);
+                        //that.listUpdate(selected.node.name);
                         that.toggleNode(selected);
                     },
 
@@ -278,7 +278,7 @@
 
                     judgeHover: function (e) {
                         handler.calcMousePos(e);
-                        if (selected.distance < hvrTol) {
+                        if (selected != null && selected.distance < hvrTol) {
                             hovered = true;
                             handler.hover(e);
                         }
@@ -379,7 +379,7 @@
                 }
 
                 //TODO: move progress bar and service selection updates to their own functions
-
+                /*
                 //Updating progress bar
                 var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
                 var barprogress = num * onehundredpercentofprogressbar;
@@ -387,9 +387,10 @@
 
                 // Update how many services the user has selected
                 $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
+                */
                 that.graphDraw(window.services);
             },
-
+            /*
             listItemClick: function () {
                 $('document').ready(function () {
                     $('li.servicelistitem').click(function () {
@@ -428,6 +429,7 @@
                     })
                 });
             },
+            
 
             listUpdate: function (liId) {
                 var num;
@@ -457,6 +459,7 @@
                 }
                 return num;
             }
+            */
         }
 
         // helpers for figuring out where to draw arrows (thanks springy.js)
@@ -489,5 +492,4 @@
 
         return that
     }
-    //$(document).ready(Renderer.that.init());
 })()
