@@ -51,7 +51,6 @@ namespace LunarLogic.DAL
         public virtual void UpdateService(Models.Service service)
         {
             // simulate state?
-            throw new NotImplementedException();
         }
 
         public void Save()
