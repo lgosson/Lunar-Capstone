@@ -280,10 +280,12 @@
                     judgeHover: function (e) {
                         handler.calcMousePos(e);
                         if(oldSelected === null) oldSelected = {node: null};
-                        if (selected != null && selected.distance < hvrTol && selected.node != oldSelected.node) {
+                        if (selected != null && selected.distance < hvrTol) {
                             hovered = true;
-                            handler.hover(e);
-                            oldSelected = selected;
+                            if (selected.node != oldSelected.node) {
+                                handler.hover(e);
+                                oldSelected = selected;
+                            }
                         }
                         else hovered = false;
                     },
