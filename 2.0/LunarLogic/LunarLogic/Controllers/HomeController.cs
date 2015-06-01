@@ -107,7 +107,6 @@ namespace LunarLogic.Controllers
             {
                 try
                 {
-                    /*
                     //provided gmail allows access from less secure apps, this works for gmail smtp
                     MailMessage msg = new MailMessage();
                     StringBuilder sb = new StringBuilder();
@@ -142,14 +141,13 @@ namespace LunarLogic.Controllers
                         smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                         await smtp.SendMailAsync(msg);
                     }
-                 */
 
                     //display sent msg
                 }
                 catch
                 {
                     //display fail message
-                    return View("index");
+                    return View("Index");
                 }
             }
             return View();

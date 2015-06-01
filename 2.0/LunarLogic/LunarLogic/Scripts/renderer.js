@@ -234,6 +234,7 @@
                 var wasDragged = false;
                 var oldmass = 1;
                 var hovered = false;
+                var oldSelected = null;
                 //TODO: Add another hover bool that is for a radius AROUND the node (for triggering reveal of node's connections).
                 var hvrTol = 150;
                 var dragTol = 20;
@@ -278,9 +279,11 @@
 
                     judgeHover: function (e) {
                         handler.calcMousePos(e);
-                        if (selected != null && selected.distance < hvrTol) {
+                        if(oldSelected === null) oldSelected = {node: null};
+                        if (selected != null && selected.distance < hvrTol && selected.node != oldSelected.node) {
                             hovered = true;
                             handler.hover(e);
+                            oldSelected = selected;
                         }
                         else hovered = false;
                     },
