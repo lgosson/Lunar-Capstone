@@ -164,6 +164,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageServicesController.cs" />
+    <Compile Include="DAL\FakeServiceRepository.cs" />
     <Compile Include="DAL\IServiceRepository.cs" />
     <Compile Include="DAL\ServiceContext.cs" />
     <Compile Include="DAL\ServiceInitializer.cs" />

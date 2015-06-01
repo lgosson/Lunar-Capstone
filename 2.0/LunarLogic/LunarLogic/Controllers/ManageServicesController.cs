@@ -10,14 +10,11 @@ using LunarLogic.DAL;
 using LunarLogic.Models;
 
 namespace LunarLogic.Controllers
-{
-    
+{    
     public class ManageServicesController : Controller
     {
        //private ServiceContext db = new ServiceContext();
         
-
-
         private IServiceRepository serviceRepository;
 
         public ManageServicesController()
