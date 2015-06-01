@@ -245,6 +245,14 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\fav.ico" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\ServiceIcon1.png" />
+    <Content Include="Images\ServiceIcon2.png" />
+    <Content Include="Images\ServiceIcon3.png" />
+    <Content Include="Images\ServiceIcon4.png" />
+    <Content Include="Images\ServiceIcon5.png" />
+    <Content Include="Images\ServiceIcon6.png" />
+    <Content Include="Images\ServiceIcon7.png" />
+    <Content Include="Images\ServiceIcon8.png" />
     <Content Include="obj\Debug\LunarLogic.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\LunarLogic.dll" />
     <Content Include="obj\Debug\LunarLogic.pdb" />

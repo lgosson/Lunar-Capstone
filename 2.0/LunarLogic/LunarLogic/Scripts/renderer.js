@@ -256,8 +256,10 @@
 
                         if (dragged.node !== null) dragged.node.fixed = true;
 
-                        that.listUpdate(selected.node.name);
-                        that.toggleNode(selected);
+                        if (selected.node.data.selectable == true) {
+                            that.listUpdate(selected.node.name);
+                            that.toggleNode(selected);
+                        }
                     },
 
                     down: function (e) {
