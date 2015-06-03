@@ -341,13 +341,12 @@
                         //var t1 = performance.now();
                         //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
 
-                        
                         that.graphDraw(window.services);
                     },
 
                     dragged: function (e) {
                         var s = handler.calcMousePos(e);
-                        if (!nearest) return
+                        if (!nearest) return;
                         if (dragged !== null && dragged.node !== null) {
                             var p = particleSystem.fromScreen(s)
                             dragged.node.p = p;
@@ -357,7 +356,7 @@
                             }
                         }
 
-                        return false
+                        return false;
                     },
 
                     dropped: function (e) {
