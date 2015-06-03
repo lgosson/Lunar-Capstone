@@ -64,24 +64,7 @@
             sys.renderer = Renderer("#viewport");
 
             sys.renderer.init(sys, result);
-            listSetup(window.services);
             sys.renderer.graphDraw(window.services);
-        }
-
-        // Personal plan list setup
-        function listSetup(result) {
-            for (i = 0; i < result.length; i++) {
-                if (result[i].selectable == true) {
-                    var id = i + 1;
-                    $('#servicelist ul').append('<a href="#"><li class=servicelistitem id=' + id + '>' + result[i].label + '</li></a>');
-                }
-            }
-        }
-
-        // "Have selected" indicator
-        function haveSelected(result) {
-            $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
-            window.servicesResults = result;
         }
     </script>
 </body>

@@ -34,8 +34,8 @@
 
                         window.services.push(s);
                     }
-                    haveSelected(window.services);
-                    //listSetup(window.services);
+                    that.listSetup(window.services);
+                    that.progressBarUpdate(that.getSelectedNodeCount());
 
                     that.initMouseHandling();
                     that.listItemHover();
@@ -410,13 +410,26 @@
                     }
                 }
 
+                that.progressBarUpdate(that.getSelectedNodeCount());
+                that.graphDraw(window.services);
+            },
+
+            getSelectedNodeCount: function(){
                 var num = 0;
                 for (i = 0; i < window.services.length; i++) {
                     if (window.services[i].selected) num++;
                 }
+                return num;
+            },
 
-                that.progressBarUpdate(num);
-                that.graphDraw(window.services);
+            // Personal plan list setup
+            listSetup: function(result) {
+                for (i = 0; i < result.length; i++) {
+                    if (result[i].selectable == true) {
+                        var id = i + 1;
+                        $('#servicelist ul').append('<a href="#"><li class=servicelistitem id=' + id + '>' + result[i].label + '</li></a>');
+                    }
+                }
             },
 
             listItemClick: function () {
@@ -429,33 +442,13 @@
                 });
             },
 
-            listItemHover: function () {
-                $('document').ready(function () {
-                    $('li.servicelistitem').hover(function () {
-                        var liId = this.id;
-                        for (i = 0; i < window.services.length; i++) {
-                            if (window.services[i].name == liId) {
-                                num = i;
-                                $('#sname').html(window.services[i].label);
-                                $('#sdescription').html(window.services[i].desc);
-                                si = document.getElementById('sconnected')
-                                si.innerHTML = '';
-                                for (j = 0; j < window.services[i].connected.length; j++) {
-                                    si.innerHTML += window.services[i].connected[j] + '<br/>'
-                                };
-                                $('#serviceimage').attr('src', window.services[i].imageurl);
-                            }
-                        }
-                    })
-                });
-            },
-
-            listUpdate: function (liId) {
-                var num;
-                for (i = 0; i < window.services.length; i++) {
-                    if (window.services[i].name == liId) {
-                        num = i;
-                        if (window.services[i].selected == false) {
+        listItemHover: function () {
+            $('document').ready(function () {
+                $('li.servicelistitem').hover(function () {
+                    var liId = this.id;
+                    for (i = 0; i < window.services.length; i++) {
+                        if (window.services[i].name == liId) {
+                            num = i;
                             $('#sname').html(window.services[i].label);
                             $('#sdescription').html(window.services[i].desc);
                             si = document.getElementById('sconnected')
@@ -463,63 +456,83 @@
                             for (j = 0; j < window.services[i].connected.length; j++) {
                                 si.innerHTML += window.services[i].connected[j] + '<br/>'
                             };
-
-                            // Change CSS properties for selected or deselected list items
-                            $('#' + window.services[i].name).removeClass("servicelistitem");
-                            $('#' + window.services[i].name).addClass("selecteditem");
-                            $('a').css("text-decoration", "none");
-                            $('a:visited:active').css("text-decoration", "none");
-                        }
-                        else {
-                            $('#' + window.services[i].name).removeClass("selecteditem");
-                            $('#' + window.services[i].name).addClass("servicelistitem");
+                            $('#serviceimage').attr('src', window.services[i].imageurl);
                         }
                     }
+                })
+            });
+        },
+
+        listUpdate: function (liId) {
+            var num;
+            for (i = 0; i < window.services.length; i++) {
+                if (window.services[i].name == liId) {
+                    num = i;
+                    if (window.services[i].selected == false) {
+                        $('#sname').html(window.services[i].label);
+                        $('#sdescription').html(window.services[i].desc);
+                        si = document.getElementById('sconnected')
+                        si.innerHTML = '';
+                        for (j = 0; j < window.services[i].connected.length; j++) {
+                            si.innerHTML += window.services[i].connected[j] + '<br/>'
+                        };
+
+                        // Change CSS properties for selected or deselected list items
+                        $('#' + window.services[i].name).removeClass("servicelistitem");
+                        $('#' + window.services[i].name).addClass("selecteditem");
+                        $('a').css("text-decoration", "none");
+                        $('a:visited:active').css("text-decoration", "none");
+                    }
+                    else {
+                        $('#' + window.services[i].name).removeClass("selecteditem");
+                        $('#' + window.services[i].name).addClass("servicelistitem");
+                    }
                 }
-                return num;
-            },
-
-            progressBarUpdate: function (num) {
-                //Updating progress bar
-                var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
-                var barprogress = num * onehundredpercentofprogressbar;
-                $('#pb').progressbar({ value: barprogress });
-
-                // Update how many services the user has selected
-                $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
             }
+            return num;
+        },
+
+        progressBarUpdate: function (num) {
+            //Updating progress bar
+            var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
+            var barprogress = num * onehundredpercentofprogressbar;
+            $('#pb').progressbar({ value: barprogress });
+
+            // Update how many services the user has selected
+            $('#haveselected').html("I have chosen " + num + " out of " + (window.services.length - 1) + " services");
         }
-
-        // helpers for figuring out where to draw arrows (thanks springy.js)
-        var intersect_line_line = function (p1, p2, p3, p4) {
-            var denom = ((p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y));
-            if (denom === 0) return false // lines are parallel
-            var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denom;
-            var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denom;
-
-            if (ua < 0 || ua > 1 || ub < 0 || ub > 1) return false
-            return arbor.Point(p1.x + ua * (p2.x - p1.x), p1.y + ua * (p2.y - p1.y));
-        }
-
-        var intersect_line_box = function (p1, p2, boxTuple) {
-            var p3 = { x: boxTuple[0], y: boxTuple[1] },
-                w = boxTuple[2],
-                h = boxTuple[3]
-
-            var tl = { x: p3.x, y: p3.y };
-            var tr = { x: p3.x + w, y: p3.y };
-            var bl = { x: p3.x, y: p3.y + h };
-            var br = { x: p3.x + w, y: p3.y + h };
-
-            return intersect_line_line(p1, p2, tl, tr) ||
-                  intersect_line_line(p1, p2, tr, br) ||
-                  intersect_line_line(p1, p2, br, bl) ||
-                  intersect_line_line(p1, p2, bl, tl) ||
-                  false
-        }
-
-        return that
     }
+
+    // helpers for figuring out where to draw arrows (thanks springy.js)
+    var intersect_line_line = function (p1, p2, p3, p4) {
+        var denom = ((p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y));
+        if (denom === 0) return false // lines are parallel
+        var ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denom;
+        var ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denom;
+
+        if (ua < 0 || ua > 1 || ub < 0 || ub > 1) return false
+        return arbor.Point(p1.x + ua * (p2.x - p1.x), p1.y + ua * (p2.y - p1.y));
+    }
+
+    var intersect_line_box = function (p1, p2, boxTuple) {
+        var p3 = { x: boxTuple[0], y: boxTuple[1] },
+            w = boxTuple[2],
+            h = boxTuple[3]
+
+        var tl = { x: p3.x, y: p3.y };
+        var tr = { x: p3.x + w, y: p3.y };
+        var bl = { x: p3.x, y: p3.y + h };
+        var br = { x: p3.x + w, y: p3.y + h };
+
+        return intersect_line_line(p1, p2, tl, tr) ||
+              intersect_line_line(p1, p2, tr, br) ||
+              intersect_line_line(p1, p2, br, bl) ||
+              intersect_line_line(p1, p2, bl, tl) ||
+              false
+    }
+
+    return that
+}
 })()
 
 //this is not a traditional obj of arbor's system. This obj is used in the global services array, and is what the server-side data model is translated into.
