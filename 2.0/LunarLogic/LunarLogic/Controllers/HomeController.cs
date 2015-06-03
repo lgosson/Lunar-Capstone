@@ -7,7 +7,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Net.Mail;
-using SendGrid;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,12 +107,13 @@ namespace LunarLogic.Controllers
             {
                 try
                 {
-                    var email = "lunarlogicservices@gmail.com";
-                    var username = "azure_3659b33334761d76b7482ecdfe51fea0@azure.com";
-                    var password = "0AomnSyKtNRY23d";
-
+                    //provided gmail allows access from less secure apps, this works for gmail smtp
+                    MailMessage msg = new MailMessage();
                     StringBuilder sb = new StringBuilder();
 
+                    msg.From = new MailAddress(c.Email.ToString());
+                    msg.To.Add("lunarlogicservices@gmail.com");
+                    msg.Subject = "Interested in Lunar Logic's Services";
                     sb.Append("First name: " + c.FirstName);
                     sb.Append(Environment.NewLine);
                     sb.Append("Last name: " + c.LastName);
@@ -123,20 +123,24 @@ namespace LunarLogic.Controllers
                     sb.Append("Email: " + c.Email);
                     sb.Append(Environment.NewLine);
                     sb.Append("Comments: " + c.Comment);
+                    msg.Body = sb.ToString();
+                    msg.IsBodyHtml = false;
 
-                    var msg = new SendGridMessage();
+                    using (var smtp = new SmtpClient())
+                    {
+                        var cred = new NetworkCredential
+                        {
+                            UserName = "lunarlogicservices@gmail.com",
+                            Password = "arm5tr0n7ng"
+                        };
 
-                    msg.From = new MailAddress(email, "Lunar Logic Services Website");
-                    msg.AddTo(email);
-                    msg.Subject = "Interested in Lunar Logic's Services";
-                    msg.Text = sb.ToString();
-
-                    //hardcoded send grid account cred (Azure)
-                    var cred = new NetworkCredential(username, password);
-                    var transportWeb = new Web(cred);
-
-                    await transportWeb.DeliverAsync(msg);
-
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        smtp.Credentials = cred;
+                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        await smtp.SendMailAsync(msg);
+                    }
 
                     //display sent msg
                 }

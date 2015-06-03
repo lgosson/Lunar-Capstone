@@ -91,9 +91,6 @@ namespace LunarLogic.Controllers
                                 {
                                     serviceAdded.ConnectedServices.Add(itemToAdd);
                                 }
-                                //add this service to the service's connected service list that it is currently adding to it's own. 
-                                //otherwise the newly added service will be the only one that knows who it is connected to.
-                                itemToAdd.ConnectedServices.Add(serviceAdded);
                             }
                         }
                     }
@@ -188,7 +185,6 @@ namespace LunarLogic.Controllers
                                 {
                                     serviceChanged.ConnectedServices.Add(itemToAdd);
                                 }
-                                if (!itemToAdd.ConnectedServices.Contains(serviceChanged)) itemToAdd.ConnectedServices.Add(serviceChanged);
                             }
                         }
                     }
@@ -231,12 +227,6 @@ namespace LunarLogic.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Service service = serviceRepository.GetServiceByID(id);
-            //remove all references to such a service
-            var serviceToDelete = serviceRepository.GetServiceByID(id);
-            foreach (var s in serviceRepository.GetServices())
-            {
-                if (s.ConnectedServices.Contains(serviceToDelete)) s.ConnectedServices.Remove(serviceToDelete);
-            }
             serviceRepository.DeleteService(id);
             serviceRepository.Save();
             return RedirectToAction("Index");
