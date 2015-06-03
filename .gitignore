@@ -55,8 +55,7 @@ Temporary Items
 *.ncb
 *.log 
 *.ldf
-# do not let specific config file update. (due to various differences in sql server versions between machines)
-Web.config
+*.mdf
 
 
 #this is the command used for ignoring a file. Replace filena.extension with the necessary file

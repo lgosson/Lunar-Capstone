@@ -10,11 +10,11 @@ using LunarLogic.DAL;
 using LunarLogic.Models;
 
 namespace LunarLogic.Controllers
-{    
+{
     public class ManageServicesController : Controller
     {
-       //private ServiceContext db = new ServiceContext();
-        
+        //private ServiceContext db = new ServiceContext();
+
         private IServiceRepository serviceRepository;
 
         public ManageServicesController()
@@ -69,7 +69,7 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Create(Service service, int[] servList)
         {
-          
+
             var serviceAdded = service;
             IEnumerable<Service> enumerable = serviceRepository.GetServices();
             List<Service> servs = enumerable.ToList();
@@ -91,6 +91,9 @@ namespace LunarLogic.Controllers
                                 {
                                     serviceAdded.ConnectedServices.Add(itemToAdd);
                                 }
+                                //add this service to the service's connected service list that it is currently adding to it's own. 
+                                //otherwise the newly added service will be the only one that knows who it is connected to.
+                                itemToAdd.ConnectedServices.Add(serviceAdded);
                             }
                         }
                     }
@@ -118,7 +121,7 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
-            
+
 
             if (id == null)
             {
@@ -131,11 +134,11 @@ namespace LunarLogic.Controllers
                 return HttpNotFound();
             }
 
-                        
+
             var conList = service.ConnectedServices.ToList();
             List<int> intList = new List<int>();
             ViewBag.ConList = conList;
-            foreach(var item in conList)
+            foreach (var item in conList)
             {
                 int i = item.ID;
                 intList.Add(i);
@@ -146,10 +149,10 @@ namespace LunarLogic.Controllers
 
             IEnumerable<Service> enumerable = serviceRepository.GetServices();
             List<Service> servs = enumerable.ToList();
-            
-            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", intList.ToArray(), disabledList); 
-                                                                             
-            
+
+            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", intList.ToArray(), disabledList);
+
+
 
 
             return View(service);
@@ -166,25 +169,26 @@ namespace LunarLogic.Controllers
             List<Service> servs = enumerable.ToList();
 
             var serviceChanged = (from s in serviceRepository.GetServices()
-                              where s.ID == service.ID
-                              select s).FirstOrDefault();
+                                  where s.ID == service.ID
+                                  select s).FirstOrDefault();
+
+            if(servList.Length > 0) serviceChanged.ConnectedServices.Clear();
+
             foreach (var postItem in servList)
             {
                 foreach (var serv in servs)
                 {
                     int p = Convert.ToInt32(postItem);
-                    var itemToAdd = serviceRepository.GetServiceByID(p);
+                    var newConnection = serviceRepository.GetServiceByID(p);
                     if (p == serv.ID)
                     {
-
                         if (serviceChanged.ConnectedServices != null)
                         {
-                            if (itemToAdd != null)
+                            if (newConnection != null)
                             {
-                                if (!serviceChanged.ConnectedServices.Contains(itemToAdd))
-                                {
-                                    serviceChanged.ConnectedServices.Add(itemToAdd);
-                                }
+                                if(!serviceChanged.ConnectedServices.Contains(newConnection))serviceChanged.ConnectedServices.Add(newConnection);
+                                //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
+                                if (!newConnection.ConnectedServices.Contains(serviceChanged)) newConnection.ConnectedServices.Add(serviceChanged);
                             }
                         }
                     }
@@ -193,7 +197,7 @@ namespace LunarLogic.Controllers
 
             if (service.ImageURL != null)
                 serviceChanged.ImageURL = service.ImageURL;
-   
+
             if (ModelState.IsValid)
             {
                 //db.Entry(serviceChanged).State = EntityState.Modified;
@@ -227,6 +231,12 @@ namespace LunarLogic.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             //Service service = serviceRepository.GetServiceByID(id);
+            //remove all references to such a service
+            var serviceToDelete = serviceRepository.GetServiceByID(id);
+            foreach (var s in serviceRepository.GetServices())
+            {
+                if (s.ConnectedServices.Contains(serviceToDelete)) s.ConnectedServices.Remove(serviceToDelete);
+            }
             serviceRepository.DeleteService(id);
             serviceRepository.Save();
             return RedirectToAction("Index");
