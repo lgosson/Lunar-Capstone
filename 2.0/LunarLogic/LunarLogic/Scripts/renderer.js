@@ -11,11 +11,31 @@
         var cHeight = canvas.height = window.innerHeight;
 
         var that = {
-            init: function (system) {
+            init: function (system, result) {
                 if (particleSystem == null) {
                     particleSystem = system;
                     particleSystem.screenSize(canvas.width, canvas.height);
                     particleSystem.screenPadding(40);
+
+                    //node data
+                    for (i = 0; i < result.length; i++) {
+                        var s = new service();
+                        s.name = result[i].ID;
+                        s.label = result[i].Name;
+                        s.desc = result[i].Description;
+                        s.selectable = result[i].Selectable;
+                        s.selected = false;
+                        //s.hovered = false;
+                        s.connected = result[i].ConnectedServices;
+                        s.parent = result[i].ParentService;
+                        s.color = 'red';
+                        s.shape = 'dot';
+                        s.imageurl = result[i].ImageURL;
+
+                        window.services.push(s);
+                    }
+                    haveSelected(window.services);
+                    //listSetup(window.services);
 
                     that.initMouseHandling();
                     that.listItemHover();
@@ -281,7 +301,7 @@
 
                     judgeHover: function (e) {
                         handler.calcMousePos(e);
-                        if(oldSelected === null) oldSelected = {node: null};
+                        if (oldSelected === null) oldSelected = { node: null };
                         if (selected != null && selected.distance < hvrTol) {
                             hovered = true;
                             if (selected.node != oldSelected.node) {
@@ -291,6 +311,8 @@
                         }
                         else hovered = false;
                     },
+
+                    sidebarOpen: false,
 
                     hover: function (e) {
                         for (i = 0; i < window.services.length; i++) {
@@ -309,9 +331,17 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
-                        $('#serviceimage').attr('src', selected.node.data.imageurl);
-                        $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
 
+                        $('#serviceimage').attr('src', selected.node.data.imageurl);
+                        //var t0 = performance.now();
+                        if (!handler.sidebarOpen) {
+                            $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
+                            handler.sidebarOpen = true;
+                        }
+                        //var t1 = performance.now();
+                        //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
+
+                        
                         that.graphDraw(window.services);
                     },
 
@@ -449,7 +479,7 @@
                 return num;
             },
 
-            progressBarUpdate: function(num){
+            progressBarUpdate: function (num) {
                 //Updating progress bar
                 var onehundredpercentofprogressbar = 100 / (window.services.length - 1);
                 var barprogress = num * onehundredpercentofprogressbar;
@@ -491,3 +521,18 @@
         return that
     }
 })()
+
+//this is not a traditional obj of arbor's system. This obj is used in the global services array, and is what the server-side data model is translated into.
+//In turn, this is translated into the object that arbor uses.
+function service() {
+    name = '';
+    label = '';
+    desc = '';
+    selectable = false;
+    selected = false;
+    connected = [];
+    parent = '';
+    color = 'red';
+    shape = 'dot';
+    imageurl = '';
+}

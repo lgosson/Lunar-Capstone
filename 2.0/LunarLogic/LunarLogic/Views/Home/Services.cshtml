@@ -63,26 +63,8 @@
             sys.parameters({ gravity: true });
             sys.renderer = Renderer("#viewport");
 
-            for (i = 0; i < result.length; i++) {
-                var s = new service();
-                s.name = result[i].ID;
-                s.label = result[i].Name;
-                s.desc = result[i].Description;
-                s.selectable = result[i].Selectable;
-                s.selected = false;
-                //s.hovered = false;
-                s.connected = result[i].ConnectedServices;
-                s.parent = result[i].ParentService;
-                s.color = 'red';
-                s.shape = 'dot';
-                s.imageurl = result[i].ImageURL;
-
-                window.services.push(s);
-            }
-            haveSelected(window.services);
+            sys.renderer.init(sys, result);
             listSetup(window.services);
-
-            sys.renderer.init(sys);
             sys.renderer.graphDraw(window.services);
         }
 
@@ -100,19 +82,6 @@
         function haveSelected(result) {
             $('#haveselected').html("I have chosen " + window.selectedServices.length + " out of " + (result.length - 1) + " services");
             window.servicesResults = result;
-        }
-
-        function service() {
-            name = '';
-            label = '';
-            desc = '';
-            selectable = false;
-            selected = false;
-            connected = [];
-            parent = '';
-            color = 'red';
-            shape = 'dot';
-            imageurl = '';
         }
     </script>
 </body>
