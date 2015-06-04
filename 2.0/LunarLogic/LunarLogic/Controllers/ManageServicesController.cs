@@ -69,53 +69,34 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Create(Service service, int[] servList)
         {
+            if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
 
             var serviceAdded = service;
-            IEnumerable<Service> enumerable = serviceRepository.GetServices();
-            List<Service> servs = enumerable.ToList();
+            serviceAdded.ConnectedServices = new List<Service>();
+            List<Service> servs = serviceRepository.GetServices().ToList();
 
             foreach (var postItem in servList)
             {
+                int p = Convert.ToInt32(postItem);
                 foreach (var serv in servs)
                 {
-                    int p = Convert.ToInt32(postItem);
-                    var itemToAdd = serviceRepository.GetServiceByID(p);
                     if (p == serv.ID)
                     {
-                        serviceAdded.ConnectedServices = new List<Service>();
-                        if (serviceAdded.ConnectedServices != null)
+                        if (!serviceAdded.ConnectedServices.Contains(serv))
                         {
-                            if (itemToAdd != null)
-                            {
-                                if (!serviceAdded.ConnectedServices.Contains(itemToAdd))
-                                {
-                                    serviceAdded.ConnectedServices.Add(itemToAdd);
-                                }
-                                //add this service to the service's connected service list that it is currently adding to it's own. 
-                                //otherwise the newly added service will be the only one that knows who it is connected to.
-                                itemToAdd.ConnectedServices.Add(serviceAdded);
-                            }
+                            serviceAdded.ConnectedServices.Add(serv);
                         }
+                        //add this service to the service's connected service list that it is currently adding to it's own. 
+                        //otherwise the newly added service will be the only one that knows what it is connected to.
+                        serv.ConnectedServices.Add(serviceAdded);
                     }
                 }
             }
 
-            if (ModelState.IsValid)
-            {
-                //db.Entry(serviceAdded).State = EntityState.Added;
-                serviceRepository.InsertService(new Service
-                {
-                    ID = service.ID,
-                    Name = service.Name,
-                    Description = service.Description,
-                    Selectable = service.Selectable,
-                    ConnectedServices = service.ConnectedServices,
-                    ImageURL = service.ImageURL
-                });
-                serviceRepository.Save();
-                return RedirectToAction("Index");
-            }
-            return View(service);
+            //db.Entry(serviceAdded).State = EntityState.Added;
+            serviceRepository.InsertService(serviceAdded);
+            serviceRepository.Save();
+            return RedirectToAction("Index");
         }
 
         // GET: ManageServices/Edit/5
@@ -172,7 +153,7 @@ namespace LunarLogic.Controllers
                                   where s.ID == service.ID
                                   select s).FirstOrDefault();
 
-            if(servList.Length > 0) serviceChanged.ConnectedServices.Clear();
+            if (servList.Length > 0) serviceChanged.ConnectedServices.Clear();
 
             foreach (var postItem in servList)
             {
@@ -186,7 +167,7 @@ namespace LunarLogic.Controllers
                         {
                             if (newConnection != null)
                             {
-                                if(!serviceChanged.ConnectedServices.Contains(newConnection))serviceChanged.ConnectedServices.Add(newConnection);
+                                if (!serviceChanged.ConnectedServices.Contains(newConnection)) serviceChanged.ConnectedServices.Add(newConnection);
                                 //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
                                 if (!newConnection.ConnectedServices.Contains(serviceChanged)) newConnection.ConnectedServices.Add(serviceChanged);
                             }
