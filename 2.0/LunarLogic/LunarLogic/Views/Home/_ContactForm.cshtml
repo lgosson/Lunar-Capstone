@@ -12,7 +12,7 @@
 
 @using (Html.BeginForm())
 {
-    <div class="row">
+    <div class="row" >
         @Html.LabelFor(model => Model.FirstName, "First Name*", new { @class = "contactLabel" })
         @Html.EditorFor(model => model.FirstName)<br />
         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validation-msg" })

@@ -217,26 +217,32 @@ textarea {
     font-family: 'Century Gothic';
     margin: 25px auto 3% 12%;
     color: #015172;
+    padding-left: 25px;
 }
 
 #contactformlist {
     list-style-type: none;
     overflow: auto;
     height: 37%;
+    width: 350px;
+    padding-left: 55px;
+    
+    
 }
 
 .selectedservice {
     list-style-type: none;
-    font-family: 'Century Gothic';
-    font-size: large;
-    padding-top: 14px;
-    padding-left: 30px;
-    margin-left: -40px;
-    color: #015172;
-    border-width: 1px 1px 0px 1px;
-    border-style: solid;
-    border-color: #ccc;
-    box-shadow: 0 0 8px #ccc;
+font-family: 'Century Gothic';
+font-size: large;
+padding-top: 10px;
+padding-left: 55px;
+margin-left: -40px;
+color: #015172;
+border-width: 1px 1px 0px 1px;
+border-style: solid;
+border-color: #ccc;
+box-shadow: 0 0 8px #ccc;
+  
 }
 
 #submitarea {
@@ -253,6 +259,12 @@ textarea {
 #backtoplan {
     margin-top: 2px;
 }
+
+#FirstName, #LastName, #Description, #Phone, #Email, #Comment{
+    width: 55%;
+}
+
+
 
 /* End Contact Form Styles*/
 
