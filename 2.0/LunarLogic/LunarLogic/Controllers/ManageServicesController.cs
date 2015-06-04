@@ -102,8 +102,6 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
-
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -133,9 +131,6 @@ namespace LunarLogic.Controllers
 
             ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", intList.ToArray(), disabledList);
 
-
-
-
             return View(service);
         }
 
@@ -146,32 +141,31 @@ namespace LunarLogic.Controllers
         [HttpPost]
         public ActionResult Edit(Service service, int[] servList)
         {
-            IEnumerable<Service> enumerable = serviceRepository.GetServices();
-            List<Service> servs = enumerable.ToList();
+            if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
 
             var serviceChanged = (from s in serviceRepository.GetServices()
                                   where s.ID == service.ID
                                   select s).FirstOrDefault();
 
-            if (servList.Length > 0) serviceChanged.ConnectedServices.Clear();
+            //clear the stored connected list.. the input ones will always override. FIRST remove all references of this service as a connected service in others
+            foreach (var s in serviceChanged.ConnectedServices)
+            {
+                if (s.ConnectedServices.Contains(serviceChanged)) s.ConnectedServices.Remove(serviceChanged);
+            }
+            serviceChanged.ConnectedServices.Clear();
+
+            List<Service> servs = serviceRepository.GetServices().ToList();
 
             foreach (var postItem in servList)
             {
+                int p = Convert.ToInt32(postItem);
                 foreach (var serv in servs)
                 {
-                    int p = Convert.ToInt32(postItem);
-                    var newConnection = serviceRepository.GetServiceByID(p);
                     if (p == serv.ID)
                     {
-                        if (serviceChanged.ConnectedServices != null)
-                        {
-                            if (newConnection != null)
-                            {
-                                if (!serviceChanged.ConnectedServices.Contains(newConnection)) serviceChanged.ConnectedServices.Add(newConnection);
-                                //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
-                                if (!newConnection.ConnectedServices.Contains(serviceChanged)) newConnection.ConnectedServices.Add(serviceChanged);
-                            }
-                        }
+                        if (!serviceChanged.ConnectedServices.Contains(serv)) serviceChanged.ConnectedServices.Add(serv);
+                        //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
+                        if (!serv.ConnectedServices.Contains(serviceChanged)) serv.ConnectedServices.Add(serviceChanged);
                     }
                 }
             }
@@ -179,15 +173,11 @@ namespace LunarLogic.Controllers
             if (service.ImageURL != null)
                 serviceChanged.ImageURL = service.ImageURL;
 
-            if (ModelState.IsValid)
-            {
-                //db.Entry(serviceChanged).State = EntityState.Modified;
-                serviceRepository.UpdateService(serviceChanged);
+            //db.Entry(serviceChanged).State = EntityState.Modified;
+            serviceRepository.UpdateService(serviceChanged);
+            serviceRepository.Save();
 
-                serviceRepository.Save();
-                return RedirectToAction("Index");
-            }
-            return View(service);
+            return RedirectToAction("Index");
         }
 
         // GET: ManageServices/Delete/5
