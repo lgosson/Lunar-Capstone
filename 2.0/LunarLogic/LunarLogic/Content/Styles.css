@@ -264,6 +264,19 @@ box-shadow: 0 0 8px #ccc;
     width: 55%;
 }
 
+.response{
+    display: none;
+}
+
+.responsesuccess{
+    color: blue;
+    display: block;
+}
+
+.responsefailure{
+    color: red;
+    display: block;
+}
 
 
 /* End Contact Form Styles*/
