@@ -45,12 +45,15 @@
         <ul><li class="selectedservice" id="noneselected">You haven't selected any services yet!</li></ul>
     </div>
     <div class="row" id="submitarea">
+        <p id="sendresponse">Hide this at the beginning</p>
         <input type="button" id="send" value="Send" class="btn btn-primary" />
         <input type="button" value="Back to Personal Plan" class="btn btn-primary" id="backtoplan" />
     </div>
 }
 <script type="text/javascript">
-    $('#send').click(function () {
+    var btnSend = $('#send');
+
+    btnSend.click(function () {
         var request = new ContactModel();
 
         $.ajax({
@@ -60,7 +63,10 @@
             type: "POST",
             data: JSON.stringify(request),
             success: function (response) {
-                alert("Success")
+                $('#sendresponse').text(response);
+            },
+            error: function (response) {
+                $('#sendresponse').text(response);
             }
         });
     });
@@ -74,4 +80,5 @@
         contact.Comment = $("#Comment").val();
         contact.Services = $("#contactformlist").html();
     }
+
 </script>

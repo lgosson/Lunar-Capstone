@@ -27,7 +27,7 @@
                         s.selected = false;
                         //s.hovered = false;
                         s.connected = result[i].ConnectedServices;
-                        s.parent = result[i].ParentService;
+                        //s.parent = result[i].ParentService;
                         s.color = 'red';
                         s.shape = 'dot';
                         s.imageurl = result[i].ImageURL;
@@ -331,17 +331,15 @@
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
                             si.innerHTML += selected.node.data.connected[i] + '<br/>'
                         }
-
-                        $('#serviceimage').attr('src', selected.node.data.imageurl);
                         //var t0 = performance.now();
+                        $('#serviceimage').attr('src', selected.node.data.imageurl);
+                        //var t1 = performance.now();
+                        //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
+                        
                         if (!handler.sidebarOpen) {
                             $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
                             handler.sidebarOpen = true;
                         }
-                        //var t1 = performance.now();
-                        //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
-
-
                         that.graphDraw(window.services);
                     },
 
