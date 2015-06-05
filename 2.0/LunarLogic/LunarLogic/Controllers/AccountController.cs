@@ -145,7 +145,7 @@ namespace LunarLogic.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-       // [AllowAnonymous] ---------- Uncomment this to open registration
+        [AllowAnonymous] //---------- Uncomment this to open registration
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
