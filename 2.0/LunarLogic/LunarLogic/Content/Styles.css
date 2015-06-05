@@ -258,6 +258,28 @@ textarea {
     width: 170px;
 }
 
+<<<<<<< HEAD
+=======
+#FirstName, #LastName, #Description, #Phone, #Email, #Comment{
+    width: 55%;
+}
+
+.response{
+    display: none;
+}
+
+.responsesuccess{
+    color: blue;
+    display: block;
+}
+
+.responsefailure{
+    color: red;
+    display: block;
+}
+
+
+>>>>>>> 3c306a37cadca75ffdb1d1dc0ccee95b815ba1c7
 /* End Contact Form Styles*/
 
 header {

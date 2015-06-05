@@ -105,6 +105,8 @@ namespace LunarLogic.Controllers
         public async Task<JsonResult> Contact(Contact c)
         {
             var message = "Email Failed!";
+            var state = false;
+
             if (ModelState.IsValid)
             {
                 var email = "lunarlogicservices@gmail.com";
@@ -136,9 +138,14 @@ namespace LunarLogic.Controllers
                 await transportWeb.DeliverAsync(msg);
 
                 message = "Email Sent.";
+                state = true;
 
             }
-            return new JsonResult() { Data = message };
+            else
+            {
+                message = "Email failed! Fix errors and retry!";
+            }
+            return new JsonResult() { Data = new { Message = message, State = state} };
         }
     }
 }
