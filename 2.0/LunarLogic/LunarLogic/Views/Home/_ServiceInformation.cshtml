@@ -2,26 +2,19 @@
 
 <h3 class="serviceInfoheader" id="serviceinfoheader">Service Information</h3>
 <div class="dl-horizontal" id="servicedetails">
-    <h6 id="snamehead" class="serviceInfoHead">
-        @Html.DisplayNameFor(model => model.Name)
-    </h6>
+    <img src="#" id="serviceimage" alt="Oops!"/>
     <h4 id="sname" class="serviceInfo">
         @Html.DisplayFor(model => model.Name)
     </h4>
-    <img src="#" id="serviceimage" />
-    <h6 id="sdescriptionhead" class="serviceInfoHead">
-        @Html.DisplayNameFor(model => model.Description)
-    </h6>
 
     <p id="sdescription" class="serviceInfo">
         @Html.DisplayFor(model => model.Description)
-        <br />
     </p>    
 
     <div id="servicesInterestedIn">
-        <h6 class="serviceInfoHead">
+        <h4 id="interestedInHead">
             Services you may be interested in:
-        </h6>
+        </h4>
 
         @if (Model != null && Model.ConnectedServices != null)
         {
