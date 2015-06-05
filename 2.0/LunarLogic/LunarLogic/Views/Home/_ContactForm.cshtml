@@ -47,15 +47,17 @@
     <div class="row" id="submitarea">
         <p id="response" class="response">Hide this at the beginning</p>
         <input type="button" id="send" value="Send" class="btn btn-primary" />
-        <input type="button" value="Back to Personal Plan" class="btn btn-primary" id="backtoplan" />
+        <input type="button" value="Back to Personal Plan" class="btn btn-primary" id="backtoplan" onclick="resetSend()"/>
     </div>
 }
 <script type="text/javascript">
     var btnSend = $('#send');
     var rsp = $('#response');
+    var sent = false;
 
     btnSend.click(function () {
         var request = new ContactModel();
+        buttonActive(btnSend, false);
 
         $.ajax({
             url: "/Home/Contact",
@@ -68,10 +70,12 @@
                 if (response.State) {
                     rsp.toggleClass('responsesuccess', true);
                     rsp.toggleClass('responsefailure', false);
+                    sent = true;
                 }
                 else {
                     rsp.toggleClass('responsesuccess', false);
                     rsp.toggleClass('responsefailure', true);
+                    buttonActive(btnSend, false, 500);
                 }
             }
         });
@@ -85,6 +89,24 @@
         contact.Email = $("#Email").val();
         contact.Comment = $("#Comment").val();
         contact.Services = $("#contactformlist").html();
+    }
+
+    function buttonActive(jBtn, bool, time) {
+        jBtn.prop("disabled", !bool);
+
+        if (arguments.length == 3) {
+            setTimeout(function () { jBtn.prop("disabled", bool); }, time);
+        }
+    }
+
+    function resetSend() {
+        if (sent) {
+            buttonActive(btnSend, true);
+            sent = false;
+            //rsp.toggleClass('responsesuccess', false);
+            //rsp.toggleClass('responsefailure', false);
+            //rsp.toggleClass('response', true);
+        }
     }
 
 </script>
