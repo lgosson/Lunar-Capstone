@@ -147,11 +147,23 @@ namespace LunarLogic.Controllers
                                   where s.ID == service.ID
                                   select s).FirstOrDefault();
 
-            //clear the stored connected list.. the input ones will always override. FIRST remove all references of this service as a connected service in others
+            //set specific values of the db service with the received service
+            serviceChanged.Name = service.Name;
+            serviceChanged.Description = service.Description;
+            serviceChanged.ImageURL = service.ImageURL;
+            serviceChanged.Selectable = service.Selectable;
+
+            if (serviceChanged.ImageURL == null || String.IsNullOrEmpty(serviceChanged.ImageURL))
+            {
+                //TODO: assign with a default image
+            }
+
+            //Remove all references of THIS service as a connected service in other services
             foreach (var s in serviceChanged.ConnectedServices)
             {
                 if (s.ConnectedServices.Contains(serviceChanged)) s.ConnectedServices.Remove(serviceChanged);
             }
+            //clear the stored connected list.. the input ones will always override. 
             serviceChanged.ConnectedServices.Clear();
 
             List<Service> servs = serviceRepository.GetServices().ToList();
@@ -169,9 +181,6 @@ namespace LunarLogic.Controllers
                     }
                 }
             }
-
-            if (service.ImageURL != null)
-                serviceChanged.ImageURL = service.ImageURL;
 
             //db.Entry(serviceChanged).State = EntityState.Modified;
             serviceRepository.UpdateService(serviceChanged);
