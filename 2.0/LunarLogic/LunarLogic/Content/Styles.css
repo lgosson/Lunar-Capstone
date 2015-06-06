@@ -70,6 +70,7 @@
     float: right;
     margin-top: 3%;
     font-weight: bold;
+    font-family: Consolas;
 }
 
 #sdescription {
@@ -82,6 +83,7 @@
 #interestedInHead {
     color:#015172; 
     font-family: 'Century Gothic';
+    margin-top: 6%;
 }
 
 #servicesInterestedIn {
@@ -106,8 +108,7 @@
 }
 
 #pb { /*Progress Bar*/
-    width: 82%;
-    margin-left: 8%;
+    width: 102%;
 }
 
 #haveselected {
