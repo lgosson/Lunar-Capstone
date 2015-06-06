@@ -318,24 +318,14 @@
                         for (i = 0; i < window.services.length; i++) {
                             if (window.services[i].name == selected.node.name) {
                                 window.services[i].hovered = true;
+                                that.selectedInfoDisplay(i);
                             }
                             else {
                                 window.services[i].hovered = false;
                             }
                         }
 
-                        $('#sname').html(selected.node.data.label); // Updates service information partial view
-                        $('#sdescription').html(selected.node.data.desc);
-                        si = document.getElementById('sconnected')
-                        si.innerHTML = '';
-                        for (var i = 0; i < selected.node.data.connected.length; i++) {
-                            si.innerHTML += selected.node.data.connected[i];
-
-                            if (i < selected.node.data.connected.length - 1) si.innerHTML += ', ';
-                            else if (i == 3) break;
-                        }
                         //var t0 = performance.now();
-                        $('#serviceimage').attr('src', selected.node.data.imageurl);
                         //var t1 = performance.now();
                         //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
                         
@@ -450,16 +440,7 @@
                         for (i = 0; i < window.services.length; i++) {
                             if (window.services[i].name == liId) {
                                 num = i;
-                                $('#sname').html(window.services[i].label);
-                                $('#sdescription').html(window.services[i].desc);
-                                si = document.getElementById('sconnected')
-                                si.innerHTML = '';
-                                for (j = 0; j < window.services[i].connected.length; j++) {
-                                    si.innerHTML += window.services[i].connected[j];
-                                    if (j < window.services[i].connected.length - 1) si.innerHTML += ', ';
-                                    else if (j == 3) break;
-                                };
-                                $('#serviceimage').attr('src', window.services[i].imageurl);
+                                that.selectedInfoDisplay(i);
                             }
                         }
                     })
@@ -472,16 +453,6 @@
                     if (window.services[i].name == liId) {
                         num = i;
                         if (window.services[i].selected == false) {
-                            $('#sname').html(window.services[i].label);
-                            $('#sdescription').html(window.services[i].desc);
-                            si = document.getElementById('sconnected')
-                            si.innerHTML = '';
-                            for (j = 0; j < window.services[i].connected.length; j++) {
-                                si.innerHTML += window.services[i].connected[j];
-                                if (j < window.services[i].connected.length - 1) si.innerHTML += ', ';
-                                else if (j == 3) break;
-                            };
-
                             // Change CSS properties for selected or deselected list items
                             $('#' + window.services[i].name).removeClass("servicelistitem");
                             $('#' + window.services[i].name).addClass("selecteditem");
@@ -495,6 +466,26 @@
                     }
                 }
                 return num;
+            },
+
+            selectedInfoDisplay: function (i){
+                $('#sname').html(window.services[i].label);
+                $('#sdescription').html(window.services[i].desc);
+                si = document.getElementById('sconnected')
+                si.innerHTML = '';
+                for (j = 0; j < window.services[i].connected.length; j++) {
+                    for (p = 0; p < window.services.length; p++) {
+                        if (window.services[i].connected[j] == window.services[p].name) {
+                            si.innerHTML += window.services[p].label;
+                        }
+                    }
+
+                    if (j < window.services[i].connected.length - 1) {
+                        /*if (j == 2) j = window.services[i].connected.length;
+                        else*/ si.innerHTML += ', ';
+                    }
+                };
+                $('#serviceimage').attr('src', window.services[i].imageurl);
             },
 
             progressBarUpdate: function (num) {
