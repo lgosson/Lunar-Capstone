@@ -170,9 +170,9 @@
 
                     // draw a rectangle centered at pt
                     if (node.data.color) ctx.fillStyle = node.data.color
-                    if (node.data.selected === false) ctx.fillStyle = "rgba(0,0,0,.2)"
-                    else ctx.fillStyle = "#97233F";
-                    if (node.data.color == 'none') ctx.fillStyle = "white"
+                    if (node.data.selected === false) ctx.fillStyle = "rgb(188, 188, 188)";
+                    else ctx.fillStyle = "#385096";
+                    if (node.data.color == 'none') ctx.fillStyle = "rgb(188, 188, 188)";
 
                     if (node.data.shape == 'dot') {
                         gfx.oval(pt.x - w / 2, pt.y - w / 2, w, w, { fill: ctx.fillStyle })

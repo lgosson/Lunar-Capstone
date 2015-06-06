@@ -1,5 +1,5 @@
 ﻿html, body {
-    background-color: #3B3B3B;
+    background: linear-gradient(#132237, black);
     height: 100%;
 }
 
@@ -12,7 +12,7 @@
 
 #container {
     width: 78%;
-    height: 95%;
+    height: 100%;
 }
 
 #sidebar {
@@ -22,9 +22,9 @@
     right: 0;
     bottom: 0px;
     width: 450px;
-    background: #DBDBD5;
+    background: #385096;
     padding: 30px;
-    box-shadow: 0 0 5px black;
+    box-shadow: 0 0 15px #385096;
 }
 
 /* Styles for _ServiceInformation Partial View*/
@@ -52,7 +52,9 @@
 }
 
 #sconnected {
-
+    color: rgb(241, 241, 241);
+    font-family: 'Century Gothic';
+    font-size: medium;
 }
 
 .serviceInfoHead {
@@ -70,7 +72,8 @@
     float: right;
     margin-top: 3%;
     font-weight: bold;
-    font-family: Consolas;
+    font-family: 'Century Gothic';
+    color: lightgrey;
 }
 
 #sdescription {
@@ -78,10 +81,11 @@
     width: 102%;
     overflow: auto;
     height: 60%;
+    color: rgb(241, 241, 241);
 }
 
 #interestedInHead {
-    color:#015172; 
+    color: rgb(188, 188, 188); 
     font-family: 'Century Gothic';
     margin-top: 6%;
 }
@@ -102,9 +106,10 @@
 
 #personalplanheader {
     font-family: 'Century Gothic';
-    margin-left: 22%;
-    color: #015172;
+    //margin-left: 7%;
+    color: rgb(188, 188, 188);
     font-size: 1.6em;
+    font-weight: bold;
 }
 
 #pb { /*Progress Bar*/
@@ -113,9 +118,10 @@
 
 #haveselected {
     font-family: 'Century Gothic';
-    color: grey;
+    color: rgb(188, 188, 188);
     font-style: italic;
     margin-left: 20%;
+    font-size: 1.1em;
 }
 
 #servicelist {
@@ -135,11 +141,11 @@
     border-width: 1px 1px 0px 1px;
     border-style: solid;
     border-color: #ccc;
-    box-shadow: 0 0 8px #ccc;
+    box-shadow: 0 0 8px white;
 }
 
     .servicelistitem:hover {
-        background-color: #FCF9E6;
+        background-color: #448AFF;
         box-shadow: 0 0 5px black;
         text-decoration: none;
     }
@@ -156,7 +162,7 @@
     border-style: solid;
     border-color: #ccc;
     box-shadow: 0 0 8px #ccc;
-    background-color: #97233F;
+    background-color: #293D78;
 }
 
 #contactbutton {
@@ -177,21 +183,21 @@
     bottom: 0px;
     width: 450px;
     height: 100%;
-    background: #DBDBD5;
+    background: #385096;
     padding: 30px;
-    box-shadow: 0 0 5px black;
+    box-shadow: 0 0 15px #385096;
 }
 
 #contactheader {
     font-family: 'Century Gothic';
     margin: -1% auto 7% 3%;
-    color: #015172;
+    color: rgb(241, 241, 241);
     font-weight: bold;
 }
 
 .contactLabel {
     font-family: 'Century Gothic';
-    color: grey;
+    color: lightgrey;
     float: left;
     width: 130px;
     margin-top: 3%;
@@ -216,8 +222,7 @@ textarea {
 #interestedinheader {
     font-family: 'Century Gothic';
     margin: 25px auto 3% 4%;
-    color: #015172;
-    /*font-style: italic;*/
+    color: rgb(241, 241, 241);
     font-weight: bold;
     
 }
@@ -225,8 +230,7 @@ textarea {
 #contactformlist {
     list-style-type: none;
     overflow: auto;
-    height: 37%;
-    
+    height: 37%;    
 }
 
 .selectedservice {
@@ -234,7 +238,7 @@ textarea {
     font-family: 'Century Gothic';
     margin-left: -3%;
     color: #015172;
-    background-color: #F3F3EE;
+    background-color: rgb(241, 241, 241);
     width: 363px;
     font-size: medium;
     padding: 5px 0 5px 10px;
@@ -295,5 +299,5 @@ form {
 }
 
 #servicelist ul {
-    background-color: #F3F3EE;
+    background-color: rgb(241, 241, 241);
 }
