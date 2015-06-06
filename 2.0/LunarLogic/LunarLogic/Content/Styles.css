@@ -31,19 +31,8 @@
     height: 40%;
 }
 
-#serviceinfoheader {
-    position: relative;
-    top: -11%;
-    font-size: 1.6em;
-    font-family: 'Century Gothic';
-    text-align: center;
-    margin-left: 20px;
-    color: #015172;
-}
-
 #servicedetails {
     position: relative;
-    top: -12%;
     height: 100%;
     list-style-type: none;
     font-family: 'Century Gothic';
