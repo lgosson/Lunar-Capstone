@@ -22,9 +22,9 @@
     right: 0;
     bottom: 0px;
     width: 450px;
-    background: #385096;
+    background: rgb(70, 95, 132);
     padding: 30px;
-    box-shadow: 0 0 15px #385096;
+    box-shadow: 0 0 15px rgb(70, 95, 132);
 }
 
 /* Styles for _ServiceInformation Partial View*/
@@ -73,7 +73,8 @@
     margin-top: 3%;
     font-weight: bold;
     font-family: 'Century Gothic';
-    color: lightgrey;
+    color: rgb(241, 241, 241);
+    transform: scaleY(1.2);
 }
 
 #sdescription {
@@ -106,10 +107,11 @@
 
 #personalplanheader {
     font-family: 'Century Gothic';
-    //margin-left: 7%;
-    color: rgb(188, 188, 188);
+    margin-left: 26%;
+    color: rgb(241, 241, 241);
     font-size: 1.6em;
     font-weight: bold;
+    transform: scaleY(1.1);
 }
 
 #pb { /*Progress Bar*/
@@ -134,20 +136,18 @@
     list-style-type: none;
     font-family: 'Century Gothic';
     font-size: large;
-    padding-top: 14px;
-    padding-left: 30px;
+    padding: 14px 0 0 30px;
     margin-left: -40px;
     color: #015172;
     border-width: 1px 1px 0px 1px;
     border-style: solid;
     border-color: #ccc;
-    box-shadow: 0 0 8px white;
 }
 
     .servicelistitem:hover {
         background-color: #448AFF;
-        box-shadow: 0 0 5px black;
-        text-decoration: none;
+        color: white;
+        box-shadow: 0 0 3px black;
     }
 
 .selecteditem {
@@ -162,7 +162,7 @@
     border-style: solid;
     border-color: #ccc;
     box-shadow: 0 0 8px #ccc;
-    background-color: #293D78;
+    background-color: #385096;
 }
 
 #contactbutton {
@@ -183,9 +183,9 @@
     bottom: 0px;
     width: 450px;
     height: 100%;
-    background: #385096;
+    background: rgb(70, 95, 132);
     padding: 30px;
-    box-shadow: 0 0 15px #385096;
+    box-shadow: 0 0 15px rgb(70, 95, 132);
 }
 
 #contactheader {
@@ -193,6 +193,7 @@
     margin: -1% auto 7% 3%;
     color: rgb(241, 241, 241);
     font-weight: bold;
+    transform: scaleY(1.1);
 }
 
 .contactLabel {
@@ -224,7 +225,7 @@ textarea {
     margin: 25px auto 3% 4%;
     color: rgb(241, 241, 241);
     font-weight: bold;
-    
+    transform: scaleY(1.1);
 }
 
 #contactformlist {
@@ -237,14 +238,14 @@ textarea {
     list-style-type: none;
     font-family: 'Century Gothic';
     margin-left: -3%;
-    color: #015172;
-    background-color: rgb(241, 241, 241);
+    margin-bottom: 4px;
+    color: rgb(241, 241, 241);
+    background-color: #385096;
     width: 363px;
     font-size: medium;
-    padding: 5px 0 5px 10px;
-    border-width: 1px 1px 0px 1px;
-    border-style: solid;
-    border-color: #ccc;
+    padding: 10px 0 10px 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 1px #ccc;
 }
 
 #submitarea {
