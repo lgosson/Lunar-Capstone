@@ -1,11 +1,11 @@
 ﻿html, body {
-    background-color: #F3F3EE;
+    background-color: #3B3B3B;
     height: 100%;
 }
 
 #container {
-    width: 100%;
-    height: 100%;
+    width: 78%;
+    height: 90%;
 }
 
 #sidebar {
@@ -73,6 +73,7 @@
 #sname {
     float: right;
     margin-top: 3%;
+    font-weight: bold;
 }
 
 #sdescription {
@@ -186,15 +187,16 @@
 
 #contactheader {
     font-family: 'Century Gothic';
-    margin: -2% auto 5% 3%;
+    margin: -1% auto 7% 3%;
     color: #015172;
+    font-weight: bold;
 }
 
 .contactLabel {
     font-family: 'Century Gothic';
     color: grey;
     float: left;
-    width: 100px;
+    width: 130px;
     margin-top: 3%;
     margin-left: 7%;
     clear: left;
@@ -216,8 +218,10 @@ textarea {
 
 #interestedinheader {
     font-family: 'Century Gothic';
-    margin: 25px auto 3% 3%;
+    margin: 25px auto 3% 4%;
     color: #015172;
+    //font-style: italic;
+    font-weight: bold;
     
 }
 
@@ -232,14 +236,14 @@ textarea {
     list-style-type: none;
     font-family: 'Century Gothic';
     margin-left: -3%;
-    //font-size: large;
-    //padding-top: 14px;
-    //padding-left: 30px;
-    //color: #015172;
-    //border-width: 1px 1px 0px 1px;
-    //border-style: solid;
-    //border-color: #ccc;
-    //box-shadow: 0 0 8px #ccc; 
+    color: #015172;
+    background-color: #F3F3EE;
+    width: 363px;
+    font-size: medium;
+    padding: 5px 0 5px 10px;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
 }
 
 #submitarea {
@@ -258,8 +262,6 @@ textarea {
     width: 170px;
 }
 
-<<<<<<< HEAD
-=======
 #FirstName, #LastName, #Description, #Phone, #Email, #Comment{
     width: 55%;
 }
@@ -278,15 +280,13 @@ textarea {
     display: block;
 }
 
-
->>>>>>> 3c306a37cadca75ffdb1d1dc0ccee95b815ba1c7
 /* End Contact Form Styles*/
 
 header {
-    background-color: #DBDBD5;
+    background-color: #3B3B3B;
     padding-top: 4px;
     padding-bottom: 4px;
-    box-shadow: 0 0 40px #ccc;
+    box-shadow: 0 0 20px #ccc;
 }
 
 a, a:link:active, a:visited:active, a:hover {
