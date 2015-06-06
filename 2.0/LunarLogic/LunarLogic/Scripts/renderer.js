@@ -329,7 +329,10 @@
                         si = document.getElementById('sconnected')
                         si.innerHTML = '';
                         for (var i = 0; i < selected.node.data.connected.length; i++) {
-                            si.innerHTML += selected.node.data.connected[i] + '<br/>'
+                            si.innerHTML += selected.node.data.connected[i];
+
+                            if (i < selected.node.data.connected.length - 1) si.innerHTML += ', ';
+                            else if (i == 3) break;
                         }
                         //var t0 = performance.now();
                         $('#serviceimage').attr('src', selected.node.data.imageurl);
@@ -452,7 +455,9 @@
                                 si = document.getElementById('sconnected')
                                 si.innerHTML = '';
                                 for (j = 0; j < window.services[i].connected.length; j++) {
-                                    si.innerHTML += window.services[i].connected[j] + '<br/>';
+                                    si.innerHTML += window.services[i].connected[j];
+                                    if (j < window.services[i].connected.length - 1) si.innerHTML += ', ';
+                                    else if (j == 3) break;
                                 };
                                 $('#serviceimage').attr('src', window.services[i].imageurl);
                             }
@@ -472,7 +477,9 @@
                             si = document.getElementById('sconnected')
                             si.innerHTML = '';
                             for (j = 0; j < window.services[i].connected.length; j++) {
-                                si.innerHTML += window.services[i].connected[j] + '<br/>'
+                                si.innerHTML += window.services[i].connected[j];
+                                if (j < window.services[i].connected.length - 1) si.innerHTML += ', ';
+                                else if (j == 3) break;
                             };
 
                             // Change CSS properties for selected or deselected list items
