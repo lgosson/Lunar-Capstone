@@ -3,9 +3,16 @@
     height: 100%;
 }
 
+#logo{
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    z-index: 1;
+}
+
 #container {
     width: 78%;
-    height: 90%;
+    height: 95%;
 }
 
 #sidebar {
