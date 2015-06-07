@@ -67,28 +67,35 @@ namespace LunarLogic.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(Service service, int[] servList)
+        public ActionResult Create(Service service, int[] servList = null)
         {
-            if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
+            //if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
+
+            if (servList == null)
+            {
+                servList = servList ?? new int[0];
+            }
 
             var serviceAdded = service;
             serviceAdded.ConnectedServices = new List<Service>();
             List<Service> servs = serviceRepository.GetServices().ToList();
-
-            foreach (var postItem in servList)
+            if (servList.Count() <= 1)
             {
-                int p = Convert.ToInt32(postItem);
-                foreach (var serv in servs)
+                foreach (var postItem in servList)
                 {
-                    if (p == serv.ID)
+                    int p = Convert.ToInt32(postItem);
+                    foreach (var serv in servs)
                     {
-                        if (!serviceAdded.ConnectedServices.Contains(serv))
+                        if (p == serv.ID)
                         {
-                            serviceAdded.ConnectedServices.Add(serv);
+                            if (!serviceAdded.ConnectedServices.Contains(serv))
+                            {
+                                serviceAdded.ConnectedServices.Add(serv);
+                            }
+                            //add this service to the service's connected service list that it is currently adding to it's own. 
+                            //otherwise the newly added service will be the only one that knows what it is connected to.
+                            serv.ConnectedServices.Add(serviceAdded);
                         }
-                        //add this service to the service's connected service list that it is currently adding to it's own. 
-                        //otherwise the newly added service will be the only one that knows what it is connected to.
-                        serv.ConnectedServices.Add(serviceAdded);
                     }
                 }
             }
@@ -102,6 +109,8 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
+            List<int> finalConList = new List<int>();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -113,7 +122,8 @@ namespace LunarLogic.Controllers
                 return HttpNotFound();
             }
 
-
+            if(service.ConnectedServices.Count() > 0)
+            { 
             var conList = service.ConnectedServices.ToList();
             List<int> intList = new List<int>();
             ViewBag.ConList = conList;
@@ -122,6 +132,9 @@ namespace LunarLogic.Controllers
                 int i = item.ID;
                 intList.Add(i);
             }
+            finalConList = intList;
+            }
+           
 
             List<string> disabledList = new List<string>();
             disabledList.Add(service.ID.ToString());
@@ -129,7 +142,7 @@ namespace LunarLogic.Controllers
             IEnumerable<Service> enumerable = serviceRepository.GetServices();
             List<Service> servs = enumerable.ToList();
 
-            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", intList.ToArray(), disabledList);
+            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", finalConList.ToArray(), disabledList);
 
             return View(service);
         }
@@ -139,9 +152,14 @@ namespace LunarLogic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public ActionResult Edit(Service service, int[] servList)
+        public ActionResult Edit(Service service, int[] servList = null)
         {
-            if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
+            //if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
+
+            if (servList == null)
+            {
+                servList = servList ?? new int[0]; 
+            }
 
             var serviceChanged = (from s in serviceRepository.GetServices()
                                   where s.ID == service.ID
