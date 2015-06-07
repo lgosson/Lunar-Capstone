@@ -312,8 +312,6 @@
                         else hovered = false;
                     },
 
-                    sidebarOpen: false,
-
                     hover: function (e) {
                         for (i = 0; i < window.services.length; i++) {
                             if (window.services[i].name == selected.node.name) {
@@ -329,9 +327,9 @@
                         //var t1 = performance.now();
                         //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
                         
-                        if (!handler.sidebarOpen) {
+                        if (!that.sidebarOpen) {
                             $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
-                            handler.sidebarOpen = true;
+                            that.sidebarOpen = true;
                         }
                         that.graphDraw(window.services);
                     },
@@ -412,6 +410,8 @@
                 }
                 return num;
             },
+
+            sidebarOpen: false,
 
             // Personal plan list setup
             listSetup: function (result) {
