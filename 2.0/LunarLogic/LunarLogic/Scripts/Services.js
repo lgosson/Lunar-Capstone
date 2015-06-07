@@ -7,26 +7,20 @@
         side: "right"
     });
 
-    $("#sidebartoggle").on("click", function () {
-        $("#sidebar").trigger("sidebar:toggle", [{ speed: 350 }]);
-    });
-
+    // Initialize contact form sidebar
     $('#contactform').sidebar({
         side: "right"
     });
 
+    // Contact button to trigger the contact form opening
     $("#contactbutton").on("click", function () {
         $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
     });
 
+    // Back to plan button to trigger the personal plan opening
     $("#backtoplan").on("click", function () {
         $("#contactform").trigger("sidebar:toggle", [{ speed: 350 }]);
         $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]);
-    });
-
-    // Reset button functionality
-    $('#reset').click(function () {
-        //$('#contactformlist ul').empty();
     });
 
     // Input mask on contact form of phone field
