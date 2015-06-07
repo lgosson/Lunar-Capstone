@@ -46,7 +46,7 @@ namespace LunarLogic.DAL
             s13.ConnectedServices = new List<Service>() { s6 };
             s14.ConnectedServices = new List<Service>() { s10, s7 };
 
-            s1.ParentServices = new List<Service>() { s1 };
+            //s1.ParentServices = new List<Service>() { s1 };
             s2.ParentServices = new List<Service>() { s1, s3, s4 };
             s3.ParentServices = new List<Service>() { s2 };
             s4.ParentServices = new List<Service>() { s2 };
