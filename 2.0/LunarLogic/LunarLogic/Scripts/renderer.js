@@ -10,6 +10,14 @@
         var cWidth = canvas.width = window.innerWidth;
         var cHeight = canvas.height = window.innerHeight;
 
+        //node visuals
+        var colorNormal = 'rgb(188, 188, 188)';
+        var colorSelected = '#385096';
+        var colorHovered = 'rgb(200, 200, 200)';
+        var font = '12px Helvetica';
+        var textAlign = "center";
+        var fillStyle = "white";
+
         var that = {
             init: function (system, result) {
                 if (particleSystem == null) {
@@ -89,7 +97,7 @@
                             'desc': display[i].desc,
                             'selectable': display[i].selectable,
                             'selected': display[i].selected,
-                            //'hovered': display[i].hovered,
+                            //'hovered': false,
                             'connected': display[i].connected,
                             //'parent': display[i].parent,
                             'color': display[i].color,
@@ -170,9 +178,11 @@
 
                     // draw a rectangle centered at pt
                     if (node.data.color) ctx.fillStyle = node.data.color
-                    if (node.data.selected === false) ctx.fillStyle = "rgb(188, 188, 188)";
-                    else ctx.fillStyle = "#385096";
-                    if (node.data.color == 'none') ctx.fillStyle = "rgb(188, 188, 188)";
+
+                    if (node.data.selected === false) ctx.fillStyle = colorNormal;
+                    else ctx.fillStyle = colorSelected;
+
+                    if (node.data.color == 'none') ctx.fillStyle = colorNormal;
 
                     if (node.data.shape == 'dot') {
                         gfx.oval(pt.x - w / 2, pt.y - w / 2, w, w, { fill: ctx.fillStyle })
@@ -184,9 +194,9 @@
 
                     // draw the text
                     if (label) {
-                        ctx.font = "12px Helvetica"
-                        ctx.textAlign = "center"
-                        ctx.fillStyle = "white"
+                        ctx.font = font;
+                        ctx.textAlign = textAlign;
+                        ctx.fillStyle = fillStyle;
                         if (node.data.color == 'none') ctx.fillStyle = '#333333'
                         ctx.fillText(label || "", pt.x, pt.y + 4)
                         ctx.fillText(label || "", pt.x, pt.y + 4)
@@ -255,8 +265,7 @@
                 var oldmass = 1;
                 var hovered = false;
                 var oldSelected = null;
-                //TODO: Add another hover bool that is for a radius AROUND the node (for triggering reveal of node's connections).
-                var hvrTol = 150;
+                var hvrTol = 100;
                 var dragTol = 20;
                 var oldDown = null;
 
@@ -321,12 +330,14 @@
                             else {
                                 window.services[i].hovered = false;
                             }
+
                         }
+                        that.redraw();
 
                         //var t0 = performance.now();
                         //var t1 = performance.now();
                         //console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
-                        
+
                         if (!that.sidebarOpen) {
                             $("#sidebar").trigger("sidebar:open", [{ speed: 350 }]); // Open personal plan sidebar
                             that.sidebarOpen = true;
@@ -468,21 +479,21 @@
                 return num;
             },
 
-            selectedInfoDisplay: function (i){
+            selectedInfoDisplay: function (i) {
                 $('#sname').html(window.services[i].label);
                 $('#sdescription').html(window.services[i].desc);
                 si = document.getElementById('sconnected')
                 si.innerHTML = '';
                 for (j = 0; j < window.services[i].connected.length; j++) {
                     for (p = 0; p < window.services.length; p++) {
-                        if (window.services[i].connected[j] == window.services[p].name) {
+                        if (window.services[p].selectable == true &&
+                            window.services[i].connected[j] == window.services[p].name) {
                             si.innerHTML += window.services[p].label;
-                        }
-                    }
 
-                    if (j < window.services[i].connected.length - 1) {
-                        /*if (j == 2) j = window.services[i].connected.length;
-                        else*/ si.innerHTML += ', ';
+                            if (j < window.services[i].connected.length - 1) {
+                                si.innerHTML += ', ';
+                            }
+                        }
                     }
                 };
                 $('#serviceimage').attr('src', window.services[i].imageurl);
