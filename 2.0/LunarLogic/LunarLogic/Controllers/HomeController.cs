@@ -136,9 +136,9 @@ namespace LunarLogic.Controllers
 
                 var cred = new NetworkCredential(username, password);
                 var transportWeb = new Web(cred);
-
-                await transportWeb.DeliverAsync(msg);
-
+                
+                //await transportWeb.DeliverAsync(msg);
+                        
                 message = "Email Sent.";
                 state = true;
 

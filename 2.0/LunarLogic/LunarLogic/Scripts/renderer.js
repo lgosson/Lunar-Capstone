@@ -11,13 +11,13 @@
         var cHeight = canvas.height = window.innerHeight;
 
         //node visuals
-        var colorNormal = 'rgb(121, 150, 232)';
-        var colorSelected = 'rgb(249, 255, 154)';
+        var colorNormal = 'rgb(186, 199, 237)';
+        var colorSelected = 'rgb(249, 226, 155)';
         var colorHovered = 'rgb(230, 230, 218)';
         var font = '16px Helvetica';
         var textAlign = "center";
         var fillStyleSelected = "black";
-        var fillStyleNormal = "white";
+        var fillStyleNormal = "black";
 
         var that = {
             init: function (system, result) {
