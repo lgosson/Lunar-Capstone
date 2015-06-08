@@ -152,9 +152,13 @@ namespace LunarLogic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public ActionResult Edit(Service service, int[] servList = null)
+        public ActionResult Edit(Service service,  bool disregardCon = false, int[] servList = null )
         {
             //if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
+           
+
+            
+            //var disconnect = Request.Form["disregardCon"].ToString();
 
             if (servList == null)
             {
@@ -176,6 +180,7 @@ namespace LunarLogic.Controllers
                 //TODO: assign with a default image
             }
 
+             
             //Remove all references of THIS service as a connected service in other services
             foreach (var s in serviceChanged.ConnectedServices)
             {
@@ -185,7 +190,8 @@ namespace LunarLogic.Controllers
             serviceChanged.ConnectedServices.Clear();
 
             List<Service> servs = serviceRepository.GetServices().ToList();
-
+    if (Request.Form["disregardCon"] == "true")
+            {
             foreach (var postItem in servList)
             {
                 int p = Convert.ToInt32(postItem);
@@ -199,6 +205,7 @@ namespace LunarLogic.Controllers
                     }
                 }
             }
+}
 
             //db.Entry(serviceChanged).State = EntityState.Modified;
             serviceRepository.UpdateService(serviceChanged);
