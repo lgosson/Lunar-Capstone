@@ -11,12 +11,13 @@
         var cHeight = canvas.height = window.innerHeight;
 
         //node visuals
-        var colorNormal = 'rgb(188, 188, 188)';
-        var colorSelected = '#385096';
-        var colorHovered = 'rgb(200, 200, 200)';
-        var font = '12px Helvetica';
+        var colorNormal = 'rgb(121, 150, 232)';
+        var colorSelected = 'rgb(249, 255, 154)';
+        var colorHovered = 'rgb(230, 230, 218)';
+        var font = '16px Helvetica';
         var textAlign = "center";
-        var fillStyle = "white";
+        var fillStyleSelected = "black";
+        var fillStyleNormal = "white";
 
         var that = {
             init: function (system, result) {
@@ -196,7 +197,8 @@
                     if (label) {
                         ctx.font = font;
                         ctx.textAlign = textAlign;
-                        ctx.fillStyle = fillStyle;
+                        if (node.data.selected === false) ctx.fillStyle = fillStyleNormal;
+                        else ctx.fillStyle = fillStyleSelected;
                         if (node.data.color == 'none') ctx.fillStyle = '#333333'
                         ctx.fillText(label || "", pt.x, pt.y + 4)
                         ctx.fillText(label || "", pt.x, pt.y + 4)
