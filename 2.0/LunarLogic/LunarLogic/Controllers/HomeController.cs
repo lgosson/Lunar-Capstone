@@ -124,6 +124,8 @@ namespace LunarLogic.Controllers
                 sb.Append("Email: " + c.Email);
                 sb.Append(Environment.NewLine);
                 sb.Append("Comments: " + c.Comment);
+                sb.Append(Environment.NewLine);
+                sb.Append("Selected Services: " + c.Services);
 
                 var msg = new SendGridMessage();
 

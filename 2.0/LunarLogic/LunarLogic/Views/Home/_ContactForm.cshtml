@@ -83,12 +83,16 @@
 
     function ContactModel() {
         var contact = this;
+        var servicelist;
         contact.FirstName = $("#FirstName").val();
         contact.LastName = $("#LastName").val();
         contact.Phone = $("#Phone").val();
         contact.Email = $("#Email").val();
         contact.Comment = $("#Comment").val();
-        contact.Services = $("#contactformlist").html();
+        $("#contactformlist ul li").each(function () {
+            servicelist += ($(this).html() + "\n");
+        });
+        contact.Services = servicelist;
     }
 
     function buttonActive(jBtn, bool, time) {
