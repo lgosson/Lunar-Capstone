@@ -58,7 +58,7 @@ namespace LunarLogic.Controllers
             IEnumerable<Service> enumerable = serviceRepository.GetServices();
             List<Service> servs = enumerable.ToList();
 
-            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name");
+            ServicesToViewBagMultiSelectList();
 
             return View();
         }
@@ -79,7 +79,7 @@ namespace LunarLogic.Controllers
             var serviceAdded = service;
             serviceAdded.ConnectedServices = new List<Service>();
             List<Service> servs = serviceRepository.GetServices().ToList();
-            if (servList.Count() <= 1)
+            if (servList.Count() > 0)
             {
                 foreach (var postItem in servList)
                 {
@@ -109,8 +109,6 @@ namespace LunarLogic.Controllers
         // GET: ManageServices/Edit/5
         public ActionResult Edit(int? id)
         {
-            List<int> finalConList = new List<int>();
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,27 +120,7 @@ namespace LunarLogic.Controllers
                 return HttpNotFound();
             }
 
-            if(service.ConnectedServices.Count() > 0)
-            { 
-            var conList = service.ConnectedServices.ToList();
-            List<int> intList = new List<int>();
-            ViewBag.ConList = conList;
-            foreach (var item in conList)
-            {
-                int i = item.ID;
-                intList.Add(i);
-            }
-            finalConList = intList;
-            }
-           
-
-            List<string> disabledList = new List<string>();
-            disabledList.Add(service.ID.ToString());
-
-            IEnumerable<Service> enumerable = serviceRepository.GetServices();
-            List<Service> servs = enumerable.ToList();
-
-            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", finalConList.ToArray(), disabledList);
+            ServicesToViewBagMultiSelectList(service);
 
             return View(service);
         }
@@ -152,17 +130,19 @@ namespace LunarLogic.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
         [HttpPost]
-        public ActionResult Edit(Service service,  bool disregardCon = false, int[] servList = null )
+        public ActionResult Edit(Service service, int[] servList = null, bool disregardCon = false)
         {
-            //if (!ModelState.IsValid || servList == null || servList.Length <= 0) return View(service);
-           
+            List<Service> servs = serviceRepository.GetServices().ToList();
 
-            
-            //var disconnect = Request.Form["disregardCon"].ToString();
+            if (!ModelState.IsValid)
+            {
+                ServicesToViewBagMultiSelectList(service);   
+                return View(service);
+            }
 
             if (servList == null)
             {
-                servList = servList ?? new int[0]; 
+                servList = servList ?? new int[0];
             }
 
             var serviceChanged = (from s in serviceRepository.GetServices()
@@ -180,7 +160,7 @@ namespace LunarLogic.Controllers
                 //TODO: assign with a default image
             }
 
-             
+
             //Remove all references of THIS service as a connected service in other services
             foreach (var s in serviceChanged.ConnectedServices)
             {
@@ -189,23 +169,22 @@ namespace LunarLogic.Controllers
             //clear the stored connected list.. the input ones will always override. 
             serviceChanged.ConnectedServices.Clear();
 
-            List<Service> servs = serviceRepository.GetServices().ToList();
-    if (Request.Form["disregardCon"] == "true")
+            if (!disregardCon)
             {
-            foreach (var postItem in servList)
-            {
-                int p = Convert.ToInt32(postItem);
-                foreach (var serv in servs)
+                foreach (var postItem in servList)
                 {
-                    if (p == serv.ID)
+                    int p = Convert.ToInt32(postItem);
+                    foreach (var serv in servs)
                     {
-                        if (!serviceChanged.ConnectedServices.Contains(serv)) serviceChanged.ConnectedServices.Add(serv);
-                        //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
-                        if (!serv.ConnectedServices.Contains(serviceChanged)) serv.ConnectedServices.Add(serviceChanged);
+                        if (p == serv.ID)
+                        {
+                            if (!serviceChanged.ConnectedServices.Contains(serv)) serviceChanged.ConnectedServices.Add(serv);
+                            //the changed service added a connection. The object it connected to needs to know that it has a connection to service changed.
+                            if (!serv.ConnectedServices.Contains(serviceChanged)) serv.ConnectedServices.Add(serviceChanged);
+                        }
                     }
                 }
             }
-}
 
             //db.Entry(serviceChanged).State = EntityState.Modified;
             serviceRepository.UpdateService(serviceChanged);
@@ -254,6 +233,36 @@ namespace LunarLogic.Controllers
                 serviceRepository.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected void ServicesToViewBagMultiSelectList(Service service = null, List<Service> servs = null)
+        {
+            if (servs == null) servs = serviceRepository.GetServices().ToList();
+
+            if (service == null) ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name");
+
+            List<int> finalConList = new List<int>();
+
+            if (service.ConnectedServices != null)
+            {
+                if (service.ConnectedServices.Count > 0)
+                {
+                    var conList = service.ConnectedServices.ToList();
+                    List<int> intList = new List<int>();
+                    ViewBag.ConList = conList;
+                    foreach (var item in conList)
+                    {
+                        int i = item.ID;
+                        intList.Add(i);
+                    }
+                    finalConList = intList;
+                }
+            }
+
+            List<string> disabledList = new List<string>();
+            disabledList.Add(service.ID.ToString());
+
+            ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", finalConList.ToArray(), disabledList);
         }
     }
 }
