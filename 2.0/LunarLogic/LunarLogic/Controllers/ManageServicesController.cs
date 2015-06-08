@@ -239,11 +239,10 @@ namespace LunarLogic.Controllers
         {
             if (servs == null) servs = serviceRepository.GetServices().ToList();
 
-            if (service == null) ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name");
-
             List<int> finalConList = new List<int>();
+            List<string> disabledList = new List<string>();
 
-            if (service.ConnectedServices != null)
+            if (service != null && service.ConnectedServices != null)
             {
                 if (service.ConnectedServices.Count > 0)
                 {
@@ -257,10 +256,9 @@ namespace LunarLogic.Controllers
                     }
                     finalConList = intList;
                 }
-            }
 
-            List<string> disabledList = new List<string>();
-            disabledList.Add(service.ID.ToString());
+                disabledList.Add(service.ID.ToString());
+            }
 
             ViewBag.ServiceList = new MultiSelectList(servs, "ID", "Name", finalConList.ToArray(), disabledList);
         }
