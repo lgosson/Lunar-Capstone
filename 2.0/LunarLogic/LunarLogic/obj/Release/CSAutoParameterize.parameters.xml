@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ServiceContext-Web.config Connection String" description="ServiceContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-LunarLogic-20150429023803.mdf;Initial Catalog=aspnet-LunarLogic-20150429023803;Integrated Security=True; MultipleActiveResultSets=true" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Jesse\\Desktop\\Lunar34\\Lunar-Capstone\\2\.0\\LunarLogic\\LunarLogic\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ServiceContext']/@connectionString" />
+  </parameter>
+</parameters>

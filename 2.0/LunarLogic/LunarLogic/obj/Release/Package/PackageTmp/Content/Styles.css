@@ -1,0 +1,304 @@
+﻿html, body {
+    background: linear-gradient(#132237, black);
+    height: 100%;
+}
+
+#logo{
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    z-index: 1;
+}
+
+#container {
+    width: 78%;
+    height: 98%;
+}
+
+#sidebar {
+    position: fixed;
+    height: 100%;
+    top: 0px;
+    right: 0;
+    bottom: 0px;
+    width: 450px;
+    background: rgb(70, 95, 132);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(70, 95, 132);
+}
+
+/* Styles for _ServiceInformation Partial View*/
+
+#personalplandiv {
+    position: relative;
+    height: 100%;
+}
+
+#serviceinformationdiv {
+    height: 40%;
+}
+
+#servicedetails {
+    position: relative;
+    height: 100%;
+    list-style-type: none;
+    font-family: 'Century Gothic';
+    font-size: large;
+}
+
+.serviceInfo { /* Right now this should be #sconnected? */
+    margin-right: 20px;
+    font-family: 'Century Gothic';
+}
+
+#sconnected {
+    color: rgb(241, 241, 241);
+    font-family: 'Century Gothic';
+    font-size: medium;
+}
+
+.serviceInfoHead {
+    color: grey;
+}
+
+#serviceimage {
+    float: left;
+    height: 50px; 
+    width: 50px;
+    margin-bottom: 4%;
+}
+
+#sname {
+    float: right;
+    margin-top: 3%;
+    font-weight: bold;
+    font-family: 'Century Gothic';
+    color: rgb(241, 241, 241);
+    transform: scaleY(1.2);
+}
+
+#sdescription {
+    clear: both;
+    width: 102%;
+    overflow: auto;
+    height: 60%;
+    color: rgb(241, 241, 241);
+}
+
+#interestedInHead {
+    color: rgb(188, 188, 188); 
+    font-family: 'Century Gothic';
+    margin-top: 6%;
+}
+
+#servicesInterestedIn {
+    height: 30%;
+}
+
+/* End Service Information Styles*/
+
+/* Styles for _PersonalPlan Partial View*/
+
+#personalplan {
+    position: relative;
+    height: 38%;
+    top: 4%;
+}
+
+#personalplanheader {
+    font-family: 'Century Gothic';
+    margin-left: 26%;
+    color: rgb(241, 241, 241);
+    font-size: 1.6em;
+    font-weight: bold;
+    transform: scaleY(1.1);
+}
+
+#pb { /*Progress Bar*/
+    width: 102%;
+}
+
+#haveselected {
+    font-family: 'Century Gothic';
+    color: rgb(188, 188, 188);
+    font-style: italic;
+    margin-left: 20%;
+    font-size: 1.1em;
+}
+
+#servicelist {
+    height: 75%;
+    width: 102%;
+    overflow: auto;
+}
+
+.servicelistitem {
+    list-style-type: none;
+    font-family: 'Century Gothic';
+    font-size: large;
+    padding: 14px 0 0 30px;
+    margin-left: -40px;
+    color: #015172;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
+}
+
+    .servicelistitem:hover {
+        background-color: #448AFF;
+        color: white;
+        box-shadow: 0 0 3px black;
+    }
+
+.selecteditem {
+    list-style-type: none;
+    font-family: 'Century Gothic';
+    font-size: large;
+    padding-top: 14px;
+    padding-left: 30px;
+    margin-left: -40px;
+    color: white;
+    border-width: 1px 1px 0px 1px;
+    border-style: solid;
+    border-color: #ccc;
+    box-shadow: 0 0 8px #ccc;
+    background-color: #385096;
+}
+
+#contactbutton {
+    position: absolute;
+    margin-left: 31%;
+    bottom: 5%;
+    width: 170px;
+}
+
+/* End Personal Plan Styles*/
+
+/* Styles for _ContactForm partial view */
+
+#contactform {
+    position: fixed;
+    top: 0px;
+    right: 0;
+    bottom: 0px;
+    width: 450px;
+    height: 100%;
+    background: rgb(70, 95, 132);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(70, 95, 132);
+}
+
+#contactheader {
+    font-family: 'Century Gothic';
+    margin: -1% auto 7% 3%;
+    color: rgb(241, 241, 241);
+    font-weight: bold;
+    transform: scaleY(1.1);
+}
+
+.contactLabel {
+    font-family: 'Century Gothic';
+    color: lightgrey;
+    float: left;
+    width: 130px;
+    margin-top: 3%;
+    margin-left: 7%;
+    clear: left;
+}
+
+#FirstName, #LastName, #Description, #Phone, #Email, #Comment{
+    width: 55%;
+}
+
+.validation-msg {
+    color: red;
+}
+
+textarea {
+    margin-top: 8px;
+    float: left;
+    height: 120px;
+}
+
+#interestedinheader {
+    font-family: 'Century Gothic';
+    margin: 25px auto 3% 4%;
+    color: rgb(241, 241, 241);
+    font-weight: bold;
+    transform: scaleY(1.1);
+}
+
+#contactformlist {
+    list-style-type: none;
+    overflow: auto;
+    height: 37%;    
+}
+
+.selectedservice {
+    list-style-type: none;
+    font-family: 'Century Gothic';
+    margin-left: -3%;
+    margin-bottom: 4px;
+    color: rgb(241, 241, 241);
+    background-color: #385096;
+    width: 363px;
+    font-size: medium;
+    padding: 10px 0 10px 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 1px #ccc;
+}
+
+#submitarea {
+    position: absolute;
+    bottom: 5%;
+    margin-left: 25%;
+}
+
+#send {
+    width: 170px;
+    display: block;
+}
+
+#backtoplan {
+    margin-top: 2px;
+    width: 170px;
+}
+
+#FirstName, #LastName, #Description, #Phone, #Email, #Comment{
+    width: 55%;
+}
+
+.response{
+    display: none;
+}
+
+.responsesuccess{
+    color: blue;
+    display: block;
+}
+
+.responsefailure{
+    color: red;
+    display: block;
+}
+
+/* End Contact Form Styles*/
+
+header {
+    background-color: #3B3B3B;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    box-shadow: 0 0 20px #ccc;
+}
+
+a, a:link:active, a:visited:active, a:hover {
+    text-decoration: none;
+}
+
+form {
+    height: 100%;
+}
+
+#servicelist ul {
+    background-color: rgb(241, 241, 241);
+}

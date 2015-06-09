@@ -1,0 +1,33 @@
+﻿@model LunarLogic.Models.ServiceViewModel
+
+<div class="dl-horizontal" id="servicedetails">
+    <img src="#" id="serviceimage" alt="Icon"/>
+    <h4 id="sname" class="serviceInfo">
+        @Html.DisplayFor(model => model.Name)
+    </h4>
+
+    <p id="sdescription" class="serviceInfo">
+        @Html.DisplayFor(model => model.Description)
+    </p>    
+
+    <div id="servicesInterestedIn">
+        <h4 id="interestedInHead">
+            Services you may be interested in:
+        </h4>
+
+        @if (Model != null && Model.ConnectedServices != null)
+        {
+            foreach (string s in Model.ConnectedServices)
+            {
+                <h6 class="serviceInfo">
+                    @s
+                </h6>
+            }
+        }
+        //otherwise there is no info that was passed in here, so there needs to be an element with an id for client-side population
+        else
+        {
+            <h6 id="sconnected"> </h6>
+        }
+    </div>
+</div>

@@ -1,0 +1,116 @@
+﻿@model LunarLogic.Models.Contact
+
+@{
+    ViewBag.Title = "Services";
+    Layout = null;
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.min.js"></script>
+
+<h1 id="contactheader">Contact Lunar Logic</h1>
+
+@using (Html.BeginForm())
+{
+    <div class="row" >
+        @Html.LabelFor(model => Model.FirstName, "First Name*", new { @class = "contactLabel" })
+        @Html.EditorFor(model => model.FirstName)<br />
+        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "validation-msg" })
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.LastName, "Last Name", new { @class = "contactLabel" })
+        @Html.EditorFor(model => model.LastName)<br />
+        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "validation-msg" })
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Phone, "Phone", new { @class = "contactLabel" })
+        @Html.EditorFor(model => model.Phone)<br />
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "validation-msg" })
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Email, "Email*", new { @class = "contactLabel" })
+        @Html.EditorFor(model => model.Email)<br />
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation-msg" })
+    </div>
+    <div class="row">
+        @Html.LabelFor(model => Model.Comment, "Comments", new { @class = "contactLabel" })
+        @Html.TextAreaFor(mode => Model.Comment)<br />
+        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "validation-msg" })
+    </div>
+    <div class="row">
+        <span id="nodeselect" class="nodeselect"></span>
+    </div>
+    <h3 id="interestedinheader">My Personal Plan</h3>
+    <div class="row" id="contactformlist">
+        <ul><li class="selectedservice" id="noneselected">You haven't selected any services yet!</li></ul>
+    </div>
+    <div class="row" id="submitarea">
+        <p id="response" class="response">Hide this at the beginning</p>
+        <input type="button" id="send" value="Send" class="btn btn-primary" />
+        <input type="button" value="Back to Plan" class="btn btn-primary" id="backtoplan" onclick="resetSend()"/>
+    </div>
+}
+<script type="text/javascript">
+    var btnSend = $('#send');
+    var rsp = $('#response');
+    var sent = false;
+
+    btnSend.click(function () {
+        var request = new ContactModel();
+        buttonActive(btnSend, false);
+
+        $.ajax({
+            url: "/Home/Contact",
+            dataType: 'json',
+            contentType: "application/json",
+            type: "POST",
+            data: JSON.stringify(request),
+            success: function (response) {
+                rsp.text(response.Message);
+                if (response.State) {
+                    rsp.toggleClass('responsesuccess', true);
+                    rsp.toggleClass('responsefailure', false);
+                    sent = true;
+                }
+                else {
+                    rsp.toggleClass('responsesuccess', false);
+                    rsp.toggleClass('responsefailure', true);
+                    buttonActive(btnSend, false, 500);
+                }
+            }
+        });
+    });
+
+    function ContactModel() {
+        var contact = this;
+        var servicelist;
+        contact.FirstName = $("#FirstName").val();
+        contact.LastName = $("#LastName").val();
+        contact.Phone = $("#Phone").val();
+        contact.Email = $("#Email").val();
+        contact.Comment = $("#Comment").val();
+        $("#contactformlist ul li").each(function () {
+            servicelist += ($(this).html() + "\n");
+        });
+        contact.Services = servicelist;
+    }
+
+    function buttonActive(jBtn, bool, time) {
+        jBtn.prop("disabled", !bool);
+
+        if (arguments.length == 3) {
+            setTimeout(function () { jBtn.prop("disabled", bool); }, time);
+        }
+    }
+
+    function resetSend() {
+        if (sent) {
+            buttonActive(btnSend, true);
+            sent = false;
+            //rsp.toggleClass('responsesuccess', false);
+            //rsp.toggleClass('responsefailure', false);
+            //rsp.toggleClass('response', true);
+        }
+    }
+
+</script>
